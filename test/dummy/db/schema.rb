@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_08_194321) do
+ActiveRecord::Schema.define(version: 2020_01_15_183356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,39 @@ ActiveRecord::Schema.define(version: 2019_10_08_194321) do
     t.string "targetable_type", comment: "point to target type of Application."
     t.string "targetable_id", comment: "point to target ID of Application."
     t.integer "state", default: 0, comment: "0-created, 1-active, 2-suspended, 3-canceled, 4-finished"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_field_values", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.bigint "transitiion_id"
+    t.bigint "form_id"
+    t.bigint "field_id"
+    t.text "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["field_id"], name: "index_wf_field_values_on_field_id"
+    t.index ["form_id"], name: "index_wf_field_values_on_form_id"
+    t.index ["transitiion_id"], name: "index_wf_field_values_on_transitiion_id"
+    t.index ["workflow_id"], name: "index_wf_field_values_on_workflow_id"
+  end
+
+  create_table "wf_fields", force: :cascade do |t|
+    t.string "name"
+    t.bigint "form_id"
+    t.integer "positon", default: 0
+    t.string "field_type"
+    t.string "field_type_name"
+    t.string "default_value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["form_id"], name: "index_wf_fields_on_form_id"
+  end
+
+  create_table "wf_forms", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

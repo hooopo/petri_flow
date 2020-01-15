@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: wf_cases
+#
+#  id              :integer          not null, primary key
+#  workflow_id     :integer
+#  targetable_type :string
+#  targetable_id   :string
+#  state           :integer          default("0")
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 module Wf
   class Case < ApplicationRecord
     belongs_to :workflow

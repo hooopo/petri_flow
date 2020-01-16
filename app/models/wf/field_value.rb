@@ -14,5 +14,9 @@
 
 module Wf
   class FieldValue < ApplicationRecord
+    belongs_to :workflow, optiional: true
+    belongs_to :transitiion, optional: true
+    belongs_to :form
+    belongs_to :field
   end
 end

@@ -19,7 +19,7 @@ module Wf
     has_many :arcs
     has_many :transition_assignments
     has_many :workitems
-    belongs_to :formable, optional: true
+    belongs_to :form, optional: true
 
     enum trigger_type: {
       user: 0,

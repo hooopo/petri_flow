@@ -10,6 +10,23 @@ module Wf
       @workflow = Wf::Workflow.new
     end
 
+    def edit
+      @workflow = Wf::Workflow.find(params[:id])
+    end
+
+    def show
+      @workflow = Wf::Workflow.find(params[:id])
+    end
+
+    def update
+      @workflow = Wf::Workflow.find(params[:id])
+      if @workflow.update(workflow_params)
+        redirect_to workflow_path(@workflow), notice: "workflow was successfully updated."
+      else
+        render :edit
+      end
+    end
+
     def create
       @workflow = Workflow.new(workflow_params)
 

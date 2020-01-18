@@ -1,0 +1,46 @@
+<div class="float-right">
+  <%= link_to 'Edit Workflow', edit_workflow_path(@workflow), class: 'btn btn-primary' %>
+</div>
+<div>
+  <h2>Workflow Detail</h2>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">ID</th>
+        <td><%= @workflow.id %></td>
+      </tr>
+      <tr>
+        <th scope="row">Name</th>
+        <td><%= @workflow.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Description</th>
+        <td><%= @workflow.description %></td>
+      </tr>
+      <tr>
+        <th scope="row">Is Valid?</th>
+        <td><%= @workflow.is_valid? %></td>
+      </tr>
+
+      <tr>
+        <th scope="row">Is Draft?</th>
+        <td><%= @workflow.is_draft? %></td>
+      </tr>
+
+      <tr>
+        <th scope="row">Error Msg</th>
+        <td><%= @workflow.error_msg %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Places</h2>
+</div>
+<div>
+  <h2>Transitions</h2>
+</div>
+<div>
+  <h2>Arcs</h2>
+</div>

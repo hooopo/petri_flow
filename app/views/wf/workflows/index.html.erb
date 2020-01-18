@@ -18,7 +18,7 @@
       <% @workflows.each do |workflow| %>
         <tr>
           <td><%= workflow.id %></td>
-          <td><%= workflow.name %></td>
+          <td><%= link_to workflow.name, workflow_path(workflow) %></td>
           <td><%= workflow.description %></td>
           <td><%= workflow.is_valid? %></td>
           <td><%= workflow.is_draft? %></td>

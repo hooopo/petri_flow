@@ -2,6 +2,7 @@
   <%= link_to 'Edit Workflow', edit_workflow_path(@workflow), class: 'btn btn-primary' %>
   <%= link_to 'Create Transitions', new_workflow_transition_path(@workflow), class: 'btn btn-primary' %>
   <%= link_to 'Create Places', new_workflow_place_path(@workflow), class: 'btn btn-primary' %>
+  <%= link_to 'Create Arcs', new_workflow_arc_path(@workflow), class: 'btn btn-primary' %>
 </div>
 <div>
   <h2>Workflow Detail</h2>
@@ -97,4 +98,29 @@
 </div>
 <div>
   <h2>Arcs</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Direction</th>
+        <th scope="col">Place</th>
+        <th scope="col">Transition</th>
+        <th scope="col">Arc Type</th>
+        <th scope='col'> Actions </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @workflow.arcs.includes(:transition, :place).each do |arc| %>
+        <tr>
+          <td><%= arc.id %></td>
+          <td><%= arc.direction %></td>
+          <td><%= arc.place&.name %></td>
+          <td><%= arc.transition&.name %></td>
+          <td><%= arc.arc_type %></td>
+          <td><%= link_to 'Edit Arc', edit_workflow_arc_path(@workflow, arc), class: 'btn btn-sm btn-info' %></td>
+          <td><%= link_to 'Delete Arc', [@workflow, arc], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

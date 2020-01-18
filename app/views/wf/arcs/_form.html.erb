@@ -1,0 +1,42 @@
+<%= form_with(model: arc, url: [@workflow, @arc], local: true) do |f| %>
+  <% if arc.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(arc.errors.count, "error") %> prohibited this arc from being saved:
+        </p>
+      </div>
+      <div class="message-body content">
+        <ul>
+          <% arc.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :place, class: "label" %>
+    <%= f.select :place_id, @workflow.places.map{|x| [x.name, x.id]}, {}, class: "form-control custom-select", placeholder: "Place" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :transition, class: "label" %>
+    <%= f.select :transition_id, @workflow.transitions.map{|x| [x.name, x.id]}, {}, class: "custom-select", placeholder: "Transition" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :direction, class: "label" %>
+    <%= f.select :direction, Wf::Arc.directions.keys, {}, class: "form-control custom-select", placeholder: "Direction" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :arc_type, class: "label" %>
+    <%= f.select :arc_type, Wf::Arc.arc_types.keys, {}, class: "form-control custom-select", placeholder: "arc Type" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

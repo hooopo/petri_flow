@@ -27,5 +27,7 @@ module Wf
       message: 2,
       time: 3
     }
+
+    validates :name, presence: true
   end
 end

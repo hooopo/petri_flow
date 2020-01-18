@@ -12,6 +12,7 @@
         <th scope="col">Is Valid?</th>
         <th scope="col">Is draft?</th>
         <th scope="col">Error Msg</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -23,6 +24,10 @@
           <td><%= workflow.is_valid? %></td>
           <td><%= workflow.is_draft? %></td>
           <td><%= workflow.error_msg %></td>
+          <td>
+            <%= link_to 'Create Transition', new_workflow_transition_path(workflow), class: 'btn btn-info btn-sm' %>
+            <%= link_to 'Create Place', new_workflow_place_path(workflow), class: 'btn btn-info btn-sm' %>
+          </td>
         </tr>
       <% end %>
     </tbody>

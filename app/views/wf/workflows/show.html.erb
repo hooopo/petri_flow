@@ -1,5 +1,7 @@
 <div class="float-right">
   <%= link_to 'Edit Workflow', edit_workflow_path(@workflow), class: 'btn btn-primary' %>
+  <%= link_to 'Create Transitions', new_workflow_transition_path(@workflow), class: 'btn btn-primary' %>
+  <%= link_to 'Create Places', new_workflow_place_path(@workflow), class: 'btn btn-primary' %>
 </div>
 <div>
   <h2>Workflow Detail</h2>
@@ -37,9 +39,61 @@
 
 <div>
   <h2>Places</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Place Type</th>
+        <th scope="col">Sort Order</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @workflow.places.each do |place| %>
+        <tr>
+          <td><%= place.id %></td>
+          <td><%= place.name %></td>
+          <td><%= place.description %></td>
+          <td><%= place.place_type %></td>
+          <td><%= place.sort_order %></td>
+          <td><%= link_to 'Edit Place', edit_workflow_place_path(@workflow, place), class: 'btn btn-sm btn-info' %></td>
+          <td><%= link_to 'Delete Place', [@workflow, place], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 <div>
   <h2>Transitions</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Trigger Limit</th>
+        <th scope="col">Trigger Type</th>
+        <th scope="col">Sort Order</th>
+        <th scope='col'> Actions </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @workflow.transitions.each do |transition| %>
+        <tr>
+          <td><%= transition.id %></td>
+          <td><%= transition.name %></td>
+          <td><%= transition.description %></td>
+          <td><%= transition.trigger_limit %></td>
+          <td><%= transition.trigger_type %></td>
+          <td><%= transition.sort_order %></td>
+          <td><%= link_to 'Edit Transition', edit_workflow_transition_path(@workflow, transition), class: 'btn btn-sm btn-info' %></td>
+          <td><%= link_to 'Delete Transition', [@workflow, transition], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 <div>
   <h2>Arcs</h2>

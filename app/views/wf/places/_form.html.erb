@@ -1,0 +1,43 @@
+<%= form_with(model: place, url: [@workflow, @place], local: true) do |f| %>
+  <% if place.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:
+        </p>
+      </div>
+      <div class="message-body content">
+        <ul>
+          <% place.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, class: "label" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: "label" %>
+    <%= f.text_area :description, class: "form-control", placeholder: "Description" %>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.label :sort_order, class: "label" %>
+    <%= f.text_field :sort_order, class: "form-control", placeholder: "Sort Order" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :place_type, class: "label" %>
+    <%= f.select :place_type, Wf::Place.place_types.keys, class: "form-control", placeholder: "Place Type" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

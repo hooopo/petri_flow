@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Wf</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <title>Workflow Engine</title>
 
-  <%= stylesheet_link_tag    "wf/application", media: "all" %>
+  <%= csrf_meta_tags %>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+
+  <%= stylesheet_link_tag    "wf/application", media: "all", "data-turbolinks-track": "reload" %>
+  <%= javascript_include_tag "wf/application", "data-turbolinks-track": "reload" %>
 </head>
 <body>
+<%= render "layouts/wf/notice" %>
+<%= render "layouts/wf/alert" %>
+<%= render "layouts/wf/nav" %>
 
-<%= yield %>
+<main class="container">
+  <%= content_for?(:content) ? yield(:content) : yield %>
+</main>
 
+<%= render "layouts/wf/footer" %>
 </body>
 </html>

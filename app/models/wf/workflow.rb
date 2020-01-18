@@ -22,5 +22,7 @@ module Wf
     has_many :cases
     has_many :workitems
     has_many :tokens
+
+    validates :name, presence: true
   end
 end

@@ -1,0 +1,13 @@
+<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <%= link_to "Workflow Engine", root_path, class: "navbar-item" %>
+    </div>
+
+    <div class="navbar-end">
+      <%= link_to 'Users', "#", class: "navbar-item #{"is-active" if controller_name == "users"}" %>
+      <%= link_to 'Groups', "#", class: "navbar-item #{"is-active" if controller_name == "groups"}" %>
+      <%= link_to 'Workflows', workflows_path, class: "navbar-item #{"is-active" if controller_name.start_with?("workflows")}" %>
+    </div>
+  </div>
+</nav>

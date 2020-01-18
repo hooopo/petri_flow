@@ -1,0 +1,33 @@
+<div class="float-left"><h2>Workflows</h2></div>
+<div class="float-right">
+  <%= link_to 'New Workflow', new_workflow_path, class: 'btn btn-primary' %>
+</div>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Is Valid?</th>
+        <th scope="col">Is draft?</th>
+        <th scope="col">Error Msg</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @workflows.each do |workflow| %>
+        <tr>
+          <td><%= workflow.id %></td>
+          <td><%= workflow.name %></td>
+          <td><%= workflow.description %></td>
+          <td><%= workflow.is_valid? %></td>
+          <td><%= workflow.is_draft? %></td>
+          <td><%= workflow.error_msg %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div>
+  <%= paginate @workflows, theme: 'twitter-bootstrap-4' %>
+</div>

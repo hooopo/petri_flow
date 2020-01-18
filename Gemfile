@@ -15,3 +15,7 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 gem 'pry-rails'
 gem 'annotate'
+gem 'jquery-rails'
+gem 'bootstrap', '~> 4.4.1'
+gem 'kaminari'
+gem 'bootstrap4-kaminari-views'

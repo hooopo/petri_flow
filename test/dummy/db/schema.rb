@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_19_142734) do
+ActiveRecord::Schema.define(version: 2020_01_19_164901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2020_01_19_142734) do
     t.string "name"
     t.bigint "form_id"
     t.integer "position", default: 0
-    t.string "field_type"
+    t.integer "field_type", default: 0
     t.string "field_type_name"
     t.string "default_value"
     t.datetime "created_at", precision: 6, null: false

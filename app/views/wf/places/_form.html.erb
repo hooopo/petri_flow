@@ -34,7 +34,7 @@
 
   <div class="form-group">
     <%= f.label :place_type, class: "label" %>
-    <%= f.select :place_type, Wf::Place.place_types.keys, class: "form-control", placeholder: "Place Type" %>
+    <%= f.select :place_type, Wf::Place.place_types.keys, {}, class: "form-control custom-select", placeholder: "Place Type" %>
   </div>
 
   <div class="form-group">

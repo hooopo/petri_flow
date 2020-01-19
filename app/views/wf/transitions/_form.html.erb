@@ -38,7 +38,7 @@
 
   <div class="form-group">
     <%= f.label :trigger_type, class: "label" %>
-    <%= f.select :trigger_type, Wf::Transition.trigger_types.keys, class: "form-control", placeholder: "Trigger Type" %>
+    <%= f.select :trigger_type, Wf::Transition.trigger_types.keys, {}, class: "form-control custom-select", placeholder: "Trigger Type" %>
   </div>
 
   <div class="form-group">

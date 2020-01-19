@@ -42,7 +42,7 @@ module Wf
     private
 
     def transition_params
-      params.fetch(:transition, {}).permit(:name, :description, :trigger_limit, :trigger_type, :sort_order)
+      params.fetch(:transition, {}).permit(:name, :description, :trigger_limit, :trigger_type, :sort_order, :form_id)
     end
   end
 end

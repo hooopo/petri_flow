@@ -42,6 +42,11 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :form_id, class: "label" %>
+    <%= f.select :form_id, Wf::Form.all.map{|x| [x.name, x.id]}, {include_blank: 'user can input from custom form?'}, class: "form-control custom-select", placeholder: "Trigger Type" %>
+  </div>
+
+  <div class="form-group">
     <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -78,6 +78,7 @@
         <th scope="col">Trigger Limit</th>
         <th scope="col">Trigger Type</th>
         <th scope="col">Sort Order</th>
+        <th scope="col">Custom Form</th>
         <th scope='col'> Actions </th>
       </tr>
     </thead>
@@ -90,6 +91,14 @@
           <td><%= transition.trigger_limit %></td>
           <td><%= transition.trigger_type %></td>
           <td><%= transition.sort_order %></td>
+
+          <td>
+            <% if transition.form %>
+             <%= link_to transition.form.name, form_path(transition.form) %>
+            <% else %>
+             No Form
+            <% end %>
+          </td>
           <td><%= link_to 'Edit Transition', edit_workflow_transition_path(@workflow, transition), class: 'btn btn-sm btn-info' %></td>
           <td><%= link_to 'Delete Transition', [@workflow, transition], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
         </tr>

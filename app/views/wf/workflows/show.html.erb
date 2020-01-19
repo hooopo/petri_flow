@@ -1,4 +1,5 @@
 <div class="float-right">
+  <%= link_to 'Delete Workflow', workflow_path(@workflow), data: {confirm: 'confirm?'}, method: :delete, class: 'btn btn-danger' %>
   <%= link_to 'Edit Workflow', edit_workflow_path(@workflow), class: 'btn btn-primary' %>
   <%= link_to 'Create Transitions', new_workflow_transition_path(@workflow), class: 'btn btn-primary' %>
   <%= link_to 'Create Places', new_workflow_place_path(@workflow), class: 'btn btn-primary' %>

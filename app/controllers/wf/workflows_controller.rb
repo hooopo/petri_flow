@@ -18,6 +18,15 @@ module Wf
       @workflow = Wf::Workflow.find(params[:id])
     end
 
+    def destroy
+      @workflow = Wf::Workflow.find(params[:id])
+      @workflow.destroy
+      respond_to do |format|
+        format.html { redirect_to workflows_path, notice: "workflow was successfully deleted." }
+        format.js { render :js => 'window.location.reload();' }
+      end
+    end
+
     def update
       @workflow = Wf::Workflow.find(params[:id])
       if @workflow.update(workflow_params)
@@ -28,7 +37,7 @@ module Wf
     end
 
     def create
-      @workflow = Workflow.new(workflow_params)
+      @workflow = Wf::Workflow.new(workflow_params)
 
       if @workflow.save
         redirect_to workflows_path, notice: "workflow was successfully created."

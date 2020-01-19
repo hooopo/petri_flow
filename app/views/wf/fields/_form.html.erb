@@ -1,0 +1,42 @@
+<%= form_with(model: field, url: [@form, field], local: true) do |f| %>
+  <% if field.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(field.errors.count, "error") %> prohibited this field from being saved:
+        </p>
+      </div>
+      <div class="message-body content">
+        <ul>
+          <% field.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, class: "label" %>
+    <%= f.text_field :name, class: "form-control", fieldholder: "Name" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :position, class: "label" %>
+    <%= f.text_field :position, class: "form-control", fieldholder: "Position" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :default_value, class: "label" %>
+    <%= f.text_field :default_value, class: "form-control", fieldholder: "Default Value" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :field_type, class: "label" %>
+    <%= f.text_field :field_type, class: "form-control", fieldholder: "Field Type" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

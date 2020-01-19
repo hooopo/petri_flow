@@ -11,5 +11,6 @@
 
 module Wf
   class Form < ApplicationRecord
+    has_many :fields, dependent: :destroy
   end
 end

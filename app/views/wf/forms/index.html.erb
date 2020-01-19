@@ -20,7 +20,7 @@
           <td><%= form.description %></td>
           <td>
             <%= link_to 'Delete Form', form_path(form), method: :delete, data: {confirm: 'confirm?'}, class: 'btn-danger btn btn-sm' %>
-            <%= link_to 'Create Field', new_workflow_transition_path(form), class: 'btn btn-info btn-sm' %>
+            <%= link_to 'Create Field', new_form_field_path(form), class: 'btn btn-info btn-sm' %>
           </td>
         </tr>
       <% end %>

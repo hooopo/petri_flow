@@ -1,0 +1,53 @@
+<div class="float-right">
+  <%= link_to 'Delete Form', form_path(@form), data: {confirm: 'confirm?'}, method: :delete, class: 'btn btn-danger' %>
+  <%= link_to 'Edit Form', edit_form_path(@form), class: 'btn btn-primary' %>
+  <%= link_to 'Create Fields', new_form_field_path(@form), class: 'btn btn-primary' %>
+</div>
+<div>
+  <h2>Form Detail</h2>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">ID</th>
+        <td><%= @form.id %></td>
+      </tr>
+      <tr>
+        <th scope="row">Name</th>
+        <td><%= @form.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Description</th>
+        <td><%= @form.description %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Fields</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Position</th>
+        <th scope="col">Field Type</th>
+        <th scope="col">Default Value</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @form.fields.each do |field| %>
+        <tr>
+          <td><%= field.id %></td>
+          <td><%= field.name %></td>
+          <td><%= field.position %></td>
+          <td><%= field.field_type %></td>
+          <td><%= field.default_value %></td>
+          <td><%= link_to 'Edit Field', edit_form_field_path(@form, field), class: 'btn btn-sm btn-info' %></td>
+          <td><%= link_to 'Delete Field', [@form, field], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,43 @@
+<%= form_with(model: guard, url: [@arc, @guard], local: true) do |f| %>
+  <% if guard.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(guard.errors.count, "error") %> prohibited this guard from being saved:
+        </p>
+      </div>
+      <div class="message-body content">
+        <ul>
+          <% guard.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :fieldable, class: "label" %>
+    <%= f.select :fieldable, options_for_select(@arc.transition.form&.fields&.map {|x| [x.name, x.to_global_id]} || []), {}, class: "form-control custom-select", placeholder: "fieldable" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :op, class: "label" %>
+    <%= f.select :op, Wf::Guard::OP, {}, class: "form-control custom-select", placeholder: "Op" %>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.label :value, class: "label" %>
+    <%= f.text_field :value, class: "form-control", placeholder: "Value" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :exp, class: "label" %>
+    <%= f.text_field :exp, class: "form-control", placeholder: "Exp" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

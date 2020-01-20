@@ -112,23 +112,32 @@
     <thead>
       <tr>
         <th scope="col">ID</th>
+        <th scope="col">Name</th>
         <th scope="col">Direction</th>
         <th scope="col">Place</th>
         <th scope="col">Transition</th>
         <th scope="col">Arc Type</th>
+        <th scope="col">Guards</th>
         <th scope='col'> Actions </th>
       </tr>
     </thead>
     <tbody>
       <% @workflow.arcs.includes(:transition, :place).each do |arc| %>
         <tr>
-          <td><%= arc.id %></td>
+          <td><%= link_to arc.id, workflow_arc_path(@workflow, arc) %></td>
+          <td><%= link_to arc.name, workflow_arc_path(@workflow, arc) %></td>
           <td><%= arc.direction %></td>
           <td><%= arc.place&.name %></td>
           <td><%= arc.transition&.name %></td>
           <td><%= arc.arc_type %></td>
+          <td><%= arc.guards.map(&:inspect).join(" & ") %></td>
           <td><%= link_to 'Edit Arc', edit_workflow_arc_path(@workflow, arc), class: 'btn btn-sm btn-info' %></td>
-          <td><%= link_to 'Delete Arc', [@workflow, arc], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+          <td>
+            <% if arc.out? %>
+              <%= link_to 'Add Gruards', new_arc_guard_path(arc), class: 'btn btn-sm btn-info' %>
+            <% end %>
+          </td>
+          <td><%= link_to 'Delete Arc', [@workflow, arc], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>

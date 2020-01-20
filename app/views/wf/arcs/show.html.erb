@@ -1,0 +1,67 @@
+<div class="float-right">
+  <%= link_to 'Delete Arc', workflow_path(@workflow, @arc), data: {confirm: 'confirm?'}, method: :delete, class: 'btn btn-danger' %>
+  <%= link_to 'Edit Arc', edit_workflow_arc_path(@workflow, @arc), class: 'btn btn-primary' %>
+  <% if @arc.out? %>
+    <%= link_to 'Create Guards', new_arc_guard_path(@arc), class: 'btn btn-primary' %>
+  <% end %>
+</div>
+<div>
+  <h2>Arc Detail</h2>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">ID</th>
+        <td><%= @arc.id %></td>
+      </tr>
+      <tr>
+        <th scope="row">Name</th>
+        <td><%= @arc.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Transition</th>
+        <td><%= @arc.transition.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Place</th>
+        <td><%= @arc.place.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Guards</th>
+        <td><%= @arc.guards.map {|x| x.inspect }.join(" & ") %></td>
+      </tr>
+      <tr>
+        <th scope="row">Direction</th>
+        <td><%= @arc.direction %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Guards</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Field</th>
+        <th scope="col">Op</th>
+        <th scope="col">Value</th>
+        <th scope="col">Exp</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @arc.guards.each do |guard| %>
+        <tr>
+          <td><%= guard.id %></td>
+          <td><%= guard.fieldable&.form&.name %>/<%= guard.fieldable&.name %></td>
+          <td><%= guard.op %></td>
+          <td><%= guard.value %></td>
+          <td><%= guard.exp %></td>
+          <td><%= link_to 'Edit Guard', edit_arc_guard_path(@arc, guard), class: 'btn btn-sm btn-info' %></td>
+          <td><%= link_to 'Delete Guard', [@arc, guard], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

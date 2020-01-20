@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_19_164901) do
+ActiveRecord::Schema.define(version: 2020_01_20_110903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,11 +21,6 @@ ActiveRecord::Schema.define(version: 2020_01_19_164901) do
     t.bigint "place_id"
     t.integer "direction", default: 0, comment: "0-in, 1-out"
     t.integer "arc_type", default: 0, comment: "0-seq,1-explicit_or_split, 2-implicit_or_split, 3-or_join, 4-and_split, 5-and_join"
-    t.string "condition_field", comment: "guard field"
-    t.string "condition_op", comment: "guard operator: >,<,==,"
-    t.string "condition_value", comment: "guard value"
-    t.string "condition_exp", comment: "guard expression"
-    t.string "condition_field_type", comment: "guard field type: Boolean/Integer/Date/String/Float/Datetime"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -70,6 +65,20 @@ ActiveRecord::Schema.define(version: 2020_01_19_164901) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_guards", force: :cascade do |t|
+    t.bigint "arc_id"
+    t.bigint "workflow_id"
+    t.string "fieldable_type"
+    t.string "fieldable_id"
+    t.string "op"
+    t.string "value"
+    t.string "exp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["arc_id"], name: "index_wf_guards_on_arc_id"
+    t.index ["workflow_id"], name: "index_wf_guards_on_workflow_id"
   end
 
   create_table "wf_places", force: :cascade do |t|

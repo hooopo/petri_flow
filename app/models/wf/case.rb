@@ -14,7 +14,7 @@
 module Wf
   class Case < ApplicationRecord
     belongs_to :workflow
-    belongs_to :targetable, optional: true
+    belongs_to :targetable, optional: true, polymorphic: true
     has_many :workitems
     has_many :tokens
 

@@ -24,6 +24,11 @@ module Wf
       render :js => 'window.location.reload()'
     end
 
+    def show
+      @workflow = Wf::Workflow.find(params[:workflow_id])
+      @arc = @workflow.arcs.find(params[:id])
+    end
+
     def edit
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @arc = @workflow.arcs.find(params[:id])

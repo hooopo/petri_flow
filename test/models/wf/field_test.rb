@@ -5,8 +5,8 @@
 #  id              :integer          not null, primary key
 #  name            :string
 #  form_id         :integer
-#  positon         :integer          default("0")
-#  field_type      :string
+#  position        :integer          default("0")
+#  field_type      :integer          default("0")
 #  field_type_name :string
 #  default_value   :string
 #  created_at      :datetime         not null

@@ -2,19 +2,14 @@
 #
 # Table name: wf_arcs
 #
-#  id                   :integer          not null, primary key
-#  workflow_id          :integer
-#  transition_id        :integer
-#  place_id             :integer
-#  direction            :integer          default("0")
-#  arc_type             :integer          default("0")
-#  condition_field      :string
-#  condition_op         :string
-#  condition_value      :string
-#  condition_exp        :string
-#  condition_field_type :string
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  id            :integer          not null, primary key
+#  workflow_id   :integer
+#  transition_id :integer
+#  place_id      :integer
+#  direction     :integer          default("0")
+#  arc_type      :integer          default("0")
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 module Wf
@@ -23,6 +18,9 @@ module Wf
     belongs_to :transition
     belongs_to :place
 
+    has_many :guards, dependent: :destroy
+    
+    # direction is relative to the transition
     enum direction: {
       in: 0,
       out: 1
@@ -36,5 +34,13 @@ module Wf
       and_split: 4,
       and_join: 5
     }
+
+    def name
+      if in?
+        [place&.name, transition&.name].join(" -> ")
+      else
+        [transition&.name, place&.name].join(" -> ")
+      end
+    end
   end
 end

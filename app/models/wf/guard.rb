@@ -17,7 +17,7 @@
 module Wf
   class Guard < ApplicationRecord
     belongs_to :workflow
-    belongs_to :arc
+    belongs_to :arc, touch: true, counter_cache: true
     belongs_to :fieldable, polymorphic: true, optional: true
 
     OP = %w[

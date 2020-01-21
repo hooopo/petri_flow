@@ -16,7 +16,7 @@
 
 module Wf
   class Transition < ApplicationRecord
-    belongs_to :workflow
+    belongs_to :workflow, touch: true
     has_many :arcs
     has_many :transition_assignments
     has_many :workitems

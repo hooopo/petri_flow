@@ -1,0 +1,27 @@
+<%= form_with(model: wf_case, url: [@workflow, @wf_case], local: true) do |f| %>
+  <% if wf_case.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(wf_case.errors.count, "error") %> prohibited this wf_case from being saved:
+        </p>
+      </div>
+      <div class="message-body content">
+        <ul>
+          <% wf_case.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :targetable, class: "label" %>
+    <%= f.select :targetable, options_for_select(Wf::DemoTarget.all.map {|x| [x.name, x.to_global_id]} || []), {include_blank: true}, class: "form-control custom-select", placeholder: "targetable" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

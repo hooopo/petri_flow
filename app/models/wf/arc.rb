@@ -14,11 +14,14 @@
 
 module Wf
   class Arc < ApplicationRecord
-    belongs_to :workflow
+    belongs_to :workflow, touch: true
     belongs_to :transition
     belongs_to :place
 
     has_many :guards, dependent: :destroy
+
+    scope :with_guards, -> { where("guards_count > 0") }
+    scope :without_guards, -> { where(guards_count: 0) }
     
     # direction is relative to the transition
     enum direction: {

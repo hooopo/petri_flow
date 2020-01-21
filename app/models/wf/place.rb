@@ -14,7 +14,7 @@
 
 module Wf
   class Place < ApplicationRecord
-    belongs_to :workflow
+    belongs_to :workflow, touch: true
     has_many :arcs
     has_many :tokens
     enum place_type: {

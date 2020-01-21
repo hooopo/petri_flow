@@ -24,5 +24,34 @@ module Wf
     has_many :tokens
 
     validates :name, presence: true
+
+    after_save do
+      do_validate!
+    end
+
+    after_touch do
+      do_validate!
+    end
+
+    # TODO can from start place to end place
+    def do_validate!
+      msgs = []
+      msgs << 'must have start place' if places.start.blank?
+      msgs << 'must have only one start place' if places.start.count > 1
+      msgs << 'must have end place' if places.end.blank?
+      msgs << 'must have only one end place' if places.end.count > 1
+      msgs << 'all transition must have only one arc without guards' if transitions.any? {|t| t.arcs.out.without_guards.count > 1}
+      if msgs.present?
+        self.error_msg = msgs.join("\n")
+        self.update_columns(is_valid: false)
+      else
+        update_columns(is_valid: true)
+      end
+    end
+
+    def create_case(target = nil)
+      return if self.is_valid？
+      wf_case = self.cases.create(targetable: target, state: :created)
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_20_110903) do
+ActiveRecord::Schema.define(version: 2020_01_21_085821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_01_20_110903) do
     t.integer "arc_type", default: 0, comment: "0-seq,1-explicit_or_split, 2-implicit_or_split, 3-or_join, 4-and_split, 5-and_join"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "guards_count", default: 0
   end
 
   create_table "wf_cases", force: :cascade do |t|
@@ -30,6 +31,13 @@ ActiveRecord::Schema.define(version: 2020_01_20_110903) do
     t.string "targetable_type", comment: "point to target type of Application."
     t.string "targetable_id", comment: "point to target ID of Application."
     t.integer "state", default: 0, comment: "0-created, 1-active, 2-suspended, 3-canceled, 4-finished"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_demo_targets", comment: "For demo, useless.", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

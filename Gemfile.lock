@@ -161,6 +161,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    simple_command (0.1.0)
     sprockets (4.0.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -189,6 +190,7 @@ DEPENDENCIES
   kaminari
   pg
   pry-rails
+  simple_command
   wf!
 
 BUNDLED WITH

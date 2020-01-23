@@ -48,10 +48,5 @@ module Wf
         update_columns(is_valid: true)
       end
     end
-
-    def create_case(target = nil)
-      return if self.is_valid？
-      wf_case = self.cases.create(targetable: target, state: :created)
-    end
   end
 end

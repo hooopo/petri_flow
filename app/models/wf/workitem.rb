@@ -35,5 +35,11 @@ module Wf
       finished: 3,
       overridden: 4
     }
+    
+    # TODO check payload && guards exp
+    def pass_guard?(arc)
+      return true if arc.guards_count == 0
+      true
+    end
   end
 end

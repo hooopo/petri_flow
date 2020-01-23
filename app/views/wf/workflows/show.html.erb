@@ -1,6 +1,7 @@
 <div class="float-right">
-  <%= link_to 'New Case', new_workflow_case_path(@workflow), class: 'btn btn-dark' %>
-  
+  <% if @workflow.is_valid? %>
+    <%= link_to 'New Case', new_workflow_case_path(@workflow), class: 'btn btn-dark' %>
+  <% end %>
   <%= link_to 'Edit Workflow', edit_workflow_path(@workflow), class: 'btn btn-primary' %>
   <%= link_to 'Create Transitions', new_workflow_transition_path(@workflow), class: 'btn btn-primary' %>
   <%= link_to 'Create Places', new_workflow_place_path(@workflow), class: 'btn btn-primary' %>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_fields
@@ -32,7 +34,7 @@ module Wf
       "int8[]": 21,
       "timestamp[]": 23,
       "float[]": 24,
-      "date[]": 25,
+      "date[]": 25
     }
   end
 end

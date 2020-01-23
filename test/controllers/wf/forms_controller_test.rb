@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module Wf
   class FormsControllerTest < ActionDispatch::IntegrationTest

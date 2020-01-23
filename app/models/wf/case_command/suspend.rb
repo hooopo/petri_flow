@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Wf::CaseCommand
   class Suspend
     prepend SimpleCommand
@@ -8,6 +10,7 @@ module Wf::CaseCommand
 
     def call
       raise("Only active or suspended cases can be canceled") unless wf_case.active?
+
       wf_case.suspended!
     end
   end

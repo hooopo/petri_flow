@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateWorkflowCoreWfcTokens < ActiveRecord::Migration[6.0]
   def change
     create_table :wf_tokens do |t|

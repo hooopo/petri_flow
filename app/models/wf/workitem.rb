@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_workitems
@@ -35,10 +37,11 @@ module Wf
       finished: 3,
       overridden: 4
     }
-    
-    # TODO check payload && guards exp
+
+    # TODO: check payload && guards exp
     def pass_guard?(arc)
       return true if arc.guards_count == 0
+
       true
     end
   end

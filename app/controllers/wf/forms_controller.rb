@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require_dependency "wf/application_controller"
 
 module Wf
   class FormsController < ApplicationController
-    def index 
-      @forms = Wf::Form.order('id DESC').page(params[:page])
+    def index
+      @forms = Wf::Form.order("id DESC").page(params[:page])
     end
 
     def new
@@ -23,7 +25,7 @@ module Wf
       @form.destroy
       respond_to do |format|
         format.html { redirect_to forms_path, notice: "form was successfully deleted." }
-        format.js { render :js => 'window.location.reload();' }
+        format.js { render js: "window.location.reload();" }
       end
     end
 
@@ -48,8 +50,8 @@ module Wf
 
     private
 
-    def form_params
-      params.fetch(:form, {}).permit(:name, :description)
-    end
+      def form_params
+        params.fetch(:form, {}).permit(:name, :description)
+      end
   end
 end

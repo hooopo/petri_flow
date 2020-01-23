@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "wf/application_controller"
 
 module Wf
@@ -26,7 +28,7 @@ module Wf
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @transition = @workflow.transitions.find(params[:id])
       @transition.destroy
-      render :js => 'window.location.reload()'
+      render js: "window.location.reload()"
     end
 
     def update
@@ -41,8 +43,8 @@ module Wf
 
     private
 
-    def transition_params
-      params.fetch(:transition, {}).permit(:name, :description, :trigger_limit, :trigger_type, :sort_order, :form_id, :callback)
-    end
+      def transition_params
+        params.fetch(:transition, {}).permit(:name, :description, :trigger_limit, :trigger_type, :sort_order, :form_id, :callback)
+      end
   end
 end

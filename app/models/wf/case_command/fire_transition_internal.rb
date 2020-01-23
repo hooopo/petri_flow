@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Wf::CaseCommand
   class FireTransitionInternal
     prepend SimpleCommand
@@ -15,8 +17,8 @@ module Wf::CaseCommand
         raise("can not fire the transition if it is not in state enabled or started.")
       end
 
-      workitem.update!(finished_at: Time.now, state: :finished)
-      # TODO only in?
+      workitem.update!(finished_at: Time.zone.now, state: :finished)
+      # TODO: only in?
       workitem.transition.arcs.each do |arc|
         ConsumeToken.call(workitem.case, arc.place, locked_item)
       end

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require_dependency "wf/application_controller"
 
 module Wf
   class WorkflowsController < ApplicationController
-    def index 
-      @workflows = Wf::Workflow.order('id DESC').page(params[:page])
+    def index
+      @workflows = Wf::Workflow.order("id DESC").page(params[:page])
     end
 
     def new
@@ -23,7 +25,7 @@ module Wf
       @workflow.destroy
       respond_to do |format|
         format.html { redirect_to workflows_path, notice: "workflow was successfully deleted." }
-        format.js { render :js => 'window.location.reload();' }
+        format.js { render js: "window.location.reload();" }
       end
     end
 
@@ -48,8 +50,8 @@ module Wf
 
     private
 
-    def workflow_params
-      params.fetch(:workflow, {}).permit(:name, :description)
-    end
+      def workflow_params
+        params.fetch(:workflow, {}).permit(:name, :description)
+      end
   end
 end

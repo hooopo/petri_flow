@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "wf/application_controller"
 
 module Wf
@@ -21,7 +23,7 @@ module Wf
       @form = Wf::Form.find(params[:form_id])
       @field = @form.fields.find(params[:id])
       @field.destroy
-      render :js => 'window.location.reload()'
+      render js: "window.location.reload()"
     end
 
     def edit
@@ -41,8 +43,8 @@ module Wf
 
     private
 
-    def field_params
-      params.fetch(:field, {}).permit(:name, :form_id, :field_type, :position, :default_value)
-    end
+      def field_params
+        params.fetch(:field, {}).permit(:name, :form_id, :field_type, :position, :default_value)
+      end
   end
 end

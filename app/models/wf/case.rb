@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_cases
@@ -27,7 +29,7 @@ module Wf
     }
 
     def can_fire?(transition)
-      transition.arcs.in.all? {|arc| arc.place.tokens.where(case: self).first&.free? }
+      transition.arcs.in.all? { |arc| arc.place.tokens.where(case: self).first&.free? }
     end
   end
 end

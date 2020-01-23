@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_tokens
@@ -26,9 +28,9 @@ module Wf
     belongs_to :place
 
     enum state: {
-      free: 0, 
-      locked: 1, 
-      canceled: 2, 
+      free: 0,
+      locked: 1,
+      canceled: 2,
       consumed: 3
     }
   end

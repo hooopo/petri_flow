@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Wf::CaseCommand
   class SweepAutomaticTransitions
     prepend SimpleCommand
@@ -9,18 +11,18 @@ module Wf::CaseCommand
     def call
       EnableTransitions.call(wf_case)
       done = false
-      while done 
+      while done
         done = true
         finished = FinishedP.call(wf_case)
-        if finished
-          ActiveRecord::Base.uncached do  
-            wf_case.workitems.joins(:transition).where(state: :enabled).where(trigger_type: :automatic).each do |item|
-              FireTransitionInternal.call(item)
-              done = false
-            end
+        next unless finished
+
+        ActiveRecord::Base.uncached do
+          wf_case.workitems.joins(:transition).where(state: :enabled).where(trigger_type: :automatic).find_each do |item|
+            FireTransitionInternal.call(item)
+            done = false
           end
-          EnableTransitions.call(wf_case)
         end
+        EnableTransitions.call(wf_case)
       end
     end
   end

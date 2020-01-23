@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "wf/application_controller"
 
 module Wf
@@ -11,9 +13,7 @@ module Wf
       @arc = Wf::Arc.find(params[:arc_id])
       gp = guard_params.merge(fieldable: GlobalID::Locator.locate(guard_params[:fieldable])) if guard_params[:fieldable].present?
       @guard = @arc.guards.new(gp.merge(workflow: @arc.workflow))
-      if not @arc.out?
-        redirect_to workflow_arc_path(@arc.workflow, @arc), notice: "only out direction arc can set guard!"
-      end
+      redirect_to workflow_arc_path(@arc.workflow, @arc), notice: "only out direction arc can set guard!" unless @arc.out?
       if @guard.save
         redirect_to workflow_arc_path(@arc.workflow, @arc), notice: "guard was successfully created."
       else
@@ -25,7 +25,7 @@ module Wf
       @arc = Wf::Arc.find(params[:arc_id])
       @guard = @arc.guards.find(params[:id])
       @guard.destroy
-      render :js => 'window.location.reload()'
+      render js: "window.location.reload()"
     end
 
     def edit
@@ -46,8 +46,8 @@ module Wf
 
     private
 
-    def guard_params
-      params.fetch(:guard, {}).permit(:fieldable, :fieldable_type, :fieldable_id, :op, :value, :exp)
-    end
+      def guard_params
+        params.fetch(:guard, {}).permit(:fieldable, :fieldable_type, :fieldable_id, :op, :value, :exp)
+      end
   end
 end

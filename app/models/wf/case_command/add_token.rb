@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Wf::CaseCommand
   class AddToken
     prepend SimpleCommand

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "wf/application_controller"
 
 module Wf
@@ -21,7 +23,7 @@ module Wf
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @arc = @workflow.arcs.find(params[:id])
       @arc.destroy
-      render :js => 'window.location.reload()'
+      render js: "window.location.reload()"
     end
 
     def show
@@ -46,8 +48,8 @@ module Wf
 
     private
 
-    def arc_params
-      params.fetch(:arc, {}).permit(:arc_type, :direction, :transition_id, :place_id)
-    end
+      def arc_params
+        params.fetch(:arc, {}).permit(:arc_type, :direction, :transition_id, :place_id)
+      end
   end
 end

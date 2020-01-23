@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_guards
@@ -26,10 +28,10 @@ module Wf
       <
       >=
       <=
-    ]
+    ].freeze
 
     def inspect
-      %Q{#{fieldable&.form&.name}.#{fieldable&.name} #{op} #{value}}
+      %(#{fieldable&.form&.name}.#{fieldable&.name} #{op} #{value})
     end
   end
 end

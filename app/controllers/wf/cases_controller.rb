@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "wf/application_controller"
 
 module Wf
@@ -26,13 +28,13 @@ module Wf
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @case = @workflow.cases.find(params[:id])
       @case.destroy
-      render :js => 'window.location.reload()'
+      render js: "window.location.reload()"
     end
 
     private
 
-    def case_params
-      params.fetch(:case, {}).permit(:targetable, :target_id, :target_type)
-    end
+      def case_params
+        params.fetch(:case, {}).permit(:targetable, :target_id, :target_type)
+      end
   end
 end

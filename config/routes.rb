@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Wf::Engine.routes.draw do
   resources :workflows do
     resources :transitions
@@ -14,5 +16,5 @@ Wf::Engine.routes.draw do
     resources :fields
   end
 
-  root to: 'workflows#index'
+  root to: "workflows#index"
 end

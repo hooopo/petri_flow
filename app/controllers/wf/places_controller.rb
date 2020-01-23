@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "wf/application_controller"
 
 module Wf
@@ -21,7 +23,7 @@ module Wf
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @place = @workflow.places.find(params[:id])
       @place.destroy
-      render :js => 'window.location.reload()'
+      render js: "window.location.reload()"
     end
 
     def edit
@@ -41,8 +43,8 @@ module Wf
 
     private
 
-    def place_params
-      params.fetch(:place, {}).permit(:name, :description, :place_type, :sort_order)
-    end
+      def place_params
+        params.fetch(:place, {}).permit(:name, :description, :place_type, :sort_order)
+      end
   end
 end

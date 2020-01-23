@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateWfFieldValues < ActiveRecord::Migration[6.0]
   def change
     create_table :wf_field_values do |t|

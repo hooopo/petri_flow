@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Wf::CaseCommand
   class EnableTransitions
     prepend SimpleCommand
@@ -8,16 +10,14 @@ module Wf::CaseCommand
 
     def call
       wf_case.workitems.enabled.each do |workitem|
-        if not wf_case.can_fire?(workitem.transition)
-          workitem.update!(state: :overridden, overridden_at: Time.now)
-        end
+        workitem.update!(state: :overridden, overridden_at: Time.zone.now) unless wf_case.can_fire?(workitem.transition)
       end
       wf_case.workflow.transitions.each do |transition|
-        if wf_case.can_fire?(transition) && !transition.workitems.where(state: [:enabled, :started]).exists？
+        if wf_case.can_fire?(transition) && !transition.workitems.where(state: %i[enabled started]).exists？
           wf_case.workitems.create!(workflow: wf_case.workflow, transition: transition, state: :enabled)
         end
       end
-      # TODO execute_unassigned_callback
+      # TODO: execute_unassigned_callback
       # TODO execute transition callback
       # TODO set workitem assignments
     end

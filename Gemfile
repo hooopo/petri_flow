@@ -1,4 +1,6 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
+
+source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Declare your gem's dependencies in wf.gemspec.
@@ -13,13 +15,13 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-gem 'pry-rails'
-gem 'annotate'
-gem 'jquery-rails'
-gem 'bootstrap', '~> 4.4.1'
-gem 'kaminari'
-gem 'bootstrap4-kaminari-views'
-gem 'simple_command'
+gem "annotate"
+gem "bootstrap", "~> 4.4.1"
+gem "bootstrap4-kaminari-views"
+gem "jquery-rails"
+gem "kaminari"
+gem "pry-rails"
+gem "simple_command"
 
 gem "rubocop"
 gem "rubocop-performance"

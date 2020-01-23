@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CreateWfDemoTargets < ActiveRecord::Migration[6.0]
   def change
-    create_table :wf_demo_targets, comment: 'For demo, useless.' do |t|
+    create_table :wf_demo_targets, comment: "For demo, useless." do |t|
       t.string :name
       t.string :description
       t.timestamps

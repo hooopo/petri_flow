@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_23_175754) do
+ActiveRecord::Schema.define(version: 2020_01_23_185104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,15 @@ ActiveRecord::Schema.define(version: 2020_01_23_175754) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["arc_id"], name: "index_wf_guards_on_arc_id"
     t.index ["workflow_id"], name: "index_wf_guards_on_workflow_id"
+  end
+
+  create_table "wf_parties", comment: "for groups or roles or users or positions etc.", force: :cascade do |t|
+    t.string "partable_type"
+    t.string "partable_id"
+    t.string "party_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["partable_type", "partable_id"], name: "index_wf_parties_on_partable_type_and_partable_id", unique: true
   end
 
   create_table "wf_places", force: :cascade do |t|

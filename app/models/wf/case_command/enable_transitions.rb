@@ -13,17 +13,15 @@ module Wf::CaseCommand
         workitem.update!(state: :overridden, overridden_at: Time.zone.now) unless wf_case.can_fire?(workitem.transition)
       end
       wf_case.workflow.transitions.each do |transition|
-        if wf_case.can_fire?(transition) && !transition.workitems.where(state: %i[enabled started]).exists？
-          if transition.trigger_limit && transition.time?
-            trigger_time = Time.now + transition.trigger_limit.minutes
-          end
-          wf_case.workitems.create!(
-            workflow: wf_case.workflow, 
-            transition: transition, 
-            state: :enabled,
-            trigger_time: trigger_time
-          )
-        end
+        next unless wf_case.can_fire?(transition) && !transition.workitems.where(state: %i[enabled started]).exists？
+
+        trigger_time = Time.zone.now + transition.trigger_limit.minutes if transition.trigger_limit && transition.time?
+        wf_case.workitems.create!(
+          workflow: wf_case.workflow,
+          transition: transition,
+          state: :enabled,
+          trigger_time: trigger_time
+        )
       end
       # TODO: execute_unassigned_callback
       # TODO execute transition callback

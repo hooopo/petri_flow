@@ -14,7 +14,7 @@ module Wf::CaseCommand
       end_place = wf_case.workflow.places.end.first
       end_place_token_num = wf_case.tokens.where(place: end_place).count
       if end_place_token_num == 0
-        return false
+        false
       else
         free_and_locked_token_num = wf_case.tokens.where(place: end_place).where(state: %i[free locked]).count
         raise("The workflow net is misconstructed: Some parallel executions have not finished.") if free_and_locked_token_num > 1
@@ -23,7 +23,7 @@ module Wf::CaseCommand
           ConsumeToken.call(wf_case, end_place)
         end
         wf.finished!
-        return true
+        true
       end
     end
   end

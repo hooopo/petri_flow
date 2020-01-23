@@ -12,6 +12,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  form_id       :integer
+#  callback      :string           default("Wf::Callbacks::Default")
 #
 
 module Wf

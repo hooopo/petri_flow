@@ -14,7 +14,15 @@ module Wf::CaseCommand
       end
       wf_case.workflow.transitions.each do |transition|
         if wf_case.can_fire?(transition) && !transition.workitems.where(state: %i[enabled started]).exists？
-          wf_case.workitems.create!(workflow: wf_case.workflow, transition: transition, state: :enabled)
+          if transition.trigger_limit && transition.time?
+            trigger_time = Time.now + transition.trigger_limit.minutes
+          end
+          wf_case.workitems.create!(
+            workflow: wf_case.workflow, 
+            transition: transition, 
+            state: :enabled,
+            trigger_time: trigger_time
+          )
         end
       end
       # TODO: execute_unassigned_callback

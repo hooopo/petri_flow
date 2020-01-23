@@ -47,6 +47,11 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :callback, class: "label" %>
+    <%= f.select :callback, Wf::Workflow.callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
+  </div>
+
+  <div class="form-group">
     <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

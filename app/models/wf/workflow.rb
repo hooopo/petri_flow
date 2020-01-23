@@ -25,6 +25,10 @@ module Wf
 
     validates :name, presence: true
 
+    def self.callbacks
+      [Wf::Callbacks::Default]
+    end
+
     after_save do
       do_validate!
     end

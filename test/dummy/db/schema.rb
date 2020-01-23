@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_21_085821) do
+ActiveRecord::Schema.define(version: 2020_01_23_084428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 2020_01_21_085821) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "form_id"
+    t.string "callback", default: "Wf::Callbacks::Default"
   end
 
   create_table "wf_workflows", force: :cascade do |t|

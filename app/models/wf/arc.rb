@@ -30,6 +30,7 @@ module Wf
       out: 1
     }
 
+    # TODO remove it
     enum arc_type: {
       seq: 0,
       explicit_or_split: 1, 

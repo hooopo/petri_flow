@@ -20,3 +20,7 @@ gem 'bootstrap', '~> 4.4.1'
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 gem 'simple_command'
+
+gem "rubocop"
+gem "rubocop-performance"
+gem "rubocop-rails"

@@ -14,7 +14,7 @@
 
 module Wf
   class Party < ApplicationRecord
-    # TODO use acts_as_partable for sync group or role or user to party
+    # TODO: use acts_as_partable for sync group or role or user to party
     belongs_to :partable, polymorphic: true
   end
 end

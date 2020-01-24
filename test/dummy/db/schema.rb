@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_23_185104) do
+ActiveRecord::Schema.define(version: 2020_01_24_140546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,12 @@ ActiveRecord::Schema.define(version: 2020_01_23_185104) do
   create_table "wf_forms", force: :cascade do |t|
     t.string "name"
     t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_groups", comment: "For demo", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -145,6 +151,12 @@ ActiveRecord::Schema.define(version: 2020_01_23_185104) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "form_id"
     t.string "callback", default: "Wf::Callbacks::Default"
+  end
+
+  create_table "wf_users", comment: "For demo", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "wf_workflows", force: :cascade do |t|

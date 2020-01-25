@@ -21,7 +21,8 @@ module Wf
   class Transition < ApplicationRecord
     belongs_to :workflow, touch: true
     has_many :arcs
-    has_many :transition_assignments
+    has_many :transition_static_assignments
+    has_many :static_parties, through: :transition_static_assignments, source: 'party'
     has_many :workitems
     belongs_to :form, optional: true
 

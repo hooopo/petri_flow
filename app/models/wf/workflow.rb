@@ -20,7 +20,7 @@ module Wf
     has_many :places, dependent: :destroy
     has_many :transitions, dependent: :destroy
     has_many :arcs, dependent: :destroy
-    has_many :transition_assignments
+    has_many :transition_static_assignments
     has_many :cases
     has_many :workitems
     has_many :tokens

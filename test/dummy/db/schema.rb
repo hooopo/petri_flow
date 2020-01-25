@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_24_140546) do
+ActiveRecord::Schema.define(version: 2020_01_25_161729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,13 +131,13 @@ ActiveRecord::Schema.define(version: 2020_01_24_140546) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "wf_transition_assignments", force: :cascade do |t|
-    t.bigint "workflow_id"
+  create_table "wf_transition_static_assignments", comment: "pre assignment for transition", force: :cascade do |t|
+    t.bigint "party_id"
     t.bigint "transition_id"
-    t.string "assignable_type", comment: "Assign Type from Application: Group or Role or User etc."
-    t.string "assignable_id", comment: "Assign ID from Application: group_id or role_id or user_id etc"
+    t.bigint "workflow_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["transition_id", "party_id"], name: "wf_tp_u", unique: true
   end
 
   create_table "wf_transitions", force: :cascade do |t|

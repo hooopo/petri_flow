@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class CreateWfUsers < ActiveRecord::Migration[6.0]
   def change
-    create_table :wf_users, comment: 'For demo' do |t|
+    create_table :wf_users, comment: "For demo" do |t|
       t.string :name
       t.timestamps
     end
 
-    create_table :wf_groups, comment: 'For demo' do |t|
+    create_table :wf_groups, comment: "For demo" do |t|
       t.string :name
       t.timestamps
     end

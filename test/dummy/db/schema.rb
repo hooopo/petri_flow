@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_25_161729) do
+ActiveRecord::Schema.define(version: 2020_01_25_174704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,7 +150,14 @@ ActiveRecord::Schema.define(version: 2020_01_25_161729) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "form_id"
-    t.string "callback", default: "Wf::Callbacks::Default"
+    t.string "enable_callback", default: "Wf::Callbacks::EnableDefault"
+    t.string "fire_callback", default: "Wf::Callbacks::FireDefault"
+    t.string "notification_callback", default: "Wf::Callbacks::NotificationDefault"
+    t.string "time_callback", default: "Wf::Callbacks::TimeDefault"
+    t.string "deadline_callback", default: "Wf::Callbacks::DeadlineDefault"
+    t.string "hold_timeout_callback", default: "Wf::Callbacks::HoldTimeoutDefault"
+    t.string "assignment_callback", default: "Wf::Callbacks::AssignmentDefault"
+    t.string "unassignment_callback", default: "Wf::Callbacks::UnassignmentDefault"
   end
 
   create_table "wf_users", comment: "For demo", force: :cascade do |t|

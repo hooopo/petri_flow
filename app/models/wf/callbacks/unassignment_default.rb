@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Wf::Callbacks
-  class Default < ApplicationJob
+  class UnassignmentDefault < ApplicationJob
     queue_as :default
 
     def perform(*guests)

@@ -47,8 +47,43 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :callback, class: "label" %>
-    <%= f.select :callback, Wf::Workflow.callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
+    <%= f.label :enable_callback, class: "label" %>
+    <%= f.select :enable_callback, Wf::Workflow.enable_callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :fire_callback, class: "label" %>
+    <%= f.select :fire_callback, Wf::Workflow.fire_callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :deadline_callback, class: "label" %>
+    <%= f.select :deadline_callback, Wf::Workflow.deadline_callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :time_callback, class: "label" %>
+    <%= f.select :time_callback, Wf::Workflow.time_callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :hold_timeout_callback, class: "label" %>
+    <%= f.select :hold_timeout_callback, Wf::Workflow.hold_timeout_callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :assignment_callback, class: "label" %>
+    <%= f.select :assignment_callback, Wf::Workflow.assignment_callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :unassignment_callback, class: "label" %>
+    <%= f.select :unassignment_callback, Wf::Workflow.unassignment_callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :notification_callback, class: "label" %>
+    <%= f.select :notification_callback, Wf::Workflow.notification_callbacks, {}, class: "form-control custom-select", placeholder: "Callback" %>
   </div>
 
   <div class="form-group">

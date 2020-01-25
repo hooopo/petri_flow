@@ -27,8 +27,36 @@ module Wf
 
     validates :name, presence: true
 
-    def self.callbacks
-      [Wf::Callbacks::Default]
+    def self.enable_callbacks
+      [Wf::Callbacks::EnableDefault]
+    end
+
+    def self.fire_callbacks
+      [Wf::Callbacks::FireDefault]
+    end
+
+    def self.assignment_callbacks
+      [Wf::Callbacks::AssignmentDefault]
+    end
+
+    def self.unassignment_callbacks
+      [Wf::Callbacks::UnassignmentDefault]
+    end
+
+    def self.notification_callbacks
+      [Wf::Callbacks::NotificationDefault]
+    end
+
+    def self.deadline_callbacks
+      [Wf::Callbacks::DeadlineDefault]
+    end
+
+    def self.time_callbacks
+      [Wf::Callbacks::TimeDefault]
+    end
+
+    def self.hold_timeout_callbacks
+      [Wf::Callbacks::HoldTimeoutDefault]
     end
 
     after_save do

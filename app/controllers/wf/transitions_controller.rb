@@ -44,7 +44,22 @@ module Wf
     private
 
       def transition_params
-        params.fetch(:transition, {}).permit(:name, :description, :trigger_limit, :trigger_type, :sort_order, :form_id, :callback)
+        params.fetch(:transition, {}).permit(
+          :name,
+          :description,
+          :trigger_limit,
+          :trigger_type,
+          :sort_order,
+          :form_id,
+          :enable_callback,
+          :fire_callback,
+          :time_callback,
+          :hold_timeout_callback,
+          :assignment_callback,
+          :unassignment_callback,
+          :notification_callback,
+          :deadline_callback
+        )
       end
   end
 end

@@ -17,11 +17,10 @@
 #  finished_at     :datetime
 #  overridden_at   :datetime
 #  deadline        :datetime
-#  user_type       :string
-#  user_id         :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  trigger_time    :datetime
+#  holding_user_id :integer
 #
 
 module Wf
@@ -30,7 +29,7 @@ module Wf
     belongs_to :transition
     belongs_to :case
     belongs_to :targetable, optional: true
-    belongs_to :user, optional: true
+    belongs_to :holding_user, foreign_key: :holding_user_id, class_name: Workflow.user_class.to_s, optional: true
     has_many :workitem_assignments
     has_many :parties, through: :workitem_assignments, source: "party"
 

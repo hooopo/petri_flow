@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_25_194734) do
+ActiveRecord::Schema.define(version: 2020_01_25_214413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,11 +198,10 @@ ActiveRecord::Schema.define(version: 2020_01_25_194734) do
     t.datetime "finished_at"
     t.datetime "overridden_at"
     t.datetime "deadline", comment: "set when transition_trigger=TIME"
-    t.string "user_type", comment: "point to type of Application user: User or Member or Account etc."
-    t.string "user_id", comment: "point to type fo Application user id: user_id or member_id or account_id etc."
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "trigger_time", comment: "trigger time for timed transition"
+    t.bigint "holding_user_id", comment: "id of app user"
     t.index ["state", "trigger_time"], name: "index_wf_workitems_on_state_and_trigger_time"
   end
 

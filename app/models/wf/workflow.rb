@@ -27,6 +27,7 @@ module Wf
 
     validates :name, presence: true
 
+    # TODO: move to config
     def self.enable_callbacks
       [Wf::Callbacks::EnableDefault]
     end
@@ -57,6 +58,10 @@ module Wf
 
     def self.hold_timeout_callbacks
       [Wf::Callbacks::HoldTimeoutDefault]
+    end
+
+    def self.user_class
+      ::Wf::User
     end
 
     after_save do

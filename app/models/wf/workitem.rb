@@ -31,6 +31,9 @@ module Wf
     belongs_to :case
     belongs_to :targetable, optional: true
     belongs_to :user, optional: true
+    has_many :workitem_assignments
+    has_many :parties, through: :workitem_assignments, source: "party"
+
     enum state: {
       enabled: 0,
       started: 1,

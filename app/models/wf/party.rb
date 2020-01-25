@@ -17,5 +17,6 @@ module Wf
     # TODO: use acts_as_partable for sync group or role or user to party
     belongs_to :partable, polymorphic: true
     has_many :transition_static_assignments
+    has_many :workitem_assignments
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_25_174704) do
+ActiveRecord::Schema.define(version: 2020_01_25_194734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,6 +175,14 @@ ActiveRecord::Schema.define(version: 2020_01_25_174704) do
     t.text "error_msg"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_workitem_assignments", force: :cascade do |t|
+    t.bigint "party_id"
+    t.bigint "workitem_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["workitem_id", "party_id"], name: "wf_wp_u", unique: true
   end
 
   create_table "wf_workitems", force: :cascade do |t|

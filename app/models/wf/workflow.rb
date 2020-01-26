@@ -64,6 +64,10 @@ module Wf
       ::Wf::User
     end
 
+    def self.org_class
+      [::Wf::Group]
+    end
+
     after_save do
       do_validate!
     end

@@ -47,5 +47,15 @@ module Wf
 
       true
     end
+
+    def owned_by?(user)
+      Wf::Party.joins(workitem_assignments: { workitem: %i[transition case] })
+               .where(Wf::Transition.table_name => { trigger_type: Wf::Transition.trigger_types[:user] })
+               .where(Wf::Case.table_name => { state: Wf::Case.states[:active] })
+               .where(Wf::Workitem.table_name => { state: Wf::Workitem.states.values_at(:started, :enabled) })
+               .where(Wf::Workitem.table_name => { id: id }).map do |party|
+        party.partable.users.to_a
+      end.flatten.include?(user)
+    end
   end
 end

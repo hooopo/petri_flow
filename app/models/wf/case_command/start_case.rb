@@ -11,7 +11,7 @@ module Wf::CaseCommand
     def call
       wf_case.active!
       AddToken.call(wf_case, wf_case.workflow.places.start.first)
-      SweepAutomaticTransitions.call
+      SweepAutomaticTransitions.call(wf_case)
     end
   end
 end

@@ -32,6 +32,7 @@ module Wf
     belongs_to :holding_user, foreign_key: :holding_user_id, class_name: Workflow.user_class.to_s, optional: true
     has_many :workitem_assignments
     has_many :parties, through: :workitem_assignments, source: "party"
+    has_many :comments
 
     enum state: {
       enabled: 0,

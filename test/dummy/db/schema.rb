@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_25_214413) do
+ActiveRecord::Schema.define(version: 2020_01_26_143334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 2020_01_25_214413) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "guards_count", default: 0
+  end
+
+  create_table "wf_case_assignments", comment: "Manual per-case assignments of transition to parties", force: :cascade do |t|
+    t.bigint "case_id"
+    t.bigint "transition_id"
+    t.bigint "party_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["case_id", "transition_id", "party_id"], name: "wf_ctp_u", unique: true
   end
 
   create_table "wf_cases", force: :cascade do |t|

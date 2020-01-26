@@ -19,6 +19,8 @@ module Wf
     belongs_to :targetable, optional: true, polymorphic: true
     has_many :workitems
     has_many :tokens
+    has_many :case_assignments
+    has_many :parties, through: :case_assignments, source: "party"
 
     enum state: {
       created: 0,

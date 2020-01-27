@@ -6,6 +6,7 @@ module Wf::Callbacks
 
     def perform(*guests)
       $stdout.puts(guests.inspect)
+      [] # return blank default
     end
   end
 end

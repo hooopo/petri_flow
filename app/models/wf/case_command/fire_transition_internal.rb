@@ -23,8 +23,9 @@ module Wf::CaseCommand
         ConsumeToken.call(workitem.case, arc.place, locked_item)
       end
       workitem.transition.arcs.out.each do |arc|
-        AddToken.call(workitem.case, arc.place) unless workitem.pass_guard?(arc)
+        AddToken.call(workitem.case, arc.place) if workitem.pass_guard?(arc)
       end
+      workitem.transition.fire_callback.constantize.new(workitem.id).perform_now
     end
   end
 end

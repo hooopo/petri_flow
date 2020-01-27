@@ -16,16 +16,15 @@ module Wf::CaseCommand
         next unless wf_case.can_fire?(transition) && !transition.workitems.where(state: %i[enabled started]).exists？
 
         trigger_time = Time.zone.now + transition.trigger_limit.minutes if transition.trigger_limit && transition.time?
-        wf_case.workitems.create!(
+        workitem = wf_case.workitems.create!(
           workflow: wf_case.workflow,
           transition: transition,
           state: :enabled,
           trigger_time: trigger_time
         )
+        SetWorkitemAssignments.call(workitem)
+        workitem.transition.unassignment_callback.constantize.new(workitem.id).perform_now if workitem.workitem_assignments.count == 0
       end
-      # TODO: execute_unassigned_callback
-      # TODO execute transition callback
-      # TODO set workitem assignments
     end
   end
 end

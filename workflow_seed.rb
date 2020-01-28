@@ -8,9 +8,9 @@ Wf::Arc.destroy_all
 Wf::Form.destroy_all
 
 seq = Wf::Workflow.create(name: "seq Workflow")
-s = seq.places.create!(place_type: :start, name: 'start')
-e = seq.places.create!(place_type: :end, name: 'end')
-p = seq.places.create!(place_type: :normal, name: 'p')
+s = seq.places.create!(place_type: :start, name: "start")
+e = seq.places.create!(place_type: :end, name: "end")
+p = seq.places.create!(place_type: :normal, name: "p")
 t1 = seq.transitions.create!(name: "t1")
 t2 = seq.transitions.create!(name: "t2")
 arc1 = seq.arcs.create!(direction: :in, transition: t1, place: s)

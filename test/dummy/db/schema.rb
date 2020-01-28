@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_26_213023) do
+ActiveRecord::Schema.define(version: 2020_01_28_185504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,7 +140,6 @@ ActiveRecord::Schema.define(version: 2020_01_26_213023) do
     t.string "targetable_id"
     t.bigint "place_id"
     t.integer "state", default: 0, comment: "0-free, 1-locked, 2-canceled, 3-consumed"
-    t.bigint "workitem_id"
     t.bigint "locked_workitem_id"
     t.datetime "produced_at", default: -> { "timezone('utc'::text, now())" }
     t.datetime "locked_at"

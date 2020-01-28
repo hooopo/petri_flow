@@ -11,7 +11,6 @@
 #  targetable_id      :string
 #  place_id           :integer
 #  state              :integer          default("0")
-#  workitem_id        :integer
 #  locked_workitem_id :integer
 #  produced_at        :datetime
 #  locked_at          :datetime
@@ -26,6 +25,7 @@ module Wf
     belongs_to :workflow
     belongs_to :case
     belongs_to :place
+    belongs_to :locked_workitem, class_name: "Wf::Workitem", optional: true
 
     enum state: {
       free: 0,

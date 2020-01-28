@@ -1,0 +1,33 @@
+<div class="float-left"><h2>Cases</h2></div>
+<div class="float-right">
+  <%= link_to 'New Case', new_workflow_case_path(@workflow), class: 'btn btn-primary' %>
+</div>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">State</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Targetable Type</th>
+        <th scope="col">Targetable ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cases.each do |wf_case| %>
+        <tr>
+          <td><%= wf_case.id %></td>
+          <td><%= wf_case.state %></td>
+          <td><%= wf_case.created_at %></td>
+          <td><%= wf_case.targetable_type %></td>
+          <td><%= wf_case.targetable_id %></td>
+          <td>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div>
+  <%= paginate @cases, theme: 'twitter-bootstrap-4' %>
+</div>

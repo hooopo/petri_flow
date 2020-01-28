@@ -10,7 +10,7 @@ module Wf::CaseCommand
     end
 
     def call
-      wf_case = workflow.cases.create(targetable: target, state: :created)
+      wf_case = workflow.cases.create!(targetable: target, state: :created)
     end
   end
 end

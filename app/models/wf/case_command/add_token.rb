@@ -10,7 +10,7 @@ module Wf::CaseCommand
     end
 
     def call
-      wf_case.tokens.create(
+      wf_case.tokens.create!(
         workflow: wf_case.workflow,
         place: place,
         state: :free

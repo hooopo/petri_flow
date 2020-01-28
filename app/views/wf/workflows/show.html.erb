@@ -43,6 +43,32 @@
 </div>
 
 <div>
+  <h2>Cases</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">All</th>
+        <th scope="col">Created</th>
+        <th scope="col">Active</th>
+        <th scope="col">Suspended</th>
+        <th scope="col">Canceled</th>
+        <th scope="col">Finished</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= link_to @workflow.cases.count, workflow_cases_path(@workflow) %></td>
+        <td><%= link_to @workflow.cases.created.count, workflow_cases_path(@workflow, state: :created) %></td>
+        <td><%= link_to @workflow.cases.active.count, workflow_cases_path(@workflow, state: :active) %></td>
+        <td><%= link_to @workflow.cases.suspended.count, workflow_cases_path(@workflow, state: :suspended) %></td>
+        <td><%= link_to @workflow.cases.canceled.count, workflow_cases_path(@workflow, state: :canceled) %></td>
+        <td><%= link_to @workflow.cases.finished.count, workflow_cases_path(@workflow, state: :finished) %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
   <h2>Places</h2>
   <table class="table">
     <thead>

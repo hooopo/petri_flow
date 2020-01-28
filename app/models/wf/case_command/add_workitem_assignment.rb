@@ -23,7 +23,7 @@ module Wf::CaseCommand
       return if assign
 
       workitem.workitem_assignments.create!(party: party)
-      new_users = party.users.to_a
+      new_users = party.partable.users.to_a
       to_notify = new_users - notified_users
       to_notify.each do |user|
         workitem.transition.notification_callback.constantize.new(workitem, user.id).perform_now

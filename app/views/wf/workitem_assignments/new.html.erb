@@ -1,0 +1,27 @@
+<%= form_with(model: @workitem_assignment, url: workitem_workitem_assignments_path(@workitem), local: true) do |f| %>
+  <% if @workitem_assignment.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(@workitem_assignment.errors.count, "error") %> prohibited this workitem_assignment from being saved:
+        </p>
+      </div>
+      <div class="message-body content">
+        <ul>
+          <% @workitem_assignment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :party_id, class: "label" %>
+    <%= f.select :party_id, Wf::Party.all.map{|x| [x.party_name, x.id]}, {}, class: "form-control custom-select", placeholder: "party_id" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary", value: "Assign" %>
+  </div>
+<% end %>

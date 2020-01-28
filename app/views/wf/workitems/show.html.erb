@@ -1,0 +1,110 @@
+<div class="float-right">
+  <%= link_to 'Case', workflow_case_path(@workitem.workflow, @workitem.case), class: 'btn btn-primary' %>
+</div>
+<div>
+  <h2>Transition</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Trigger Limit</th>
+        <th scope="col">Trigger Type</th>
+        <th scope="col">Sort Order</th>
+        <th scope="col">Custom Form</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @workitem.transition.id %></td>
+        <td><%= @workitem.transition.name %></td>
+        <td><%= @workitem.transition.description %></td>
+        <td><%= @workitem.transition.trigger_limit %></td>
+        <td><%= @workitem.transition.trigger_type %></td>
+        <td><%= @workitem.transition.sort_order %></td>
+
+        <td>
+          <% if @workitem.transition.form %>
+           <%= link_to transition.form.name, form_path(transition.form) %>
+          <% else %>
+           No Form
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Detail</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Transition</th>
+        <th scope="col">State</th>
+        <th scope="col">Holding User</th>
+        <th scope="col">Started At</th>
+        <th scope="col">Enabled At</th>
+        <th scope="col">Canceled At</th>
+        <th scope="col">Finished At</th>
+        <th scope="col">Overridden At</th>
+        <th scope="col">Deadline</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @workitem.id %></td>
+        <td>
+          <%= link_to @workitem.transition.name, workflow_transition_path(@workitem.workflow, @workitem.transition) %> </td>
+        <td><%= @workitem.state %></td>
+        <td><%= @workitem.holding_user_id %></td>
+        <td><%= @workitem.started_at %></td>
+        <td><%= @workitem.enabled_at %></td>
+        <td><%= @workitem.canceled_at %></td>
+        <td><%= @workitem.finished_at %></td>
+        <td><%= @workitem.overridden_at %></td>
+        <td><%= @workitem.deadline %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Assignments</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Party ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @workitem.workitem_assignments.includes(:party).each do |assignment|%>
+        <tr>
+          <td><%= assignment.id %></td>
+          <td><%= assignment.party_id %></td>
+          <td>
+            <%= assignment.party.party_name %> </td>
+          <td><%= assignment.created_at %></td>
+          <td><%= link_to "Remove", workitem_workitem_assignment_path(@workitem, party_id: assignment.party_id), remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+        </tr>
+      <% end %>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+          <td><%= link_to "Re Assign", new_workitem_workitem_assignment_path(@workitem), class: 'btn btn-success btn-sm' %></td>
+          <td>
+            <%= link_to "Assign Yourself", new_workitem_workitem_assignment_path(@workitem, party_id: current_user.party&.id), class: 'btn btn-success btn-sm' %>
+            
+          </td>
+          
+        </tr>
+    </tbody>
+  </table>
+</div>

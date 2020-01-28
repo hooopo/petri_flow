@@ -82,12 +82,13 @@
         <th scope="col">Finished At</th>
         <th scope="col">Overridden At</th>
         <th scope="col">Deadline</th>
+        <th scope="col">Detail</th>
       </tr>
     </thead>
     <tbody>
       <% @wf_case.workitems.each do |workitem| %>
         <tr>
-          <td><%= workitem.id %></td>
+          <td><%= link_to workitem.id, workitem_path(workitem) %></td>
           <td>
             <%= link_to workitem.transition.name, workflow_transition_path(workitem.workflow, workitem.transition) %> </td>
           <td><%= workitem.state %></td>
@@ -98,6 +99,7 @@
           <td><%= workitem.finished_at %></td>
           <td><%= workitem.overridden_at %></td>
           <td><%= workitem.deadline %></td>
+          <td><%= link_to "detail", workitem_path(workitem) %></td>
         </tr>
       <% end %>
     </tbody>

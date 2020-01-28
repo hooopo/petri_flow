@@ -3,6 +3,7 @@
 class CreateWfUsers < ActiveRecord::Migration[6.0]
   def change
     create_table :wf_users, comment: "For demo" do |t|
+      t.bigint :group_id
       t.string :name
       t.timestamps
     end
@@ -17,7 +18,7 @@ class CreateWfUsers < ActiveRecord::Migration[6.0]
     end
 
     10.times do |i|
-      Wf::User.create(name: "user#{i}")
+      Wf::User.create(name: "user#{i}", group: Wf::Group.all.sample)
     end
   end
 end

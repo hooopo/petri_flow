@@ -1,0 +1,105 @@
+<div class="float-right">
+  <%= link_to 'action holder', "#", class: 'btn btn-primary' %>
+</div>
+<div>
+  <h2>Case Detail</h2>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">ID</th>
+        <td><%= @wf_case.id %></td>
+      </tr>
+      <tr>
+        <th scope="row">Workflow</th>
+        <td><%= link_to @wf_case.workflow.name, workflow_path(@wf_case.workflow) %></td>
+      </tr>
+      <tr>
+        <th scope="row">State</th>
+        <td><%= @wf_case.state %></td>
+      </tr>
+      <tr>
+        <th scope="row">Targetable Type</th>
+        <td><%= @wf_case.targetable_type %></td>
+      </tr>
+      <tr>
+        <th scope="row">Targetable ID</th>
+        <td><%= @wf_case.targetable_id %></td>
+      </tr>
+      <tr>
+        <th scope="row">Created At</th>
+        <td><%= @wf_case.created_at %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Tokens</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Place</th>
+        <th scope="col">State</th>
+        <th scope="col">Locked Workitem</th>
+        <th scope="col">Produced At</th>
+        <th scope="col">Locked At</th>
+        <th scope="col">Canceled At</th>
+        <th scope="col">Consumed At</th>
+        <th scope="col">Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @wf_case.tokens.each do |token| %>
+        <tr>
+          <td><%= token.id %></td>
+          <td><%= link_to token.place.name, workflow_place_path(token.workflow, token.place) %> </td>
+          <td><%= token.state %></td>
+          <td><%= token.locked_workitem_id %></td>
+          <td><%= token.produced_at %></td>
+          <td><%= token.locked_at %></td>
+          <td><%= token.canceled_at %></td>
+          <td><%= token.consumed_at %></td>
+          <td><%= token.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Workitems</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Transition</th>
+        <th scope="col">State</th>
+        <th scope="col">Holding User</th>
+        <th scope="col">Started At</th>
+        <th scope="col">Enabled At</th>
+        <th scope="col">Canceled At</th>
+        <th scope="col">Finished At</th>
+        <th scope="col">Overridden At</th>
+        <th scope="col">Deadline</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @wf_case.workitems.each do |workitem| %>
+        <tr>
+          <td><%= workitem.id %></td>
+          <td>
+            <%= link_to workitem.transition.name, workflow_transition_path(workitem.workflow, workitem.transition) %> </td>
+          <td><%= workitem.state %></td>
+          <td><%= workitem.holding_user_id %></td>
+          <td><%= workitem.started_at %></td>
+          <td><%= workitem.enabled_at %></td>
+          <td><%= workitem.canceled_at %></td>
+          <td><%= workitem.finished_at %></td>
+          <td><%= workitem.overridden_at %></td>
+          <td><%= workitem.deadline %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

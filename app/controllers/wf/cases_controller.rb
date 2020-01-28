@@ -11,7 +11,8 @@ module Wf
 
     def create
       @workflow = Wf::Workflow.find(params[:workflow_id])
-      @wf_case = Wf::CaseCommand::New.call(@workflow, GlobalID::Locator.locate(case_params[:targetable]))
+      @wf_case = Wf::CaseCommand::New.call(@workflow, GlobalID::Locator.locate(case_params[:targetable])).result
+      Wf::CaseCommand::StartCase.call(@wf_case)
       redirect_to workflow_cases_path(@workflow), notice: "case created."
     end
 
@@ -20,6 +21,11 @@ module Wf
       @cases = @workflow.cases
       @cases = @cases.where(state: params[:state].intern) if params[:state].present?
       @cases = @cases.page(params[:page])
+    end
+
+    def show
+      @workflow = Wf::Workflow.find(params[:workflow_id])
+      @wf_case = @workflow.cases.find(params[:id])
     end
 
     def destroy

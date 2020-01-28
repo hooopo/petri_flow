@@ -13,7 +13,7 @@ module Wf::CaseCommand
         workitem.update!(state: :overridden, overridden_at: Time.zone.now) unless wf_case.can_fire?(workitem.transition)
       end
       wf_case.workflow.transitions.each do |transition|
-        next unless wf_case.can_fire?(transition) && !transition.workitems.where(state: %i[enabled started]).exists？
+        next unless wf_case.can_fire?(transition) && !transition.workitems.where(state: %i[enabled started]).exists?
 
         trigger_time = Time.zone.now + transition.trigger_limit.minutes if transition.trigger_limit && transition.time?
         workitem = wf_case.workitems.create!(

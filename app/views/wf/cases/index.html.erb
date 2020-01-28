@@ -11,6 +11,7 @@
         <th scope="col">Created At</th>
         <th scope="col">Targetable Type</th>
         <th scope="col">Targetable ID</th>
+        <th scope="col">Detail</th>
       </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
           <td><%= wf_case.targetable_type %></td>
           <td><%= wf_case.targetable_id %></td>
           <td>
+            <%= link_to "Detail", workflow_case_path(@workflow, wf_case), class: 'btn btn-link' %>
           </td>
         </tr>
       <% end %>

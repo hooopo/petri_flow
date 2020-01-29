@@ -18,11 +18,8 @@ module Wf::CaseCommand
       else
         free_and_locked_token_num = wf_case.tokens.where(place: end_place).where(state: %i[free locked]).count
         raise("The workflow net is misconstructed: Some parallel executions have not finished.") if free_and_locked_token_num > 1
-
-        wf_case.tokens.where(place: end_place).where(state: %i[free locked]).find_each do |_token|
-          ConsumeToken.call(wf_case, end_place)
-        end
-        wf.finished!
+        ConsumeToken.call(wf_case, end_place)
+        wf_case.finished!
         true
       end
     end

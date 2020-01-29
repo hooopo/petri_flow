@@ -95,11 +95,15 @@
         </tr>
       <% end %>
       <tr>
-         <td></td>
-         <td></td>
-         <td></td>
-          <td><%= link_to "Re Assign", new_workitem_workitem_assignment_path(@workitem), class: 'btn btn-success btn-sm' %></td>
-          <td>
+         <td colspan="5">
+           <% if @workitem.finished_by?(current_user) %>
+             <%= link_to "Pre Finish Workitem", pre_finish_workitem_path(@workitem), class: 'btn btn-sm btn-dark' %>
+           <% elsif @workitem.started_by?(current_user)%>
+             <%= link_to "Start Workitem", start_workitem_path(@workitem), method: :put, class: 'btn btn-sm btn-dark' %>
+           <% else %>
+             You can not start workitem, Please assign to youself.
+           <% end %>
+           <%= link_to "Re Assign", new_workitem_workitem_assignment_path(@workitem), class: 'btn btn-success btn-sm' %>
             <%= link_to "Assign Yourself", new_workitem_workitem_assignment_path(@workitem, party_id: current_user.party&.id), class: 'btn btn-success btn-sm' %>
             
           </td>

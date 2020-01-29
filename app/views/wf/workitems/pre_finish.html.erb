@@ -1,0 +1,22 @@
+<%= form_with(model: @workitem, url: finish_workitem_path(@workitem), method: :put, local: true) do |f| %>
+  <% if @workitem.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(@workitem.errors.count, "error") %> prohibited this workitem from being saved:
+        </p>
+      </div>
+      <div class="message-body content">
+        <ul>
+          <% @workitem.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary", value: "Done" %>
+  </div>
+<% end %>

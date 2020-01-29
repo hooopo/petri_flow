@@ -49,6 +49,14 @@ module Wf
       true
     end
 
+    def started_by?(user)
+      self.enabled? && owned_by?(user)
+    end
+
+    def finished_by?(user)
+      self.started? && owned_by?(user) && self.holding_user == user
+    end
+
     def owned_by?(user)
       Wf::Party.joins(workitem_assignments: { workitem: %i[transition case] })
                .where(Wf::Transition.table_name => { trigger_type: Wf::Transition.trigger_types[:user] })

@@ -18,6 +18,7 @@ module Wf::CaseCommand
       workitem.transition.arcs.in.each do |arc|
         LockToken.call(workitem.case, arc.place, workitem)
       end
+      workitem
     end
   end
 end

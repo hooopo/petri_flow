@@ -18,6 +18,11 @@ Wf::Engine.routes.draw do
 
   resources :workitems do
     resources :workitem_assignments, only: %i[new create destroy]
+    member do 
+      put :start
+      get :pre_finish
+      put :finish 
+    end
   end
 
   root to: "workflows#index"

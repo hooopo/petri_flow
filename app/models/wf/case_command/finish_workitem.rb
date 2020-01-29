@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Wf::CaseCommand
-  class BeginWorkitemAction
+  class FinishWorkitem
     prepend SimpleCommand
     attr_reader :workitem
     def initialize(workitem)

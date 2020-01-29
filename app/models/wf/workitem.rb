@@ -50,11 +50,11 @@ module Wf
     end
 
     def started_by?(user)
-      self.enabled? && owned_by?(user)
+      enabled? && owned_by?(user)
     end
 
     def finished_by?(user)
-      self.started? && owned_by?(user) && self.holding_user == user
+      started? && owned_by?(user) && holding_user == user
     end
 
     def owned_by?(user)

@@ -6,18 +6,16 @@ module Wf
   class WorkitemsController < ApplicationController
     before_action :find_workitem
     before_action :check_start, only: [:start]
-    before_action :check_finish, only: [:pre_finish, :finish]
+    before_action :check_finish, only: %i[pre_finish finish]
 
-    def show
-    end
+    def show; end
 
     def start
       Wf::CaseCommand::StartWorkitem.call(@workitem, current_user)
       render :pre_finish
     end
 
-    def pre_finish
-    end
+    def pre_finish; end
 
     def finish
       Wf::CaseCommand::FinishWorkitem.call(@workitem)
@@ -29,13 +27,13 @@ module Wf
     end
 
     def check_start
-      if not @workitem.started_by?(current_user)
+      unless @workitem.started_by?(current_user)
         redirect_to workitem_path(@workitem), notice: "You can not start this workitem, Please assign to youself first."
       end
     end
 
     def check_finish
-      if not @workitem.finished_by?(current_user)
+      unless @workitem.finished_by?(current_user)
         redirect_to workitem_path(@workitem), notice: "You can not the holding use of this workitem, Please assign to youself && start it first."
       end
     end

@@ -49,7 +49,7 @@ module Wf
     private
 
       def arc_params
-        params.fetch(:arc, {}).permit(:arc_type, :direction, :transition_id, :place_id)
+        params.fetch(:arc, {}).permit(:direction, :transition_id, :place_id)
       end
   end
 end

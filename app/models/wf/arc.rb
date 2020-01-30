@@ -32,16 +32,6 @@ module Wf
       out: 1
     }
 
-    # TODO: remove it
-    enum arc_type: {
-      seq: 0,
-      explicit_or_split: 1,
-      implicit_or_split: 2,
-      or_join: 3,
-      and_split: 4,
-      and_join: 5
-    }
-
     def name
       if in?
         [place&.name, transition&.name].join(" -> ")

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_200328) do
+ActiveRecord::Schema.define(version: 2020_01_30_201641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 2020_01_30_200328) do
     t.bigint "transition_id"
     t.bigint "place_id"
     t.integer "direction", default: 0, comment: "0-in, 1-out"
-    t.integer "arc_type", default: 0, comment: "0-seq,1-explicit_or_split, 2-implicit_or_split, 3-or_join, 4-and_split, 5-and_join"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "guards_count", default: 0
@@ -46,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_200328) do
 
   create_table "wf_comments", force: :cascade do |t|
     t.bigint "workitem_id"
-    t.bigint "user_id"
+    t.string "user_id"
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -189,8 +188,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_200328) do
     t.string "name"
     t.text "description"
     t.boolean "is_valid", default: false
-    t.boolean "is_draft", default: true
-    t.bigint "creator_id"
+    t.string "creator_id"
     t.text "error_msg"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -216,11 +214,11 @@ ActiveRecord::Schema.define(version: 2020_01_30_200328) do
     t.datetime "canceled_at"
     t.datetime "finished_at"
     t.datetime "overridden_at"
-    t.datetime "deadline", comment: "set when transition_trigger=TIME"
+    t.datetime "deadline"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "trigger_time", comment: "trigger time for timed transition"
-    t.bigint "holding_user_id", comment: "id of app user"
+    t.datetime "trigger_time", comment: "set when transition_trigger=TIME & trigger_limit present"
+    t.string "holding_user_id", comment: "id of App user"
     t.json "payload", default: {}, comment: "store user input payload for workitem."
     t.index ["state", "trigger_time"], name: "index_wf_workitems_on_state_and_trigger_time"
   end

@@ -20,9 +20,9 @@ module Wf
     def finish
       Wf::CaseCommand::FinishWorkitem.call(@workitem)
       if @workitem.case.finished?
-        redirect_to workflow_case_path(@workitem.workflow, @workitem.case), notice: 'workitem is done, and the case is finished.'
+        redirect_to workflow_case_path(@workitem.workflow, @workitem.case), notice: "workitem is done, and the case is finished."
       else
-        redirect_to workitem_path(Wf::Workitem.last.case.workitems.enabled.first), notice: 'workitem is done, and goto next fireable workitem.'
+        redirect_to workitem_path(Wf::Workitem.last.case.workitems.enabled.first), notice: "workitem is done, and goto next fireable workitem."
       end
     end
 

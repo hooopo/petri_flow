@@ -32,3 +32,16 @@ proc do
   arc3 = seq.arcs.create!(direction: :in, transition: t2, place: p)
   arc4 = seq.arcs.create!(direction: :out, transition: t2, place: e)
 end.call
+
+proc do
+  seq = Wf::Workflow.create(name: "seq with time Workflow")
+  s = seq.places.create!(place_type: :start, name: "start")
+  e = seq.places.create!(place_type: :end, name: "end")
+  p = seq.places.create!(place_type: :normal, name: "p")
+  t1 = seq.transitions.create!(name: "t1")
+  t2 = seq.transitions.create!(name: "t2", trigger_type: :time, trigger_limit: 1)
+  arc1 = seq.arcs.create!(direction: :in, transition: t1, place: s)
+  arc2 = seq.arcs.create!(direction: :out, transition: t1, place: p)
+  arc3 = seq.arcs.create!(direction: :in, transition: t2, place: p)
+  arc4 = seq.arcs.create!(direction: :out, transition: t2, place: e)
+end.call

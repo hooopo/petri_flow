@@ -7,7 +7,7 @@ module Wf::CaseCommand
     def call
       Wf::Workitem.enabled.where("trigger_time <= ?", Time.zone.now).find_each do |item|
         FireTransitionInternal.call(item)
-        SweepAutomaticTransitiions.call(item.case)
+        SweepAutomaticTransitions.call(item.case)
       end
     end
   end

@@ -96,7 +96,7 @@
       <% end %>
       <tr>
          <td colspan="5">
-          <% if @workitem.started? || @workitem.enabled? %>
+          <% if @workitem.transition.user? && (@workitem.started? || @workitem.enabled?) %>
              <% if @workitem.finished_by?(current_user) %>
                <%= link_to "Pre Finish Workitem", pre_finish_workitem_path(@workitem), class: 'btn btn-sm btn-dark' %>
              <% elsif @workitem.started_by?(current_user)%>

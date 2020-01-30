@@ -12,7 +12,7 @@ module Wf::CaseCommand
       return true if wf_case.finished?
 
       end_place = wf_case.workflow.places.end.first
-      end_place_token_num = wf_case.tokens.where(place: end_place).count
+      end_place_token_num = ActiveRecord::Base.uncached { wf_case.tokens.where(place: end_place).count }
       if end_place_token_num == 0
         false
       else

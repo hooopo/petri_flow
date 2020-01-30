@@ -14,10 +14,10 @@ module Wf::CaseCommand
       until done
         done = true
         finished = FinishedP.call(wf_case).result
-        next unless finished
+        next if finished
 
         ActiveRecord::Base.uncached do
-          wf_case.workitems.joins(:transition).where(state: :enabled).where(Wf::Transition.table_name => { trigger_type: :automatic }).find_each do |item|
+          wf_case.workitems.joins(:transition).where(state: :enabled).where(Wf::Transition.table_name => { trigger_type: Wf::Transition.trigger_types[:automatic] }).find_each do |item|
             FireTransitionInternal.call(item)
             done = false
           end

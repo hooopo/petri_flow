@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_205826) do
+ActiveRecord::Schema.define(version: 2020_01_30_184732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_205826) do
 
   create_table "wf_field_values", force: :cascade do |t|
     t.bigint "workflow_id"
-    t.bigint "transitiion_id"
+    t.bigint "transition_id"
     t.bigint "form_id"
     t.bigint "field_id"
     t.text "value"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_205826) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["field_id"], name: "index_wf_field_values_on_field_id"
     t.index ["form_id"], name: "index_wf_field_values_on_form_id"
-    t.index ["transitiion_id"], name: "index_wf_field_values_on_transitiion_id"
+    t.index ["transition_id"], name: "index_wf_field_values_on_transition_id"
     t.index ["workflow_id"], name: "index_wf_field_values_on_workflow_id"
   end
 

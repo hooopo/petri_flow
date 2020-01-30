@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: wf_workitems
@@ -21,6 +20,7 @@
 #  updated_at      :datetime         not null
 #  trigger_time    :datetime
 #  holding_user_id :integer
+#  payload         :json             default("{}")
 #
 
 module Wf

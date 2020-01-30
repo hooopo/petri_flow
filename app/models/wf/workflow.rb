@@ -8,8 +8,7 @@
 #  name        :string
 #  description :text
 #  is_valid    :boolean          default("false")
-#  is_draft    :boolean          default("true")
-#  creator_id  :integer
+#  creator_id  :string
 #  error_msg   :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Init < ActiveRecord::Migration[6.0]
   def change
     create_table "wf_arcs", force: :cascade do |t|
@@ -16,7 +18,7 @@ class Init < ActiveRecord::Migration[6.0]
       t.bigint "party_id"
       t.datetime "created_at", precision: 6, null: false
       t.datetime "updated_at", precision: 6, null: false
-      t.index ["case_id", "transition_id", "party_id"], name: "wf_ctp_u", unique: true
+      t.index %w[case_id transition_id party_id], name: "wf_ctp_u", unique: true
     end
 
     create_table "wf_cases", force: :cascade do |t|
@@ -104,7 +106,7 @@ class Init < ActiveRecord::Migration[6.0]
       t.string "party_name"
       t.datetime "created_at", precision: 6, null: false
       t.datetime "updated_at", precision: 6, null: false
-      t.index ["partable_type", "partable_id"], name: "index_wf_parties_on_partable_type_and_partable_id", unique: true
+      t.index %w[partable_type partable_id], name: "index_wf_parties_on_partable_type_and_partable_id", unique: true
     end
 
     create_table "wf_places", force: :cascade do |t|
@@ -139,7 +141,7 @@ class Init < ActiveRecord::Migration[6.0]
       t.bigint "workflow_id"
       t.datetime "created_at", precision: 6, null: false
       t.datetime "updated_at", precision: 6, null: false
-      t.index ["transition_id", "party_id"], name: "wf_tp_u", unique: true
+      t.index %w[transition_id party_id], name: "wf_tp_u", unique: true
     end
 
     create_table "wf_transitions", force: :cascade do |t|
@@ -184,7 +186,7 @@ class Init < ActiveRecord::Migration[6.0]
       t.bigint "workitem_id"
       t.datetime "created_at", precision: 6, null: false
       t.datetime "updated_at", precision: 6, null: false
-      t.index ["workitem_id", "party_id"], name: "wf_wp_u", unique: true
+      t.index %w[workitem_id party_id], name: "wf_wp_u", unique: true
     end
 
     create_table "wf_workitems", force: :cascade do |t|
@@ -205,7 +207,7 @@ class Init < ActiveRecord::Migration[6.0]
       t.datetime "trigger_time", comment: "set when transition_trigger=TIME & trigger_limit present"
       t.string "holding_user_id", comment: "id of App user"
       t.json "payload", default: {}, comment: "store user input payload for workitem."
-      t.index ["state", "trigger_time"], name: "index_wf_workitems_on_state_and_trigger_time"
+      t.index %w[state trigger_time], name: "index_wf_workitems_on_state_and_trigger_time"
     end
   end
 end

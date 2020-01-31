@@ -26,7 +26,7 @@
 
         <td>
           <% if @workitem.transition.form %>
-           <%= link_to transition.form.name, form_path(transition.form) %>
+           <%= link_to @workitem.transition.form.name, form_path(@workitem.transition.form) %>
           <% else %>
            No Form
           <% end %>
@@ -70,6 +70,34 @@
     </tbody>
   </table>
 </div>
+
+<% if @workitem.transition.form %>
+  <div>
+    <h2>Entries</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">User</th>
+          <th scope="col">Payload</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @workitem.entries.each do |entry| %>
+          <tr>
+            <td><%= entry.id %></td>
+            <td><%= entry.user_id %></td>
+            <td>
+              <pre>
+                <%= JSON.pretty_generate(entry.payload) %>
+              </pre>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 
 <div>
   <h2>Assignments</h2>

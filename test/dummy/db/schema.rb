@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_201641) do
+ActiveRecord::Schema.define(version: 2020_01_31_200455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 2020_01_30_201641) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "wf_entries", comment: "user input data for workitem with form.", force: :cascade do |t|
+    t.string "user_id"
+    t.bigint "workitem_id"
+    t.json "payload", default: {}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_wf_entries_on_user_id"
+    t.index ["workitem_id", "user_id"], name: "index_wf_entries_on_workitem_id_and_user_id", unique: true
+    t.index ["workitem_id"], name: "index_wf_entries_on_workitem_id"
+  end
+
   create_table "wf_field_values", force: :cascade do |t|
     t.bigint "workflow_id"
     t.bigint "transition_id"
@@ -68,6 +79,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_201641) do
     t.text "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "entry_id"
     t.index ["field_id"], name: "index_wf_field_values_on_field_id"
     t.index ["form_id"], name: "index_wf_field_values_on_form_id"
     t.index ["transition_id"], name: "index_wf_field_values_on_transition_id"
@@ -219,7 +231,6 @@ ActiveRecord::Schema.define(version: 2020_01_30_201641) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "trigger_time", comment: "set when transition_trigger=TIME & trigger_limit present"
     t.string "holding_user_id", comment: "id of App user"
-    t.json "payload", default: {}, comment: "store user input payload for workitem."
     t.index ["state", "trigger_time"], name: "index_wf_workitems_on_state_and_trigger_time"
   end
 

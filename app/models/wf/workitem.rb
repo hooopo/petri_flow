@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: wf_workitems
@@ -21,7 +20,6 @@
 #  updated_at      :datetime         not null
 #  trigger_time    :datetime
 #  holding_user_id :string
-#  payload         :json             default("{}")
 #
 
 module Wf
@@ -34,6 +32,7 @@ module Wf
     has_many :workitem_assignments
     has_many :parties, through: :workitem_assignments, source: "party"
     has_many :comments
+    has_many :entries
 
     enum state: {
       enabled: 0,

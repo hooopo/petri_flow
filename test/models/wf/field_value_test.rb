@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: wf_field_values
@@ -12,6 +11,7 @@
 #  value         :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  entry_id      :integer
 #
 
 require "test_helper"

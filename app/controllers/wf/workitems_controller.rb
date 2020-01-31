@@ -30,6 +30,17 @@ module Wf
     end
 
     def finish
+      if @workitem.transition.form && params[:workitem][:entry]
+        entry = @workitem.entries.find_or_create_by!(user: current_user)
+        params[:workitem][:entry].permit!.each do |field_id, field_value|
+          if field = entry.field_values.where(form: @workitem.transition.form, workflow: @workitem.workflow, field_id: field_id).first
+            field.update!(value: field_value)
+          else
+            entry.field_values.create!(form: @workitem.transition.form, workflow: @workitem.workflow, field_id: field_id, value: field_value)
+          end
+        end
+        entry.update_payload!
+      end
       Wf::CaseCommand::FinishWorkitem.call(@workitem)
       if @workitem.case.finished?
         redirect_to workflow_case_path(@workitem.workflow, @workitem.case), notice: "workitem is done, and the case is finished."

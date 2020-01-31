@@ -15,6 +15,17 @@
       </div>
     </article>
   <% end %>
+  
+  <% if @workitem.transition.form %>
+    <%= f.fields_for :entry do |ff| %>
+      <% @workitem.transition.form.fields.each do |field| %>
+       <div class="form-group">
+        <%= ff.label field.name, class: "label" %>
+        <%= ff.text_field field.id, class: "form-control" %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
 
   <div class="form-group">
     <%= f.submit class: "btn btn-primary", value: "Done" %>

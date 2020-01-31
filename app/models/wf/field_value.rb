@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: wf_field_values
@@ -12,13 +11,15 @@
 #  value         :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  entry_id      :integer
 #
 
 module Wf
   class FieldValue < ApplicationRecord
-    belongs_to :workflow, optiional: true
+    belongs_to :workflow, optional: true
     belongs_to :transition, optional: true
     belongs_to :form
     belongs_to :field
+    belongs_to :entry
   end
 end

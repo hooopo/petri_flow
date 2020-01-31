@@ -17,6 +17,15 @@
 <%= render "layouts/wf/nav" %>
 
 <main class="container">
+  <nav aria-label="breadcrumb">
+  <ol class='breadcrumb'>
+    <% breadcrumb_trail do |crumb| %>
+      <li class="breadcrumb-item <%= crumb.current? ? 'active' : '' %>">
+        <%= link_to crumb.name, crumb.url, (crumb.current? ? {'aria-current' => 'page'} : {}) %>
+      </li>
+    <% end %>
+  </ol>
+</nav>
   <%= content_for?(:content) ? yield(:content) : yield %>
 </main>
 

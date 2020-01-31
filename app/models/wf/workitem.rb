@@ -43,6 +43,10 @@ module Wf
       overridden: 4
     }
 
+    def name
+      "Workitem -> #{id}"
+    end
+
     # TODO: check payload && guards exp
     def pass_guard?(arc)
       return true if arc.guards_count == 0

@@ -153,7 +153,6 @@
           <td><%= arc.direction %></td>
           <td><%= arc.place&.name %></td>
           <td><%= arc.transition&.name %></td>
-          <td><%= arc.arc_type %></td>
           <td><%= arc.guards.map(&:inspect).join(" & ") %></td>
           <td><%= link_to 'Edit Arc', edit_workflow_arc_path(@workflow, arc), class: 'btn btn-sm btn-info' %></td>
           <td>

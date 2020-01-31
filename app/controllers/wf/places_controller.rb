@@ -4,9 +4,11 @@ require_dependency "wf/application_controller"
 
 module Wf
   class PlacesController < ApplicationController
+    breadcrumb "Workflows", :workflows_path
     def new
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @place = @workflow.places.new
+      breadcrumb @workflow.name, workflow_path(@workflow)
     end
 
     def create
@@ -29,6 +31,7 @@ module Wf
     def edit
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @place = @workflow.places.find(params[:id])
+      breadcrumb @workflow.name, workflow_path(@workflow)
     end
 
     def update

@@ -33,5 +33,9 @@ module Wf
     def can_fire?(transition)
       transition.arcs.in.all? { |arc| arc.place.tokens.where(case: self).first&.free? }
     end
+
+    def name
+      "Case->#{id}"
+    end
   end
 end

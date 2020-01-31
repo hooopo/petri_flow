@@ -4,9 +4,12 @@ require_dependency "wf/application_controller"
 
 module Wf
   class FieldsController < ApplicationController
+    breadcrumb "Forms", :forms_path
+
     def new
       @form = Wf::Form.find(params[:form_id])
       @field = @form.fields.new
+      breadcrumb @form.name, form_path(@form)
     end
 
     def create
@@ -29,6 +32,7 @@ module Wf
     def edit
       @form = Wf::Form.find(params[:form_id])
       @field = @form.fields.find(params[:id])
+      breadcrumb @form.name, form_path(@form)
     end
 
     def update

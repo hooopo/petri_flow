@@ -4,6 +4,7 @@ require_dependency "wf/application_controller"
 
 module Wf
   class WorkflowsController < ApplicationController
+    breadcrumb "Workflows", :workflows_path
     def index
       @workflows = Wf::Workflow.order("id DESC").page(params[:page])
     end
@@ -14,6 +15,7 @@ module Wf
 
     def edit
       @workflow = Wf::Workflow.find(params[:id])
+      breadcrumb @workflow.name, workflow_path(@workflow)
     end
 
     def show

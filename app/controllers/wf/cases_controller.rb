@@ -4,9 +4,11 @@ require_dependency "wf/application_controller"
 
 module Wf
   class CasesController < ApplicationController
+    breadcrumb "Workflows", :workflows_path
     def new
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @wf_case = @workflow.cases.new
+      breadcrumb @workflow.name, workflow_path(@workflow)
     end
 
     def create
@@ -21,11 +23,13 @@ module Wf
       @cases = @workflow.cases
       @cases = @cases.where(state: params[:state].intern) if params[:state].present?
       @cases = @cases.page(params[:page])
+      breadcrumb @workflow.name, workflow_path(@workflow)
     end
 
     def show
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @wf_case = @workflow.cases.find(params[:id])
+      breadcrumb @workflow.name, workflow_path(@workflow)
     end
 
     def destroy

@@ -26,3 +26,4 @@ gem "simple_command"
 gem "rubocop"
 gem "rubocop-performance"
 gem "rubocop-rails"
+gem 'loaf'

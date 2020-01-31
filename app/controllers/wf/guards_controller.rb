@@ -4,9 +4,12 @@ require_dependency "wf/application_controller"
 
 module Wf
   class GuardsController < ApplicationController
+    breadcrumb "Workflows", :workflows_path
     def new
       @arc = Wf::Arc.find(params[:arc_id])
       @guard = @arc.guards.new
+      breadcrumb @arc.workflow.name, workflow_path(@arc.workflow)
+      breadcrumb @arc.name, workflow_arc_path(@arc.workflow, @arc)
     end
 
     def create
@@ -31,6 +34,8 @@ module Wf
     def edit
       @arc = Wf::Arc.find(params[:arc_id])
       @guard = @arc.guards.find(params[:id])
+      breadcrumb @arc.workflow.name, workflow_path(@arc.workflow)
+      breadcrumb @arc.name, workflow_arc_path(@arc.workflow, @arc)
     end
 
     def update

@@ -4,9 +4,13 @@ require_dependency "wf/application_controller"
 
 module Wf
   class WorkitemAssignmentsController < ApplicationController
+    breadcrumb "Workflows", :workflows_path
     def new
       @workitem = Wf::Workitem.find(params[:workitem_id])
       @workitem_assignment = @workitem.workitem_assignments.new(party_id: params[:party_id])
+      breadcrumb @workitem.workflow.name, workflow_path(@workitem.workflow)
+      breadcrumb @workitem.case.name, workflow_case_path(@workitem.workflow, @workitem.case)
+      breadcrumb @workitem.name, workitem_path(@workitem)
     end
 
     def create

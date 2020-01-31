@@ -4,9 +4,12 @@ require_dependency "wf/application_controller"
 
 module Wf
   class TransitionsController < ApplicationController
+    breadcrumb "Workflows", :workflows_path
+
     def new
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @transition = @workflow.transitions.new
+      breadcrumb @workflow.name, workflow_path(@workflow)
     end
 
     def create
@@ -22,6 +25,7 @@ module Wf
     def edit
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @transition = @workflow.transitions.find(params[:id])
+      breadcrumb @workflow.name, workflow_path(@workflow)
     end
 
     def destroy

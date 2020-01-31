@@ -4,6 +4,8 @@ require_dependency "wf/application_controller"
 
 module Wf
   class FormsController < ApplicationController
+    breadcrumb "Forms", :forms_path
+    
     def index
       @forms = Wf::Form.order("id DESC").page(params[:page])
     end

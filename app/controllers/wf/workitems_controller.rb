@@ -8,14 +8,26 @@ module Wf
     before_action :check_start, only: [:start]
     before_action :check_finish, only: %i[pre_finish finish]
 
-    def show; end
+    breadcrumb "Workflows", :workflows_path
+
+    def show
+      breadcrumb @workitem.workflow.name, workflow_path(@workitem.workflow)
+      breadcrumb @workitem.case.name, workflow_case_path(@workitem.workflow, @workitem.case)
+    end
 
     def start
       Wf::CaseCommand::StartWorkitem.call(@workitem, current_user)
       render :pre_finish
+      breadcrumb @workitem.workflow.name, workflow_path(@workitem.workflow)
+      breadcrumb @workitem.case.name, workflow_case_path(@workitem.workflow, @workitem.case)
+      breadcrumb @workitem.name, workitem_path(@workitem)
     end
 
-    def pre_finish; end
+    def pre_finish
+      breadcrumb @workitem.workflow.name, workflow_path(@workitem.workflow)
+      breadcrumb @workitem.case.name, workflow_case_path(@workitem.workflow, @workitem.case)
+      breadcrumb @workitem.name, workitem_path(@workitem)
+    end
 
     def finish
       Wf::CaseCommand::FinishWorkitem.call(@workitem)

@@ -17,10 +17,10 @@ module Wf
 
     def start
       Wf::CaseCommand::StartWorkitem.call(@workitem, current_user)
-      render :pre_finish
       breadcrumb @workitem.workflow.name, workflow_path(@workitem.workflow)
       breadcrumb @workitem.case.name, workflow_case_path(@workitem.workflow, @workitem.case)
       breadcrumb @workitem.name, workitem_path(@workitem)
+      render :pre_finish
     end
 
     def pre_finish

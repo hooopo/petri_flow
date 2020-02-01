@@ -47,11 +47,11 @@ module Wf
       "Workitem -> #{id}"
     end
 
-    # TODO: check payload && guards exp
+    # TODO: guards exp && target guards
     def pass_guard?(arc)
       return true if arc.guards_count == 0
-
-      true
+      entry = entries.where(user: holding_user).first
+      arc.guards.all? { |guard| guard.pass?(entry) }
     end
 
     def started_by?(user)

@@ -9,5 +9,7 @@ class InitSomeData < ActiveRecord::Migration[6.0]
     10.times do |i|
       Wf::User.create(name: "User#{i}", group: Wf::Group.all.sample)
     end
+
+    10.times { |i| Wf::DemoTarget.create(name: "target #{i}") }
   end
 end

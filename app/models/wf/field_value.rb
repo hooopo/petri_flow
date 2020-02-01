@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_field_values
@@ -21,5 +22,9 @@ module Wf
     belongs_to :form
     belongs_to :field
     belongs_to :entry
+
+    def value_after_cast
+      field.type_for_cast.cast(value)
+    end
   end
 end

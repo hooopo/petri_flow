@@ -20,21 +20,34 @@ module Wf
     belongs_to :form, touch: true
 
     enum field_type: {
-      text: 0,
-      int8: 1,
+      string: 0,
+      integer: 1,
       boolean: 2,
-      timestamp: 3,
-      float: 4,
-      date: 5,
-      tsrange: 10,
-      daterange: 11,
-      numrange: 12,
-      int8range: 13,
-      "text[]": 20,
-      "int8[]": 21,
-      "timestamp[]": 23,
-      "float[]": 24,
-      "date[]": 25
+      date: 3,
+      datetime: 4,
+      decimal: 5,
+      float: 6,
+      json: 7,
+      text: 8,
+
+      "string[]": 20,
+      "integer[]": 21,
+      "date[]": 23,
+      "datetime[]": 24,
+      "decimal[]": 25,
+      "float[]": 26,
+      "json[]": 27,
+      "text[]": 28
     }
+
+    def type_for_cast
+      type = field_type.to_s.match(/^(\w+)(\[\])?$/)[1]
+      is_array = field_type.to_s.match(/^(\w+)(\[\])?$/)[2] == "[]"
+      if is_array
+        ActiveRecord::Type.lookup(type.to_sym, array: true)
+      else
+        ActiveRecord::Type.lookup(type.to_sym)
+      end
+    end
   end
 end

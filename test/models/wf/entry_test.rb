@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_entries
@@ -10,7 +12,7 @@
 #  updated_at  :datetime         not null
 #
 
-require 'test_helper'
+require "test_helper"
 
 module Wf
   class EntryTest < ActiveSupport::TestCase

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateWfEntries < ActiveRecord::Migration[6.0]
   def change
     create_table :wf_entries, comment: "user input data for workitem with form." do |t|
@@ -8,6 +10,6 @@ class CreateWfEntries < ActiveRecord::Migration[6.0]
     end
     remove_column :wf_workitems, :payload
     add_column :wf_field_values, :entry_id, :bigint, index: true
-    add_index :wf_entries, [:workitem_id, :user_id], unique: true
+    add_index :wf_entries, %i[workitem_id user_id], unique: true
   end
 end

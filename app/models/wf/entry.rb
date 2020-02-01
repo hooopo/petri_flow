@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_entries
@@ -17,7 +19,7 @@ module Wf
     has_many :field_values
 
     def json
-      field_values.map {|x| [x.field_id, {field_id: x.id, field_name: x.field.name, value: x.value}]  }.to_h
+      field_values.includes(:field).map { |x| [x.field_id.to_i, { field_id: x.id.to_i, field_name: x.field.name, value: x.value_after_cast }] }.to_h
     end
 
     def update_payload!

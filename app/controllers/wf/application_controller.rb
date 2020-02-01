@@ -5,7 +5,7 @@ module Wf
     protect_from_forgery with: :exception
     helper_method :current_user
 
-    breadcrumb 'Home', :root_path
+    breadcrumb "Home", :root_path
 
     def current_user
       Wf::User.first

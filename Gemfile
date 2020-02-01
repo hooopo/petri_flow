@@ -23,7 +23,7 @@ gem "kaminari"
 gem "pry-rails"
 gem "simple_command"
 
+gem "loaf"
 gem "rubocop"
 gem "rubocop-performance"
 gem "rubocop-rails"
-gem 'loaf'

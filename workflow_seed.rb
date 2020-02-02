@@ -12,7 +12,7 @@ name_field = form.fields.create!(name: :name, field_type: :string)
 age_field = form.fields.create!(name: :age, field_type: :integer)
 
 proc do
-  seq = Wf::Workflow.create(name: "seq Workflow")
+  seq = Wf::Workflow.create(name: "Seq Workflow")
   s = seq.places.create!(place_type: :start, name: "start")
   e = seq.places.create!(place_type: :end, name: "end")
   p = seq.places.create!(place_type: :normal, name: "p")
@@ -25,7 +25,7 @@ proc do
 end.call
 
 proc do
-  seq = Wf::Workflow.create(name: "seq with auto Workflow")
+  seq = Wf::Workflow.create(name: "Workflow with automatic transition")
   s = seq.places.create!(place_type: :start, name: "start")
   e = seq.places.create!(place_type: :end, name: "end")
   p = seq.places.create!(place_type: :normal, name: "p")
@@ -38,7 +38,7 @@ proc do
 end.call
 
 proc do
-  seq = Wf::Workflow.create(name: "seq with time Workflow")
+  seq = Wf::Workflow.create(name: "Workflow with timed transition")
   s = seq.places.create!(place_type: :start, name: "start")
   e = seq.places.create!(place_type: :end, name: "end")
   p = seq.places.create!(place_type: :normal, name: "p")
@@ -48,6 +48,23 @@ proc do
   arc2 = seq.arcs.create!(direction: :out, transition: t1, place: p)
   arc3 = seq.arcs.create!(direction: :in, transition: t2, place: p)
   arc4 = seq.arcs.create!(direction: :out, transition: t2, place: e)
+end.call
+
+proc do
+  seq = Wf::Workflow.create(name: "Workflow with timed split")
+  s = seq.places.create!(place_type: :start, name: "start")
+  e = seq.places.create!(place_type: :end, name: "end")
+  p = seq.places.create!(place_type: :normal, name: "p")
+  t1 = seq.transitions.create!(name: "t1")
+  t2 = seq.transitions.create!(name: "t2")
+  t3 = seq.transitions.create!(name: "t3", trigger_type: :time, trigger_limit: 1)
+  
+  arc1 = seq.arcs.create!(direction: :in, transition: t1, place: s)
+  arc2 = seq.arcs.create!(direction: :in, transition: t3, place: s)
+  arc3 = seq.arcs.create!(direction: :out, transition: t1, place: p)
+  arc4 = seq.arcs.create!(direction: :in, transition: t2, place: p)
+  arc5 = seq.arcs.create!(direction: :out, transition: t2, place: e)
+  arc6 = seq.arcs.create!(direction: :out, transition: t3, place: e)
 end.call
 
 proc do
@@ -92,3 +109,20 @@ proc do
   arc9 = seq.arcs.create!(direction: :in, transition: t4, place: p4)
   arc10 = seq.arcs.create!(direction: :out, transition: t4, place: e)
 end.call
+
+proc do
+  seq = Wf::Workflow.create(name: "Workflow with iterative routing")
+  s = seq.places.create!(place_type: :start, name: "start")
+  e = seq.places.create!(place_type: :end, name: "end")
+  p = seq.places.create!(place_type: :normal, name: "p")
+  t1 = seq.transitions.create!(name: "t1", form: form)
+  t2 = seq.transitions.create!(name: "t2")
+  arc1 = seq.arcs.create!(direction: :in, transition: t1, place: s)
+  arc2 = seq.arcs.create!(direction: :out, transition: t1, place: p)
+  arc3 = seq.arcs.create!(direction: :in, transition: t2, place: p)
+  arc4 = seq.arcs.create!(direction: :out, transition: t2, place: e)
+  arc5 = seq.arcs.create!(direction: :out, transition: t1, place: s)
+  arc5.guards.create!(fieldable: age_field, op: ">".to_sym, value: 18)
+end.call
+
+

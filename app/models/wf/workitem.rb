@@ -48,10 +48,13 @@ module Wf
     end
 
     # TODO: guards exp && target guards
-    def pass_guard?(arc)
-      return true if arc.guards_count == 0
-      entry = entries.where(user: holding_user).first
-      arc.guards.all? { |guard| guard.pass?(entry) }
+    def pass_guard?(arc, has_passed = false)
+      if arc.guards_count == 0
+        !has_passed
+      else
+        entry = entries.where(user: holding_user).first
+        arc.guards.all? { |guard| guard.pass?(entry) }
+      end
     end
 
     def started_by?(user)

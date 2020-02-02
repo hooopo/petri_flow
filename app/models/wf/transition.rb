@@ -40,6 +40,10 @@ module Wf
       time: 3
     }
 
+    def explicit_or_split?
+      arcs.out.sum(:guards_count) >= 1
+    end
+
     validates :name, presence: true
   end
 end

@@ -31,7 +31,7 @@ module Wf
     }
 
     def can_fire?(transition)
-      transition.arcs.in.all? { |arc| arc.place.tokens.where(case: self).first&.free? }
+      transition.arcs.in.all? { |arc| arc.place.tokens.where(case: self).where(state: :free).exists? }
     end
 
     def name

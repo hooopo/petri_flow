@@ -23,7 +23,7 @@ module Wf
     belongs_to :arc, touch: true, counter_cache: true
     belongs_to :fieldable, polymorphic: true, optional: true
 
-    before_validation do 
+    before_validation do
       self.workflow = arc.workflow
     end
 
@@ -48,6 +48,7 @@ module Wf
     def pass?(entry)
       fv = entry.field_values.where(field_id: fieldable_id).first
       return unless fv
+
       if op == "="
         fv.value_after_cast == value_after_cast
       elsif op == ">"

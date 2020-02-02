@@ -58,7 +58,7 @@ proc do
   t1 = seq.transitions.create!(name: "t1")
   t2 = seq.transitions.create!(name: "t2")
   t3 = seq.transitions.create!(name: "t3", trigger_type: :time, trigger_limit: 1)
-  
+
   arc1 = seq.arcs.create!(direction: :in, transition: t1, place: s)
   arc2 = seq.arcs.create!(direction: :in, transition: t3, place: s)
   arc3 = seq.arcs.create!(direction: :out, transition: t1, place: p)
@@ -124,5 +124,3 @@ proc do
   arc5 = seq.arcs.create!(direction: :out, transition: t1, place: s)
   arc5.guards.create!(fieldable: age_field, op: ">".to_sym, value: 18)
 end.call
-
-

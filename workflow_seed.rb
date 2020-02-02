@@ -68,3 +68,27 @@ proc do
   arc7 = seq.arcs.create!(direction: :out, transition: t3, place: e)
   arc3.guards.create!(fieldable: age_field, op: ">".to_sym, value: 18)
 end.call
+
+proc do
+  seq = Wf::Workflow.create(name: "Workflow with parallel routing")
+  s = seq.places.create!(place_type: :start, name: "start")
+  e = seq.places.create!(place_type: :end, name: "end")
+  p1 = seq.places.create!(place_type: :normal, name: "p1")
+  p2 = seq.places.create!(place_type: :normal, name: "p2")
+  p3 = seq.places.create!(place_type: :normal, name: "p3")
+  p4 = seq.places.create!(place_type: :normal, name: "p4")
+  t1 = seq.transitions.create!(name: "t1", form: form)
+  t2 = seq.transitions.create!(name: "t2")
+  t3 = seq.transitions.create!(name: "t3")
+  t4 = seq.transitions.create!(name: "t4")
+  arc1 = seq.arcs.create!(direction: :in, transition: t1, place: s)
+  arc2 = seq.arcs.create!(direction: :out, transition: t1, place: p1)
+  arc3 = seq.arcs.create!(direction: :out, transition: t1, place: p2)
+  arc4 = seq.arcs.create!(direction: :in, transition: t2, place: p1)
+  arc5 = seq.arcs.create!(direction: :in, transition: t3, place: p2)
+  arc6 = seq.arcs.create!(direction: :out, transition: t2, place: p3)
+  arc7 = seq.arcs.create!(direction: :out, transition: t3, place: p4)
+  arc8 = seq.arcs.create!(direction: :in, transition: t4, place: p3)
+  arc9 = seq.arcs.create!(direction: :in, transition: t4, place: p4)
+  arc10 = seq.arcs.create!(direction: :out, transition: t4, place: e)
+end.call

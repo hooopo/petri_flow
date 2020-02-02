@@ -82,7 +82,6 @@ module Wf
       msgs << "must have only one start place" if places.start.count > 1
       msgs << "must have end place" if places.end.blank?
       msgs << "must have only one end place" if places.end.count > 1
-      msgs << "all transition must have only one arc without guards" if transitions.any? { |t| t.arcs.out.without_guards.count > 1 }
       if msgs.present?
         update_columns(is_valid: false, error_msg: msgs.join("\n"))
       else

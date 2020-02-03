@@ -93,21 +93,52 @@ module Wf
       graph = GraphViz.new(name, type: :digraph)
       tg_mapping = {}
       transitions.each do |t|
-        tg = graph.add_nodes(t.name, label: t.name, shape: :box, href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
+        tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: :lightblue, href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
         tg_mapping[t] = tg
       end
 
       pg_mapping = {}
       places.order("place_type ASC").each do |p|
-        pg = graph.add_nodes(p.name, label: p.name, shape: :circle, fixedsize: true, href: Wf::Engine.routes.url_helpers.edit_workflow_place_path(self, p))
+        if p.start?
+          fillcolor = :yellow
+          shape     = :doublecircle
+        elsif p.end?
+          fillcolor = :green
+          shape     = :doublecircle
+        else
+          fillcolor = :lightpink
+          shape     = :circle
+        end
+        pg = graph.add_nodes(p.name,
+                             label: p.name,
+                             shape: shape,
+                             fixedsize: true,
+                             style: :filled,
+                             fillcolor: fillcolor,
+                             href: Wf::Engine.routes.url_helpers.edit_workflow_place_path(self, p))
         pg_mapping[p] = pg
       end
 
       arcs.each do |arc|
-        if arc.in?
-          graph.add_edges(pg_mapping[arc.place], tg_mapping[arc.transition], href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc))
+        label = if arc.guards_count > 0
+          arc.guards.map(&:inspect).join(" & ")
         else
-          graph.add_edges(tg_mapping[arc.transition], pg_mapping[arc.place], href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc))
+          ""
+        end
+        if arc.in?
+          graph.add_edges(
+            pg_mapping[arc.place],
+            tg_mapping[arc.transition],
+            label: label,
+            href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
+          )
+        else
+          graph.add_edges(
+            tg_mapping[arc.transition],
+            pg_mapping[arc.place],
+            label: label,
+            href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
+          )
         end
       end
       graph

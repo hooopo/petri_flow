@@ -27,4 +27,4 @@ gem "loaf"
 gem "rubocop"
 gem "rubocop-performance"
 gem "rubocop-rails"
-gem 'ruby-graphviz', require: 'graphviz'
+gem "ruby-graphviz", require: "graphviz"

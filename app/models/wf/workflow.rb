@@ -90,15 +90,15 @@ module Wf
     end
 
     def to_graph
-      graph = GraphViz.new(:G, :type => :digraph)
+      graph = GraphViz.new(name, type: :digraph)
       tg_mapping = {}
       transitions.each do |t|
         tg = graph.add_nodes(t.name, label: t.name, shape: :box, color: :red)
         tg_mapping[t] = tg
       end
-      
+
       pg_mapping = {}
-      places.each do |p|
+      places.order("place_type ASC").each do |p|
         pg = graph.add_nodes(p.name, label: p.name, shape: :circle)
         pg_mapping[p] = pg
       end
@@ -115,7 +115,7 @@ module Wf
 
     def render_graph
       graph = to_graph
-      path = Rails.root.join("tmp",  "#{id}.svg")
+      path = Rails.root.join("tmp", "#{id}.svg")
       graph.output(svg: path)
       File.read(path)
     end

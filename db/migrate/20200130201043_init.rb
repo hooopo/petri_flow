@@ -114,7 +114,7 @@ class Init < ActiveRecord::Migration[6.0]
       t.string "name"
       t.text "description"
       t.integer "sort_order", default: 0
-      t.integer "place_type", default: 0, comment: "类型：0-normal，1-start，2-end"
+      t.integer "place_type", default: 0, comment: "类型：0-start，1-normal，2-end"
       t.datetime "created_at", precision: 6, null: false
       t.datetime "updated_at", precision: 6, null: false
     end

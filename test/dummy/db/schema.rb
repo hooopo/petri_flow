@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.string "name"
     t.text "description"
     t.integer "sort_order", default: 0
-    t.integer "place_type", default: 0, comment: "类型：0-normal，1-start，2-end"
+    t.integer "place_type", default: 0, comment: "类型：0-start，1-normal，2-end"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

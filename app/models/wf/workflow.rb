@@ -88,5 +88,36 @@ module Wf
         update_columns(is_valid: true, error_msg: "")
       end
     end
+
+    def to_graph
+      graph = GraphViz.new(:G, :type => :digraph)
+      tg_mapping = {}
+      transitions.each do |t|
+        tg = graph.add_nodes(t.name, label: t.name, shape: :box, color: :red)
+        tg_mapping[t] = tg
+      end
+      
+      pg_mapping = {}
+      places.each do |p|
+        pg = graph.add_nodes(p.name, label: p.name, shape: :circle)
+        pg_mapping[p] = pg
+      end
+
+      arcs.each do |arc|
+        if arc.in?
+          graph.add_edges(pg_mapping[arc.place], tg_mapping[arc.transition])
+        else
+          graph.add_edges(tg_mapping[arc.transition], pg_mapping[arc.place])
+        end
+      end
+      graph
+    end
+
+    def render_graph
+      graph = to_graph
+      path = Rails.root.join("tmp",  "#{id}.svg")
+      graph.output(svg: path)
+      File.read(path)
+    end
   end
 end

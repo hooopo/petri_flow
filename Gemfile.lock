@@ -173,6 +173,7 @@ GEM
     rubocop-rails (2.4.1)
       rack (>= 1.1)
       rubocop (>= 0.72.0)
+    ruby-graphviz (1.2.4)
     ruby-progressbar (1.10.1)
     sassc (2.2.1)
       ffi (~> 1.9)
@@ -216,6 +217,7 @@ DEPENDENCIES
   rubocop
   rubocop-performance
   rubocop-rails
+  ruby-graphviz
   simple_command
   wf!
 

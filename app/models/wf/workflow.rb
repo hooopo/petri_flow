@@ -93,21 +93,21 @@ module Wf
       graph = GraphViz.new(name, type: :digraph)
       tg_mapping = {}
       transitions.each do |t|
-        tg = graph.add_nodes(t.name, label: t.name, shape: :box, color: :red)
+        tg = graph.add_nodes(t.name, label: t.name, shape: :box, href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
         tg_mapping[t] = tg
       end
 
       pg_mapping = {}
       places.order("place_type ASC").each do |p|
-        pg = graph.add_nodes(p.name, label: p.name, shape: :circle)
+        pg = graph.add_nodes(p.name, label: p.name, shape: :circle, fixedsize: true, href: Wf::Engine.routes.url_helpers.edit_workflow_place_path(self, p))
         pg_mapping[p] = pg
       end
 
       arcs.each do |arc|
         if arc.in?
-          graph.add_edges(pg_mapping[arc.place], tg_mapping[arc.transition])
+          graph.add_edges(pg_mapping[arc.place], tg_mapping[arc.transition], href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc))
         else
-          graph.add_edges(tg_mapping[arc.transition], pg_mapping[arc.place])
+          graph.add_edges(tg_mapping[arc.transition], pg_mapping[arc.place], href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc))
         end
       end
       graph

@@ -1,0 +1,27 @@
+<%= form_with(model: @comment, url: workitem_comments_path(@workitem), local: true) do |f| %>
+  <% if @comment.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:
+        </p>
+      </div>
+      <div class="message-body content">
+        <ul>
+          <% @comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :body, class: "label" %>
+    <%= f.text_area :body, class: "form-control", rows: 3, placeholder: "comment" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary", value: "Comment", data: {disable_with: 'Waiting...'} %>
+  </div>
+<% end %>

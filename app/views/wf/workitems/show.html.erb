@@ -133,10 +133,38 @@
                You can not start workitem, Please assign to youself.
              <% end %>
              <%= link_to "Re Assign", new_workitem_workitem_assignment_path(@workitem), class: 'btn btn-success btn-sm' %>
-              <%= link_to "Assign Yourself", new_workitem_workitem_assignment_path(@workitem, party_id: current_user.party&.id), class: 'btn btn-success btn-sm' %>
+             <%= link_to "Assign Yourself", new_workitem_workitem_assignment_path(@workitem, party_id: current_user.party&.id), class: 'btn btn-success btn-sm' %>
+             <%= link_to "Add Comment", new_workitem_comment_path(@workitem), class: 'btn btn-success btn-sm' %>
             <% end %>
           </td>
         </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Comments</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Body</th>
+        <th scope="col">User</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @workitem.comments.order("id DESC").each do |comment| %>
+        <tr>
+          <td><%= comment.id %></td>
+          <td>
+            <%= comment.body %> </td>
+          <td><%= comment.user_id %></td>
+          <td><%= comment.created_at %></td>
+          <td><%= link_to "Delete", workitem_comment_path(@workitem, comment), remote: true, method: :delete, data: {confirm: 'confirm?', disable_with: 'Waiting...'}, class: 'btn btn-sm btn-info' %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>

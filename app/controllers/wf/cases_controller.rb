@@ -20,7 +20,7 @@ module Wf
 
     def index
       @workflow = Wf::Workflow.find(params[:workflow_id])
-      @cases = @workflow.cases
+      @cases = @workflow.cases.order("id DESC")
       @cases = @cases.where(state: params[:state].intern) if params[:state].present?
       @cases = @cases.page(params[:page])
       breadcrumb @workflow.name, workflow_path(@workflow)

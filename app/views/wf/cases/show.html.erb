@@ -1,6 +1,6 @@
 <div>
   <h2>Case Detail</h2>
-  <table class="table">
+  <table class="table table-bordered table-info">
     <tbody>
       <tr>
         <th scope="row">ID</th>
@@ -32,7 +32,7 @@
 
 <div>
   <h2>Tokens</h2>
-  <table class="table">
+  <table class="table table-bordered table-info">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -66,7 +66,7 @@
 
 <div>
   <h2>Workitems</h2>
-  <table class="table">
+  <table class="table table-bordered table-info">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -96,7 +96,7 @@
           <td><%= workitem.finished_at %></td>
           <td><%= workitem.overridden_at %></td>
           <td><%= workitem.deadline %></td>
-          <td><%= link_to "detail", workitem_path(workitem) %></td>
+          <td><%= link_to "Run", workitem_path(workitem), class: 'btn btn-sm btn-success' %></td>
         </tr>
       <% end %>
     </tbody>

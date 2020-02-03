@@ -1,9 +1,9 @@
 <div class="float-right">
-  <%= link_to 'Case', workflow_case_path(@workitem.workflow, @workitem.case), class: 'btn btn-primary' %>
+  <%= link_to 'Back to Case', workflow_case_path(@workitem.workflow, @workitem.case), class: 'btn btn-primary' %>
 </div>
 <div>
   <h2>Transition</h2>
-  <table class="table">
+  <table class="table table-bordered table-info">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -38,7 +38,7 @@
 
 <div>
   <h2>Detail</h2>
-  <table class="table">
+  <table class="table table-bordered table-info">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -74,7 +74,7 @@
 <% if @workitem.transition.form %>
   <div>
     <h2>Entries</h2>
-    <table class="table">
+    <table class="table table-bordered table-info">
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -101,7 +101,7 @@
 
 <div>
   <h2>Assignments</h2>
-  <table class="table">
+  <table class="table table-bordered table-info">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -144,7 +144,7 @@
 
 <div>
   <h2>Comments</h2>
-  <table class="table">
+  <table class="table table-bordered table-info">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -171,12 +171,13 @@
 
 <div>
   <h2>All Workitems</h2>
-  <table class="table">
+  <table class="table table-bordered table-info">
     <thead>
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Transition</th>
         <th scope="col">State</th>
+        <th scope="col">Trigger Type</th>
         <th scope="col">Holding User</th>
         <th scope="col">Started At</th>
         <th scope="col">Enabled At</th>
@@ -184,16 +185,17 @@
         <th scope="col">Finished At</th>
         <th scope="col">Overridden At</th>
         <th scope="col">Deadline</th>
-        <th scope="col">Detail</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
-      <% @workitem.case.workitems.each do |workitem| %>
+      <% @workitem.case.workitems.includes(:transition).each do |workitem| %>
         <tr>
           <td><%= link_to workitem.id, workitem_path(workitem) %></td>
           <td>
-            <%= link_to workitem.transition.name, workflow_transition_path(workitem.workflow, workitem.transition) %> </td>
+            <%= workitem.transition.name %> </td>
           <td><%= workitem.state %></td>
+          <td><%= workitem.transition.trigger_type %></td>
           <td><%= workitem.holding_user_id %></td>
           <td><%= workitem.started_at %></td>
           <td><%= workitem.enabled_at %></td>
@@ -201,7 +203,7 @@
           <td><%= workitem.finished_at %></td>
           <td><%= workitem.overridden_at %></td>
           <td><%= workitem.deadline %></td>
-          <td><%= link_to "detail", workitem_path(workitem) %></td>
+          <td><%= link_to "Run", workitem_path(workitem), class: 'btn btn-sm btn-success' %></td>
         </tr>
       <% end %>
     </tbody>

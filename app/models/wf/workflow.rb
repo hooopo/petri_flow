@@ -90,13 +90,7 @@ module Wf
     end
 
     def to_graph
-      graph = GraphViz.new(name, type: :digraph)
-      tg_mapping = {}
-      transitions.each do |t|
-        tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: :lightblue, href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
-        tg_mapping[t] = tg
-      end
-
+      graph = GraphViz.new(name, type: :digraph, rankdir: "LR", splines: true, ratio: :auto)
       pg_mapping = {}
       places.order("place_type ASC").each do |p|
         if p.start?
@@ -119,7 +113,13 @@ module Wf
         pg_mapping[p] = pg
       end
 
-      arcs.each do |arc|
+      tg_mapping = {}
+      transitions.each do |t|
+        tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: :lightblue, href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
+        tg_mapping[t] = tg
+      end
+
+      arcs.order("direction desc").each do |arc|
         label = if arc.guards_count > 0
           arc.guards.map(&:inspect).join(" & ")
         else
@@ -130,6 +130,9 @@ module Wf
             pg_mapping[arc.place],
             tg_mapping[arc.transition],
             label: label,
+            weight: 1,
+            labelfloat: false,
+            labelfontcolor: :red,
             href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
           )
         else
@@ -137,6 +140,9 @@ module Wf
             tg_mapping[arc.transition],
             pg_mapping[arc.place],
             label: label,
+            weight: 1,
+            labelfloat: false,
+            labelfontcolor: :red,
             href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
           )
         end

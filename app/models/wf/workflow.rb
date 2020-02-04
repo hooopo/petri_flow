@@ -63,8 +63,10 @@ module Wf
       ::Wf::User
     end
 
-    def self.org_class
-      [::Wf::Group]
+    def self.org_classes
+      {
+        group: ::Wf::Group
+      }
     end
 
     after_save do

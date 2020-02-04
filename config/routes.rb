@@ -26,5 +26,5 @@ Wf::Engine.routes.draw do
     end
   end
 
-  root to: "workflows#index"
+  root to: "workitems#index"
 end

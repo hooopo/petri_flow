@@ -1,0 +1,68 @@
+<div>
+  <h2 class="">Stats</h2>
+  <table class="table table-bordered table-info">
+    <thead>
+      <tr>
+        <th scope="col">All</th>
+        <th scope="col">Enabled</th>
+        <th scope="col">Started</th>
+        <th scope="col">Canceled</th>
+        <th scope="col">Finished</th>
+        <th scope="col">Overridden</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= link_to @workitems.unscope(:offset).unscope(:limit).unscope(:order).unscope(:select).count, workitems_path %></td>
+        <td><%= link_to @workitems.unscope(:offset).unscope(:limit).unscope(:order).unscope(:select).enabled.count, workitems_path(state: :enabled) %></td>
+        <td><%= link_to @workitems.unscope(:offset).unscope(:limit).unscope(:order).unscope(:select).started.count, workitems_path(state: :started) %></td>
+        <td><%= link_to @workitems.unscope(:offset).unscope(:limit).unscope(:order).unscope(:select).canceled.count, workitems_path(state: :canceled) %></td>
+        <td><%= link_to @workitems.unscope(:offset).unscope(:limit).unscope(:order).unscope(:select).finished.count, workitems_path(state: :finished) %></td>
+        <td><%= link_to @workitems.unscope(:offset).unscope(:limit).unscope(:order).unscope(:select).overridden.count, workitems_path(state: :overridden) %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Workitems</h2>
+  <table class="table table-bordered table-info">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Transition</th>
+        <th scope="col">State</th>
+        <th scope="col">Holding User</th>
+        <th scope="col">Started At</th>
+        <th scope="col">Enabled At</th>
+        <th scope="col">Canceled At</th>
+        <th scope="col">Finished At</th>
+        <th scope="col">Overridden At</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @workitems.each do |workitem| %>
+        <tr>
+          <td><%= link_to workitem.id, workitem_path(workitem) %></td>
+          <td>
+            <%= link_to workitem.transition.name, workflow_transition_path(workitem.workflow, workitem.transition) %> </td>
+          <td><%= workitem.state %></td>
+          <td><%= workitem.holding_user_id %></td>
+          <td><%= workitem.started_at %></td>
+          <td><%= workitem.enabled_at %></td>
+          <td><%= workitem.canceled_at %></td>
+          <td><%= workitem.finished_at %></td>
+          <td><%= workitem.overridden_at %></td>
+          <td><%= workitem.deadline %></td>
+          <td><%= link_to "Run", workitem_path(workitem), class: 'btn btn-sm btn-success' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <%= paginate @workitems, theme: 'twitter-bootstrap-4' %>
+</div>

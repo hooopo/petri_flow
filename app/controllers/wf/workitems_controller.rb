@@ -4,11 +4,22 @@ require_dependency "wf/application_controller"
 
 module Wf
   class WorkitemsController < ApplicationController
-    before_action :find_workitem
+    before_action :find_workitem, except: [:index]
     before_action :check_start, only: [:start]
     before_action :check_finish, only: %i[pre_finish finish]
 
     breadcrumb "Workflows", :workflows_path
+
+    def index
+      current_party_ids = [
+        current_user,
+        Wf::Workflow.org_classes.map { |org, _org_class| current_user.public_send(org) }
+      ].flatten.map { |x| x.party&.id }
+      @workitems = Wf::Workitem.joins(:workitem_assignments).where(Wf::WorkitemAssignment.table_name => { party_id: current_party_ids })
+      @workitems = @workitems.where(state: params[:state].intern) if params[:state]
+      @workitems = @workitems.where(state: params[:state].intern) if params[:state].present?
+      @workitems = @workitems.distinct.order("id desc").page(params[:page])
+    end
 
     def show
       breadcrumb @workitem.workflow.name, workflow_path(@workitem.workflow)

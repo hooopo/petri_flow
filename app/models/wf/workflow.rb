@@ -112,8 +112,15 @@ module Wf
         end
 
         token_count = free_token_places.count(p.id)
-        label = token_count.positive? ? "&bull;" * token_count : p.name
-        xlabel = token_count.positive? ? p.name : nil
+        if token_count >= 1
+          label  = "&bull;"
+          xlabel = nil
+          fontsize = 25
+        else
+          label = p.name
+          xlabel = nil
+        end
+        
 
         pg = graph.add_nodes(p.name,
                              label: label,
@@ -121,6 +128,7 @@ module Wf
                              shape: shape,
                              fixedsize: true,
                              style: :filled,
+                             fontsize: fontsize,
                              fillcolor: fillcolor,
                              href: Wf::Engine.routes.url_helpers.edit_workflow_place_path(self, p))
         pg_mapping[p] = pg

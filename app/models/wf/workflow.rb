@@ -91,8 +91,13 @@ module Wf
       end
     end
 
-    def to_graph
+    def to_graph(wf_case = nil)
       graph = GraphViz.new(name, type: :digraph, rankdir: "LR", splines: true, ratio: :auto)
+      free_token_places = if wf_case
+        wf_case.tokens.free.map{|x| x.place_id}
+      else
+        []
+      end
       pg_mapping = {}
       places.order("place_type ASC").each do |p|
         if p.start?
@@ -105,6 +110,7 @@ module Wf
           fillcolor = :lightpink
           shape     = :circle
         end
+
         pg = graph.add_nodes(p.name,
                              label: p.name,
                              shape: shape,
@@ -120,7 +126,7 @@ module Wf
         tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: :lightblue, href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
         tg_mapping[t] = tg
       end
-
+      
       arcs.order("direction desc").each do |arc|
         label = if arc.guards_count > 0
           arc.guards.map(&:inspect).join(" & ")
@@ -128,6 +134,11 @@ module Wf
           ""
         end
         if arc.in?
+          if wf_case && free_token_places.include?(arc.place_id)
+            arrowhead = :dot
+          else
+            arrowhead = :vee
+          end
           graph.add_edges(
             pg_mapping[arc.place],
             tg_mapping[arc.transition],
@@ -135,6 +146,7 @@ module Wf
             weight: 1,
             labelfloat: false,
             labelfontcolor: :red,
+            arrowhead: arrowhead,
             href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
           )
         else
@@ -145,6 +157,7 @@ module Wf
             weight: 1,
             labelfloat: false,
             labelfontcolor: :red,
+            arrowhead: :vee,
             href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
           )
         end
@@ -152,8 +165,8 @@ module Wf
       graph
     end
 
-    def render_graph
-      graph = to_graph
+    def render_graph(wf_case = nil)
+      graph = to_graph(wf_case)
       path = Rails.root.join("tmp", "#{id}.svg")
       graph.output(svg: path)
       File.read(path)

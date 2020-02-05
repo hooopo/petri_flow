@@ -31,6 +31,15 @@
 </div>
 
 <div>
+  <h2>Case Graph</h2>
+  <div class="card">
+    <div class="card-body">
+      <%=raw @wf_case.workflow.render_graph(@wf_case) %>
+    </div>
+  </div>
+</div>
+
+<div>
   <h2>Tokens</h2>
   <table class="table table-bordered table-info">
     <thead>

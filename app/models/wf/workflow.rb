@@ -111,8 +111,13 @@ module Wf
           shape     = :circle
         end
 
+        token_count = free_token_places.count(p.id)
+        label = token_count.positive? ? "&bull;" * token_count : p.name
+        xlabel = token_count.positive? ? p.name : nil
+
         pg = graph.add_nodes(p.name,
-                             label: p.name,
+                             label: label,
+                             xlabel: xlabel,
                              shape: shape,
                              fixedsize: true,
                              style: :filled,
@@ -126,7 +131,7 @@ module Wf
         tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: :lightblue, href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
         tg_mapping[t] = tg
       end
-      
+
       arcs.order("direction desc").each do |arc|
         label = if arc.guards_count > 0
           arc.guards.map(&:inspect).join(" & ")
@@ -134,11 +139,6 @@ module Wf
           ""
         end
         if arc.in?
-          if wf_case && free_token_places.include?(arc.place_id)
-            arrowhead = :dot
-          else
-            arrowhead = :vee
-          end
           graph.add_edges(
             pg_mapping[arc.place],
             tg_mapping[arc.transition],
@@ -146,7 +146,7 @@ module Wf
             weight: 1,
             labelfloat: false,
             labelfontcolor: :red,
-            arrowhead: arrowhead,
+            arrowhead: :vee,
             href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
           )
         else

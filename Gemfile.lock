@@ -2,7 +2,14 @@ PATH
   remote: .
   specs:
     wf (0.1.0)
+      bootstrap (~> 4.4.1)
+      bootstrap4-kaminari-views
+      jquery-rails
+      kaminari
+      loaf
       rails (~> 6.0.2, >= 6.0.2.1)
+      ruby-graphviz
+      simple_command
 
 GEM
   remote: https://rubygems.org/

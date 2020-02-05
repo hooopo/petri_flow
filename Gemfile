@@ -20,6 +20,7 @@ gem "bootstrap", "~> 4.4.1"
 gem "bootstrap4-kaminari-views"
 gem "jquery-rails"
 gem "kaminari"
+gem "pg"
 gem "pry-rails"
 gem "simple_command"
 

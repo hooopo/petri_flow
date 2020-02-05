@@ -9,8 +9,10 @@ module Wf::CaseCommand
     end
 
     def call
-      FireTransitionInternal.call(workitem)
-      SweepAutomaticTransitions.call(workitem.case)
+      ActiveRecord::Base.transaction do
+        FireTransitionInternal.call(workitem)
+        SweepAutomaticTransitions.call(workitem.case)
+      end
     end
   end
 end

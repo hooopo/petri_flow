@@ -94,7 +94,7 @@ module Wf
     def to_graph(wf_case = nil)
       graph = GraphViz.new(name, type: :digraph, rankdir: "LR", splines: true, ratio: :auto)
       free_token_places = if wf_case
-        wf_case.tokens.free.map{|x| x.place_id}
+        wf_case.tokens.free.map(&:place_id)
       else
         []
       end
@@ -120,7 +120,6 @@ module Wf
           label = p.name
           xlabel = nil
         end
-        
 
         pg = graph.add_nodes(p.name,
                              label: label,

@@ -10,9 +10,11 @@ module Wf::CaseCommand
     end
 
     def call
-      ClearManualAssignments.call(workitem.case, workitem.transition) if permanent
-      workitem.workitem_assignments.delete_all
-      workitem.transition.unassignment_callback.constantize.new(workitem.id).perform
+      ActiveRecord::Base.transaction do
+        ClearManualAssignments.call(workitem.case, workitem.transition) if permanent
+        workitem.workitem_assignments.delete_all
+        workitem.transition.unassignment_callback.constantize.new(workitem.id).perform
+      end
     end
   end
 end

@@ -11,8 +11,10 @@ module Wf::CaseCommand
     def call
       raise("Transition #{workitem.transition.name} is not message triggered") unless workitem.transition.message?
 
-      FireTransitionInternal.call(workitem)
-      SweepAutomaticTransitions.call(workitem.case)
+      ActiveRecord::Base.transaction do
+        FireTransitionInternal.call(workitem)
+        SweepAutomaticTransitions.call(workitem.case)
+      end
     end
   end
 end

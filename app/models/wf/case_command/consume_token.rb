@@ -11,10 +11,12 @@ module Wf::CaseCommand
     end
 
     def call
-      if locked_item
-        wf_case.tokens.where(place: place, state: :locked, locked_workitem_id: locked_item.id).update(consumed_at: Time.zone.now, state: :consumed)
-      else
-        wf_case.tokens.where(id: wf_case.tokens.where(place: place, state: :free).limit(1)).update(consumed_at: Time.zone.now, state: :consumed)
+      ActiveRecord::Base.transaction do
+        if locked_item
+          wf_case.tokens.where(place: place, state: :locked, locked_workitem_id: locked_item.id).update(consumed_at: Time.zone.now, state: :consumed)
+        else
+          wf_case.tokens.where(id: wf_case.tokens.where(place: place, state: :free).limit(1)).update(consumed_at: Time.zone.now, state: :consumed)
+        end
       end
     end
   end

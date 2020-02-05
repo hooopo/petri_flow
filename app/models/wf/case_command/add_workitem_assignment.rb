@@ -13,20 +13,22 @@ module Wf::CaseCommand
     def call
       return if party.nil?
 
-      AddManualAssignment.call(workitem.case, workitem.transition, party) if permanent
+      ActiveRecord::Base.transaction do
+        AddManualAssignment.call(workitem.case, workitem.transition, party) if permanent
 
-      notified_users = workitem.parties.map do |p|
-        p.partable.users.to_a
-      end.flatten
+        notified_users = workitem.parties.map do |p|
+          p.partable.users.to_a
+        end.flatten
 
-      assign = workitem.workitem_assignments.where(party: party).first
-      return if assign
+        assign = workitem.workitem_assignments.where(party: party).first
+        return if assign
 
-      workitem.workitem_assignments.create!(party: party)
-      new_users = party.partable.users.to_a
-      to_notify = new_users - notified_users
-      to_notify.each do |user|
-        workitem.transition.notification_callback.constantize.new(workitem, user.id).perform_now
+        workitem.workitem_assignments.create!(party: party)
+        new_users = party.partable.users.to_a
+        to_notify = new_users - notified_users
+        to_notify.each do |user|
+          workitem.transition.notification_callback.constantize.new(workitem, user.id).perform_now
+        end
       end
     end
   end

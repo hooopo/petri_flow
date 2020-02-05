@@ -5,9 +5,11 @@ module Wf::CaseCommand
     prepend SimpleCommand
 
     def call
-      Wf::Workitem.enabled.where("trigger_time <= ?", Time.zone.now).find_each do |item|
-        FireTransitionInternal.call(item)
-        SweepAutomaticTransitions.call(item.case)
+      ActiveRecord::Base.transaction do
+        Wf::Workitem.enabled.where("trigger_time <= ?", Time.zone.now).find_each do |item|
+          FireTransitionInternal.call(item)
+          SweepAutomaticTransitions.call(item.case)
+        end
       end
     end
   end

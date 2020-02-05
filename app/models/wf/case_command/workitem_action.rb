@@ -11,8 +11,10 @@ module Wf::CaseCommand
     end
 
     def call
-      BeginWorkitemAction.call(workitem, user, action)
-      EndWorkitemAction.call(workitem, user, action)
+      ActiveRecord::Base.transaction do
+        BeginWorkitemAction.call(workitem, user, action)
+        EndWorkitemAction.call(workitem, user, action)
+      end
     end
   end
 end

@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2020_02_01_001543) do
 
-  create_table "wf_arcs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "wf_arcs", force: :cascade do |t|
     t.bigint "workflow_id"
     t.bigint "transition_id"
     t.bigint "place_id"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.integer "guards_count", default: 0
   end
 
-  create_table "wf_case_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "Manual per-case assignments of transition to parties", force: :cascade do |t|
+  create_table "wf_case_assignments", comment: "Manual per-case assignments of transition to parties", force: :cascade do |t|
     t.bigint "case_id"
     t.bigint "transition_id"
     t.bigint "party_id"
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.index ["case_id", "transition_id", "party_id"], name: "wf_ctp_u", unique: true
   end
 
-  create_table "wf_cases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_cases", force: :cascade do |t|
     t.bigint "workflow_id"
     t.string "targetable_type", comment: "point to target type of Application."
     t.string "targetable_id", comment: "point to target ID of Application."
@@ -40,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "wf_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_comments", force: :cascade do |t|
     t.bigint "workitem_id"
     t.string "user_id"
     t.text "body"
@@ -50,17 +53,17 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.index ["workitem_id"], name: "index_wf_comments_on_workitem_id"
   end
 
-  create_table "wf_demo_targets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "For demo, useless.", force: :cascade do |t|
+  create_table "wf_demo_targets", comment: "For demo, useless.", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "wf_entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "user input data for workitem with form.", force: :cascade do |t|
+  create_table "wf_entries", comment: "user input data for workitem with form.", force: :cascade do |t|
     t.string "user_id"
     t.bigint "workitem_id"
-    t.json "payload"
+    t.json "payload", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_wf_entries_on_user_id"
@@ -68,7 +71,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.index ["workitem_id"], name: "index_wf_entries_on_workitem_id"
   end
 
-  create_table "wf_field_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_field_values", force: :cascade do |t|
     t.bigint "workflow_id"
     t.bigint "transition_id"
     t.bigint "form_id"
@@ -83,7 +86,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.index ["workflow_id"], name: "index_wf_field_values_on_workflow_id"
   end
 
-  create_table "wf_fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_fields", force: :cascade do |t|
     t.string "name"
     t.bigint "form_id"
     t.integer "position", default: 0
@@ -95,20 +98,20 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.index ["form_id"], name: "index_wf_fields_on_form_id"
   end
 
-  create_table "wf_forms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_forms", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "wf_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "For demo", force: :cascade do |t|
+  create_table "wf_groups", comment: "For demo", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "wf_guards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_guards", force: :cascade do |t|
     t.bigint "arc_id"
     t.bigint "workflow_id"
     t.string "fieldable_type"
@@ -123,7 +126,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.index ["workflow_id"], name: "index_wf_guards_on_workflow_id"
   end
 
-  create_table "wf_parties", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "for groups or roles or users or positions etc.", force: :cascade do |t|
+  create_table "wf_parties", comment: "for groups or roles or users or positions etc.", force: :cascade do |t|
     t.string "partable_type"
     t.string "partable_id"
     t.string "party_name"
@@ -132,7 +135,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.index ["partable_type", "partable_id"], name: "index_wf_parties_on_partable_type_and_partable_id", unique: true
   end
 
-  create_table "wf_places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_places", force: :cascade do |t|
     t.bigint "workflow_id"
     t.string "name"
     t.text "description"
@@ -142,7 +145,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "wf_tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_tokens", force: :cascade do |t|
     t.bigint "workflow_id"
     t.bigint "case_id"
     t.string "targetable_type"
@@ -150,7 +153,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.bigint "place_id"
     t.integer "state", default: 0, comment: "0-free, 1-locked, 2-canceled, 3-consumed"
     t.bigint "locked_workitem_id"
-    t.datetime "produced_at", default: -> { "CURRENT_TIMESTAMP" }
+    t.datetime "produced_at", default: -> { "timezone('utc'::text, now())" }
     t.datetime "locked_at"
     t.datetime "canceled_at"
     t.datetime "consumed_at"
@@ -158,7 +161,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "wf_transition_static_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "pre assignment for transition", force: :cascade do |t|
+  create_table "wf_transition_static_assignments", comment: "pre assignment for transition", force: :cascade do |t|
     t.bigint "party_id"
     t.bigint "transition_id"
     t.bigint "workflow_id"
@@ -167,7 +170,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.index ["transition_id", "party_id"], name: "wf_tp_u", unique: true
   end
 
-  create_table "wf_transitions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_transitions", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.bigint "workflow_id"
@@ -187,14 +190,14 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.string "unassignment_callback", default: "Wf::Callbacks::UnassignmentDefault"
   end
 
-  create_table "wf_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", comment: "For demo", force: :cascade do |t|
+  create_table "wf_users", comment: "For demo", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "group_id"
   end
 
-  create_table "wf_workflows", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_workflows", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.boolean "is_valid", default: false
@@ -204,7 +207,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "wf_workitem_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_workitem_assignments", force: :cascade do |t|
     t.bigint "party_id"
     t.bigint "workitem_id"
     t.datetime "created_at", precision: 6, null: false
@@ -212,14 +215,14 @@ ActiveRecord::Schema.define(version: 2020_02_01_001543) do
     t.index ["workitem_id", "party_id"], name: "wf_wp_u", unique: true
   end
 
-  create_table "wf_workitems", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "wf_workitems", force: :cascade do |t|
     t.bigint "case_id"
     t.bigint "workflow_id"
     t.bigint "transition_id"
     t.string "targetable_type", comment: "point to type of Application target: Task or Issue or PullRequest or Project etc."
     t.string "targetable_id", comment: "point to id of Application target: task_id or issue_id or pull_request_id or project_id etc."
     t.integer "state", default: 0, comment: "0-enabled, 1-started, 2-canceled, 3-finished,4-overridden"
-    t.datetime "enabled_at", default: -> { "CURRENT_TIMESTAMP" }
+    t.datetime "enabled_at", default: -> { "timezone('utc'::text, now())" }
     t.datetime "started_at"
     t.datetime "canceled_at"
     t.datetime "finished_at"

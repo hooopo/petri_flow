@@ -7,7 +7,7 @@ require "wf/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "wf"
+  spec.name        = "petri_flow"
   spec.version     = Wf::VERSION
   spec.authors     = ["Hooopo Wang"]
   spec.email       = ["hoooopo@gmail.com"]

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wf (0.1.0)
+    petri_flow (0.1.0)
       bootstrap (~> 4.4.1)
       bootstrap4-kaminari-views
       jquery-rails
@@ -221,6 +221,7 @@ DEPENDENCIES
   kaminari
   loaf
   mysql2
+  petri_flow!
   pg
   pry-rails
   rubocop
@@ -228,7 +229,6 @@ DEPENDENCIES
   rubocop-rails
   ruby-graphviz
   simple_command
-  wf!
 
 BUNDLED WITH
    2.0.2

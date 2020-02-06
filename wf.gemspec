@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.version     = Wf::VERSION
   spec.authors     = ["Hooopo Wang"]
   spec.email       = ["hoooopo@gmail.com"]
-  spec.homepage    = "https://github.com/hooopo/wf"
+  spec.homepage    = "https://github.com/hooopo/petri_flow"
   spec.summary     = "Petri Net Workflow Engine for Ruby."
   spec.description = "Petri Net Workflow Engine for Ruby."
   spec.license     = "MIT"

@@ -18,6 +18,10 @@ module Wf
     belongs_to :workitem
     has_many :field_values
 
+    after_initialize do
+      self.payload = {} if payload.blank?
+    end
+
     def json
       field_values.includes(:field).map { |x| [x.field_id.to_i, { field_id: x.id.to_i, field_name: x.field.name, value: x.value_after_cast }] }.to_h
     end

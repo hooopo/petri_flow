@@ -15,7 +15,7 @@ module Wf::CaseCommand
         if locked_item
           wf_case.tokens.where(place: place, state: :locked, locked_workitem_id: locked_item.id).update(consumed_at: Time.zone.now, state: :consumed)
         else
-          wf_case.tokens.where(id: wf_case.tokens.where(place: place, state: :free).limit(1)).update(consumed_at: Time.zone.now, state: :consumed)
+          wf_case.tokens.where(id: wf_case.tokens.where(place: place, state: :free).first&.id).update(consumed_at: Time.zone.now, state: :consumed)
         end
       end
     end

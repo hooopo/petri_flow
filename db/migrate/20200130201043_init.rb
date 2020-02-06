@@ -127,7 +127,11 @@ class Init < ActiveRecord::Migration[6.0]
       t.bigint "place_id"
       t.integer "state", default: 0, comment: "0-free, 1-locked, 2-canceled, 3-consumed"
       t.bigint "locked_workitem_id"
-      t.datetime "produced_at", default: -> { "timezone('utc'::text, now())" }
+      if /mysql/i.match?(ActiveRecord::Base.connection.adapter_name)
+        t.datetime "produced_at", default: -> { "current_timestamp" }
+      elsif /postgre/i.match?(ActiveRecord::Base.connection.adapter_name)
+        t.datetime "produced_at", default: -> { "timezone('utc'::text, now())" }
+      end
       t.datetime "locked_at"
       t.datetime "canceled_at"
       t.datetime "consumed_at"
@@ -196,7 +200,11 @@ class Init < ActiveRecord::Migration[6.0]
       t.string "targetable_type", comment: "point to type of Application target: Task or Issue or PullRequest or Project etc."
       t.string "targetable_id", comment: "point to id of Application target: task_id or issue_id or pull_request_id or project_id etc."
       t.integer "state", default: 0, comment: "0-enabled, 1-started, 2-canceled, 3-finished,4-overridden"
-      t.datetime "enabled_at", default: -> { "timezone('utc'::text, now())" }
+      if /mysql/i.match?(ActiveRecord::Base.connection.adapter_name)
+        t.datetime "enabled_at", default: -> { "current_timestamp" }
+      elsif /postgre/i.match?(ActiveRecord::Base.connection.adapter_name)
+        t.datetime "enabled_at", default: -> { "timezone('utc'::text, now())" }
+      end
       t.datetime "started_at"
       t.datetime "canceled_at"
       t.datetime "finished_at"
@@ -206,7 +214,12 @@ class Init < ActiveRecord::Migration[6.0]
       t.datetime "updated_at", precision: 6, null: false
       t.datetime "trigger_time", comment: "set when transition_trigger=TIME & trigger_limit present"
       t.string "holding_user_id", comment: "id of App user"
-      t.json "payload", default: {}, comment: "store user input payload for workitem."
+      if /mysql/i.match?(ActiveRecord::Base.connection.adapter_name)
+        t.json "payload", comment: "store user input payload for workitem."
+      elsif /postgre/i.match?(ActiveRecord::Base.connection.adapter_name)
+        t.json "payload", default: {}, comment: "store user input payload for workitem."
+      end
+
       t.index %w[state trigger_time], name: "index_wf_workitems_on_state_and_trigger_time"
     end
   end

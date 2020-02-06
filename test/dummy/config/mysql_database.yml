@@ -1,0 +1,22 @@
+development:
+  prepared_statements: false
+  encoding: utf8mb4
+  socket: /tmp/mysql.sock
+  adapter: mysql2
+  database: petri_flow_dev
+  username: root
+  min_messages: warning
+  pool: 5
+  timeout: 5000
+  checkout_timeout: <%= ENV['CHECKOUT_TIMEOUT'] || 5 %>
+
+test:
+  prepared_statements: false
+  encoding: utf8mb4
+  socket: /tmp/mysql.sock
+  adapter: mysql2
+  database: petri_flow_test
+  username: root
+  min_messages: warning
+  pool: 5
+  timeout: 5000

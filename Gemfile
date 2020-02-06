@@ -25,6 +25,7 @@ gem "pry-rails"
 gem "simple_command"
 
 gem "loaf"
+gem "mysql2"
 gem "rubocop"
 gem "rubocop-performance"
 gem "rubocop-rails"

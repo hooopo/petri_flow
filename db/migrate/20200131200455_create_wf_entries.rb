@@ -5,7 +5,11 @@ class CreateWfEntries < ActiveRecord::Migration[6.0]
     create_table :wf_entries, comment: "user input data for workitem with form." do |t|
       t.string :user_id, index: true
       t.bigint :workitem_id, index: true
-      t.json :payload, default: {}
+      if /mysql/i.match?(ActiveRecord::Base.connection.adapter_name)
+        t.json "payload"
+      elsif /postgre/i.match?(ActiveRecord::Base.connection.adapter_name)
+        t.json "payload", default: {}
+      end
       t.timestamps
     end
     remove_column :wf_workitems, :payload

@@ -10,7 +10,7 @@ module Wf::CaseCommand
 
     def call
       raise("The workitem is not in state #{workitem.state}") unless workitem.started?
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         workitem.update!(state: :canceled, :canceled_at: Time.zone.now)
         ReleaseToken.call(workitem)
         SweepAutomaticTransitions.call(workitem.case)

@@ -13,7 +13,7 @@ module Wf::CaseCommand
       raise("The workitem is not in state #{workitem.state}") unless workitem.enabled?
 
       # TODO: holding timeout
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         workitem.update!(state: :started, holding_user: user)
 
         workitem.transition.arcs.in.each do |arc|

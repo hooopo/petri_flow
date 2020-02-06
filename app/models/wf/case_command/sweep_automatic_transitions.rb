@@ -9,7 +9,7 @@ module Wf::CaseCommand
     end
 
     def call
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         EnableTransitions.call(wf_case)
         done = false
         until done
@@ -17,7 +17,7 @@ module Wf::CaseCommand
           finished = FinishedP.call(wf_case).result
           next if finished
 
-          ActiveRecord::Base.uncached do
+          Wf::ApplicationRecord.uncached do
             wf_case.workitems.joins(:transition).where(state: :enabled).where(Wf::Transition.table_name => { trigger_type: Wf::Transition.trigger_types[:automatic] }).find_each do |item|
               FireTransitionInternal.call(item)
               done = false

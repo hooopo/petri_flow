@@ -16,7 +16,7 @@ module Wf::CaseCommand
       else
         raise("can not fire the transition if it is not in state enabled or started.")
       end
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         workitem.update!(finished_at: Time.zone.now, state: :finished)
         # TODO: only in?
         workitem.transition.arcs.each do |arc|

@@ -13,7 +13,7 @@ module Wf::CaseCommand
     def call
       return if party.nil?
 
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         RemoveManualAssignment.call(workitem.case, workitem.transition, party) if permanent
         workitem.workitem_assignments.where(party: party).first&.destroy
 

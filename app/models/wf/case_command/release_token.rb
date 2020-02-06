@@ -9,7 +9,7 @@ module Wf::CaseCommand
     end
 
     def call
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         Wf::Token.where(locked_workitem_id: workitem.id).locked.each do |token|
           AddToken.call(token.case, token.place)
           token.update!(state: :canceled, canceled_at: Time.zone.now)

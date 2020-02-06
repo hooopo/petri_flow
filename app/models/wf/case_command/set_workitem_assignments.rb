@@ -9,7 +9,7 @@ module Wf::CaseCommand
     end
 
     def call
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         has_case_ass = false
         workitem.case.case_assignments.where(transition: workitem.transition).find_each do |case_ass|
           AddWorkitemAssignment.call(workitem, case_ass.party, false)

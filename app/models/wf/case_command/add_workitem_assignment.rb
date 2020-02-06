@@ -13,7 +13,7 @@ module Wf::CaseCommand
     def call
       return if party.nil?
 
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         AddManualAssignment.call(workitem.case, workitem.transition, party) if permanent
 
         notified_users = workitem.parties.map do |p|
@@ -21,7 +21,7 @@ module Wf::CaseCommand
         end.flatten
 
         assign = workitem.workitem_assignments.where(party: party).first
-        return if assign
+        break if assign
 
         workitem.workitem_assignments.create!(party: party)
         new_users = party.partable.users.to_a

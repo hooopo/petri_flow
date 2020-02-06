@@ -9,7 +9,7 @@ module Wf::CaseCommand
     end
 
     def call
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         wf_case.workitems.enabled.each do |workitem|
           workitem.update!(state: :overridden, overridden_at: Time.zone.now) unless wf_case.can_fire?(workitem.transition)
         end

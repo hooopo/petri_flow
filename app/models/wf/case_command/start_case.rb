@@ -9,7 +9,7 @@ module Wf::CaseCommand
     end
 
     def call
-      ActiveRecord::Base.transaction do
+      Wf::ApplicationRecord.transaction do
         wf_case.active!
         AddToken.call(wf_case, wf_case.workflow.places.start.first)
         SweepAutomaticTransitions.call(wf_case)

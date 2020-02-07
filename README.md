@@ -1,6 +1,19 @@
 # Wf
 Short description and motivation.
 
+## Features
+* Full petri net features support (seq, parallel, iterative, timed, automitic etc.)
+* Both approval workflow and business workflow.
+* Simple web admin for workflow definition and case management.
+* Build-in simple dynamic form.
+* Replaceable dynamic form.
+* Graph screen for workflow definition.
+* Graph screen for case and token migration.
+* Powerful guard expression.
+* MySQL and Postgres Support.
+* Powerful assignment management.
+* Flexible integration of organizational structure system(role, group, position or department etc.)
+
 ## Installation
 Add this line to your application's Gemfile:
 

@@ -6,6 +6,12 @@ module Wf
     config.autoload_paths += %W[
       #{config.root}/app/models/wf/concerns
     ]
+
+    config.to_prepare do
+      require_dependency(Rails.root + "config/initializers/wf_config.rb")
+    rescue LoadError
+      puts("config/initializers/wf_config.rb not found.")
+    end
   end
 end
 

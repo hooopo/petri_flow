@@ -14,6 +14,25 @@ Short description and motivation.
 * Powerful assignment management.
 * Flexible integration of organizational structure system(role, group, position or department etc.)
 
+## Screenshots
+
+###  iterative routing
+
+![](https://github.com/hooopo/wf/blob/master/screenshots/iterative_routing.png)
+
+### parallel_routing
+
+![](https://github.com/hooopo/wf/blob/master/screenshots/parallel_routing.png)
+
+### guard
+
+![](https://github.com/hooopo/wf/blob/master/screenshots/workflow_with_guard.png)
+
+### case state graph
+
+![](https://github.com/hooopo/wf/blob/master/screenshots/case_state_graph.png)
+
+### 
 ## Installation
 Add this line to your application's Gemfile:
 

@@ -14,6 +14,13 @@ Short description and motivation.
 * Powerful assignment management.
 * Flexible integration of organizational structure system(role, group, position or department etc.)
 
+## Docs
+
+* [Petri-Nets and Workflows](https://app.gitbook.com/@hooopo/s/petri-flow/)
+* [Workflow Conceptual Guide](https://app.gitbook.com/@hooopo/s/petri-flow/workflow-conceptual-guide)
+* [Workflow Concepts Reference](https://app.gitbook.com/@hooopo/s/petri-flow/workflow-concepts-reference)
+* [Petri Flow ERD](https://app.gitbook.com/@hooopo/s/petri-flow/erd)
+
 ## Screenshots
 
 ###  iterative routing

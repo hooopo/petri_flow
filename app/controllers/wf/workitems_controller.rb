@@ -14,7 +14,7 @@ module Wf
       current_party_ids = [
         wf_current_user,
         Wf::Workflow.org_classes.map { |org, _org_class| wf_current_user.public_send(org) }
-      ].flatten.map { |x| x.party&.id }
+      ].flatten.map { |x| x&.party&.id }.compact
       @workitems = Wf::Workitem.joins(:workitem_assignments).where(Wf::WorkitemAssignment.table_name => { party_id: current_party_ids })
       @workitems = @workitems.where(state: params[:state].intern) if params[:state]
       @workitems = @workitems.where(state: params[:state].intern) if params[:state].present?

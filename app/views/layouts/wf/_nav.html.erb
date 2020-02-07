@@ -5,7 +5,7 @@
     </div>
 
     <div class="navbar-end">
-      <%= link_to current_user&.name, workitems_path %>
+      <%= link_to wf_current_user&.name, workitems_path %>
       <%= link_to 'Forms', forms_path, class: "navbar-item #{"is-active" if controller_name == "forms"}" %>
       <%= link_to 'Workflows', workflows_path, class: "navbar-item #{"is-active" if controller_name.start_with?("workflows")}" %>
     </div>

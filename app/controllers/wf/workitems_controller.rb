@@ -12,8 +12,8 @@ module Wf
 
     def index
       current_party_ids = [
-        current_user,
-        Wf::Workflow.org_classes.map { |org, _org_class| current_user.public_send(org) }
+        wf_current_user,
+        Wf::Workflow.org_classes.map { |org, _org_class| wf_current_user.public_send(org) }
       ].flatten.map { |x| x.party&.id }
       @workitems = Wf::Workitem.joins(:workitem_assignments).where(Wf::WorkitemAssignment.table_name => { party_id: current_party_ids })
       @workitems = @workitems.where(state: params[:state].intern) if params[:state]
@@ -27,7 +27,7 @@ module Wf
     end
 
     def start
-      Wf::CaseCommand::StartWorkitem.call(@workitem, current_user)
+      Wf::CaseCommand::StartWorkitem.call(@workitem, wf_current_user)
       breadcrumb @workitem.workflow.name, workflow_path(@workitem.workflow)
       breadcrumb @workitem.case.name, workflow_case_path(@workitem.workflow, @workitem.case)
       breadcrumb @workitem.name, workitem_path(@workitem)
@@ -42,7 +42,7 @@ module Wf
 
     def finish
       if @workitem.transition.form && params[:workitem][:entry]
-        entry = @workitem.entries.find_or_create_by!(user: current_user)
+        entry = @workitem.entries.find_or_create_by!(user: wf_current_user)
         params[:workitem][:entry].permit!.each do |field_id, field_value|
           if field = entry.field_values.where(form: @workitem.transition.form, workflow: @workitem.workflow, field_id: field_id).first
             field.update!(value: field_value)
@@ -65,13 +65,13 @@ module Wf
     end
 
     def check_start
-      unless @workitem.started_by?(current_user)
+      unless @workitem.started_by?(wf_current_user)
         redirect_to workitem_path(@workitem), notice: "You can not start this workitem, Please assign to youself first."
       end
     end
 
     def check_finish
-      unless @workitem.finished_by?(current_user)
+      unless @workitem.finished_by?(wf_current_user)
         redirect_to workitem_path(@workitem), notice: "You can not the holding use of this workitem, Please assign to youself && start it first."
       end
     end

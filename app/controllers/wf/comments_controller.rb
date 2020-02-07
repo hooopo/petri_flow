@@ -16,7 +16,7 @@ module Wf
 
     def create
       @workitem = Wf::Workitem.find(params[:workitem_id])
-      Wf::CaseCommand::AddComment.call(@workitem, params[:comment][:body], current_user)
+      Wf::CaseCommand::AddComment.call(@workitem, params[:comment][:body], wf_current_user)
       redirect_to workitem_path(@workitem), notice: "Comment Added."
     end
 

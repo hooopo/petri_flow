@@ -1,5 +1,6 @@
-# Wf
-Short description and motivation.
+# Petri Flow
+
+Workflow engine for Rails.
 
 ## Features
 * Full petri net features support (seq, parallel, iterative, timed, automitic etc.)

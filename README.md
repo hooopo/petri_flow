@@ -21,6 +21,7 @@ Workflow engine for Rails.
 * [Workflow Conceptual Guide](https://app.gitbook.com/@hooopo/s/petri-flow/workflow-conceptual-guide)
 * [Workflow Concepts Reference](https://app.gitbook.com/@hooopo/s/petri-flow/workflow-concepts-reference)
 * [Petri Flow ERD](https://app.gitbook.com/@hooopo/s/petri-flow/erd)
+* [Developer Doc](https://app.gitbook.com/@hooopo/s/petri-flow/developer-document)
 
 ## Screenshots
 

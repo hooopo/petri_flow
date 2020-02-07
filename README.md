@@ -8,7 +8,7 @@ How to use my plugin.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wf'
+gem 'petri_flow', require: 'wf'
 ```
 
 And then execute:
@@ -18,7 +18,19 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install wf
+$ gem install petri_flow
+```
+
+Install graphviz
+
+```
+brew install graphviz
+``
+
+Migration:
+
+```
+bundle exec rake wf:install:migrations
 ```
 
 ## Contributing

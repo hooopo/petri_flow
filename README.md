@@ -27,7 +27,7 @@ Workflow engine for Rails.
 
 ###  iterative routing
 
-![](https://github.com/hooopo/wf/blob/master/screenshots/iterative_routing.png)
+![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-M-GhlU_QaD6nbLAbaJI%2F-M-X0nIxUUBwJsNhY4FN%2F-M-XAAQJbxDdaxoaYVda%2Fimage.png?alt=media&token=e74d1ae7-fa16-47ab-83b5-ad73a382fa07)
 
 ### parallel_routing
 
@@ -35,11 +35,11 @@ Workflow engine for Rails.
 
 ### guard
 
-![](https://github.com/hooopo/wf/blob/master/screenshots/workflow_with_guard.png)
+![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-M-GhlU_QaD6nbLAbaJI%2F-M-X0nIxUUBwJsNhY4FN%2F-M-XAT8Ui_xjqy9Niccp%2Fimage.png?alt=media&token=de4298fb-14b9-40bc-ab75-92ef0b98a533)
 
 ### case state graph
 
-![](https://github.com/hooopo/wf/blob/master/screenshots/case_state_graph.png)
+![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-M-GhlU_QaD6nbLAbaJI%2F-M-X0nIxUUBwJsNhY4FN%2F-M-XAeeR42ZRVIVKuUae%2Fimage.png?alt=media&token=90c96af9-d01f-4d6e-ae2b-445ea343a5ac)
 
 ### 
 ## Installation

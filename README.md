@@ -31,7 +31,7 @@ Workflow engine for Rails.
 
 ### parallel_routing
 
-![](https://github.com/hooopo/wf/blob/master/screenshots/parallel_routing.png)
+![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-M-GhlU_QaD6nbLAbaJI%2F-M-X0nIxUUBwJsNhY4FN%2F-M-XAKm9VN1MJxPZT9Xe%2Fimage.png?alt=media&token=c8beba84-72ec-470f-9987-81cf40762e15)
 
 ### guard
 

@@ -1,11 +1,12 @@
-<div class="float-right">
-  <%= link_to 'Delete Form', form_path(@form), data: {confirm: 'confirm?'}, method: :delete, class: 'btn btn-danger' %>
-  <%= link_to 'Edit Form', edit_form_path(@form), class: 'btn btn-primary' %>
-  <%= link_to 'Create Fields', new_form_field_path(@form), class: 'btn btn-primary' %>
+<div class="card card-body">
+<div class="d-flex  justify-content-end">
+  <%= link_to 'Delete Form', form_path(@form), data: {confirm: 'confirm?'}, method: :delete, class: 'btn btn-danger mr-2' %>
+  <%= link_to 'Edit Form', edit_form_path(@form), class: 'btn btn-light mr-2' %>
+  <%= link_to 'Create Fields', new_form_field_path(@form), class: 'btn btn-light' %>
 </div>
 <div>
   <h2>Form Detail</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <tbody>
       <tr>
         <th scope="row">ID</th>
@@ -25,7 +26,7 @@
 
 <div>
   <h2>Fields</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -33,7 +34,7 @@
         <th scope="col">Position</th>
         <th scope="col">Field Type</th>
         <th scope="col">Default Value</th>
-        <th scope="col">Actions</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -44,10 +45,11 @@
           <td><%= field.position %></td>
           <td><%= field.field_type %></td>
           <td><%= field.default_value %></td>
-          <td><%= link_to 'Edit Field', edit_form_field_path(@form, field), class: 'btn btn-sm btn-info' %></td>
-          <td><%= link_to 'Delete Field', [@form, field], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+          <td class="text-right"><%= link_to 'Edit Field', edit_form_field_path(@form, field), class: 'btn btn-sm btn-link mr-2' %>
+            <%= link_to 'Delete Field', [@form, field], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-link text-danger' %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+</div>
 </div>

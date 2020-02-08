@@ -1,9 +1,10 @@
+<div class="card card-body">
 <div class="float-right">
   <%= link_to 'Back to Case', workflow_case_path(@workitem.workflow, @workitem.case), class: 'btn btn-primary' %>
 </div>
 <div>
   <h2>Transition</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -38,7 +39,7 @@
 
 <div>
   <h2>Detail</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -74,7 +75,7 @@
 <% if @workitem.transition.form %>
   <div>
     <h2>Entries</h2>
-    <table class="table table-bordered table-info">
+    <table class="table table-view">
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -101,7 +102,7 @@
 
 <div>
   <h2>Assignments</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -144,7 +145,7 @@
 
 <div>
   <h2>Comments</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -171,7 +172,7 @@
 
 <div>
   <h2>All Workitems</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -208,4 +209,5 @@
       <% end %>
     </tbody>
   </table>
+</div>
 </div>

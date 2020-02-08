@@ -1,0 +1,28 @@
+@import "variables";
+
+.navbar-petri{
+  box-shadow: 0 12px 24px 0 rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+  background: $white;
+  .navbar-brand a{
+    color: $gray-9;
+    &:hover{
+      text-decoration: none;
+      color: $gray-10;
+    }
+  }
+  .navbar-end a{
+    color: #7b7f82;
+    margin: 0 20px;
+    font-size: 18px;
+    border-bottom: transparent solid 2px;
+    &:hover{
+      color: $gray-9;
+      text-decoration: none;
+    }
+    &.is-active{
+      color: $gray-9;
+      border-bottom: $primary solid 2px;
+    }
+  }
+}

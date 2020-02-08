@@ -1,0 +1,17 @@
+@import "variables";
+
+.table-view{
+  thead th{
+    color: $gray-7;
+    font-weight: 500;
+    border-top: 0;
+    border-bottom-width: 1px;
+    border-color: $gray-3;
+  }
+  tbody tr:hover {
+    background-color: $gray-2;
+  }
+  tbody td a:not(.btn) {
+    color: $gray-10;
+  }
+}

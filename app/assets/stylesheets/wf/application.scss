@@ -1,2 +1,19 @@
-// Custom bootstrap variables must be set or imported *before* bootstrap.
-@import "bootstrap";
+@import "uikit/index";
+
+main{
+  min-height: 80vh;
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
+
+.footer{
+  text-align: center;
+  .container{
+    border-top: 1px solid rgb(245, 239, 228);
+    padding-top: 1rem;
+  }
+  a{
+    color: $gray-10;
+  }
+}

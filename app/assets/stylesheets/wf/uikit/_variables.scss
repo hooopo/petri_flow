@@ -1,0 +1,33 @@
+@import "colors";
+@import "bootstrap/functions";
+$blue:    $blue-base;
+$red:     $red-base;
+$yellow:  $yellow-base;
+$green:   $pagegreen-base;
+$cyan:    $cyan-base;
+$primary: $green;
+
+$gray-100: $gray-1;
+$gray-200: $gray-2;
+$gray-300: $gray-3; // table header
+$gray-400: $gray-4; // disable background
+$gray-500: $gray-5; // border
+$gray-600: $gray-6; // disable text
+$gray-700: $gray-7; // secondary text
+$gray-800: $gray-8;
+$gray-900: $gray-9; // primary text
+$secondary: $gray-7;
+
+$body-bg: #fffefd;
+
+$link-color:                              $primary;
+$link-hover-color:                        $pagegreen-5;
+
+$font-family-sans-serif: system, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+"Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol";
+$font-family-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+
+$line-height-base:            1.6;
+
+@import "bootstrap/variables";
+

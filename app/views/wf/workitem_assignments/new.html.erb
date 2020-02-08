@@ -1,3 +1,4 @@
+<div class="card card-body">
 <%= form_with(model: @workitem_assignment, url: workitem_workitem_assignments_path(@workitem), local: true) do |f| %>
   <% if @workitem_assignment.errors.any? %>
     <article class="message is-danger">
@@ -25,3 +26,4 @@
     <%= f.submit class: "btn btn-primary", value: "Assign", data: {disable_with: 'Waiting...'} %>
   </div>
 <% end %>
+</div>

@@ -1,15 +1,16 @@
-<div class="float-left"><h2>Forms</h2></div>
-<div class="float-right">
-  <%= link_to 'New Form', new_form_path, class: 'btn btn-primary' %>
-</div>
+<div class="card card-body">
+ <div class="d-flex  justify-content-between">
+   <div><h2>Forms</h2></div>
+   <div><%= link_to '+  New Form', new_form_path, class: 'btn btn-primary' %></div>
+ </div>
 <div>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Name</th>
         <th scope="col">Description</th>
-        <th scope="col">Actions</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -18,9 +19,9 @@
           <td><%= form.id %></td>
           <td><%= link_to form.name, form_path(form) %></td>
           <td><%= form.description %></td>
-          <td>
-            <%= link_to 'Delete Form', form_path(form), method: :delete, data: {confirm: 'confirm?'}, class: 'btn-danger btn btn-sm' %>
-            <%= link_to 'Create Field', new_form_field_path(form), class: 'btn btn-info btn-sm' %>
+          <td class="text-right">
+            <%= link_to 'Delete Form', form_path(form), method: :delete, data: {confirm: 'confirm?'}, class: 'btn-link btn btn-sm text-danger' %>
+            <%= link_to 'Create Field', new_form_field_path(form), class: 'btn btn-link btn-sm' %>
           </td>
         </tr>
       <% end %>
@@ -29,4 +30,5 @@
 </div>
 <div>
   <%= paginate @forms, theme: 'twitter-bootstrap-4' %>
+</div>
 </div>

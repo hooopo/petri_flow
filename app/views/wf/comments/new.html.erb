@@ -1,3 +1,4 @@
+<div class="card card-body">
 <%= form_with(model: @comment, url: workitem_comments_path(@workitem), local: true) do |f| %>
   <% if @comment.errors.any? %>
     <article class="message is-danger">
@@ -25,3 +26,4 @@
     <%= f.submit class: "btn btn-primary", value: "Comment", data: {disable_with: 'Waiting...'} %>
   </div>
 <% end %>
+</div>

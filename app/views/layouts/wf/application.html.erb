@@ -12,11 +12,12 @@
   <%= javascript_include_tag "wf/application", "data-turbolinks-track": "reload" %>
 </head>
 <body>
-<%= render "layouts/wf/notice" %>
-<%= render "layouts/wf/alert" %>
-<%= render "layouts/wf/nav" %>
 
+<%= render "layouts/wf/nav" %>
 <main class="container">
+  <%= render "layouts/wf/notice" %>
+  <%= render "layouts/wf/alert" %>
+  <!--
   <nav aria-label="breadcrumb">
   <ol class='breadcrumb'>
     <% breadcrumb_trail do |crumb| %>
@@ -26,6 +27,7 @@
     <% end %>
   </ol>
 </nav>
+-->
   <%= content_for?(:content) ? yield(:content) : yield %>
 </main>
 

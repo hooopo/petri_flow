@@ -1,3 +1,4 @@
+<div class="card card-body">
 <div class="float-right">
   <%= link_to 'Delete Arc', workflow_path(@workflow, @arc), data: {confirm: 'confirm?'}, method: :delete, class: 'btn btn-danger' %>
   <%= link_to 'Edit Arc', edit_workflow_arc_path(@workflow, @arc), class: 'btn btn-primary' %>
@@ -7,7 +8,7 @@
 </div>
 <div>
   <h2>Arc Detail</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <tbody>
       <tr>
         <th scope="row">ID</th>
@@ -39,7 +40,7 @@
 
 <div>
   <h2>Guards</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -64,4 +65,5 @@
       <% end %>
     </tbody>
   </table>
+</div>
 </div>

@@ -1,9 +1,13 @@
-<div class="float-left"><h2>Workflows</h2></div>
-<div class="float-right">
+<div class="card card-body">
+  <div class="d-flex  justify-content-between">
+
+  <div><h2>Workflows</h2></div>
+<div>
   <%= link_to 'New Workflow', new_workflow_path, class: 'btn btn-primary' %>
 </div>
+  </div>
 <div>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -11,7 +15,7 @@
         <th scope="col">Description</th>
         <th scope="col">Is Valid?</th>
         <th scope="col">Error Msg</th>
-        <th scope="col">Actions</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -22,11 +26,11 @@
           <td><%= workflow.description %></td>
           <td><%= workflow.is_valid? %></td>
           <td><%= workflow.error_msg %></td>
-          <td>
-            <%= link_to 'Delete Workflow', workflow_path(workflow), remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-danger btn-sm' %>
-            <%= link_to 'Create Transition', new_workflow_transition_path(workflow), class: 'btn btn-info btn-sm' %>
-            <%= link_to 'Create Place', new_workflow_place_path(workflow), class: 'btn btn-info btn-sm' %>
-            <%= link_to 'Create Arc', new_workflow_arc_path(workflow), class: 'btn btn-info btn-sm' %>
+          <td class="text-right">
+            <%= link_to 'Delete Workflow', workflow_path(workflow), remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-link btn-sm text-danger' %>
+            <%= link_to 'Create Transition', new_workflow_transition_path(workflow), class: 'btn btn-link btn-sm' %>
+            <%= link_to 'Create Place', new_workflow_place_path(workflow), class: 'btn btn-link btn-sm' %>
+            <%= link_to 'Create Arc', new_workflow_arc_path(workflow), class: 'btn btn-link btn-sm' %>
           </td>
         </tr>
       <% end %>
@@ -35,4 +39,5 @@
 </div>
 <div>
   <%= paginate @workflows, theme: 'twitter-bootstrap-4' %>
+</div>
 </div>

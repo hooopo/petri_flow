@@ -1,6 +1,7 @@
+<div class="card card-body">
 <div>
   <h2 class="">Stats</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">All</th>
@@ -23,10 +24,11 @@
     </tbody>
   </table>
 </div>
-
+</div>
+<div class="card card-body">
 <div>
   <h2>Workitems</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -65,4 +67,5 @@
 
 <div>
   <%= paginate @workitems, theme: 'twitter-bootstrap-4' %>
+</div>
 </div>

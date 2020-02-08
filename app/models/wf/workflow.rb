@@ -78,6 +78,7 @@ module Wf
     end
 
     # TODO: can from start place to end place
+    # todo: remove color hex to const.
     def do_validate!
       msgs = []
       msgs << "must have start place" if places.start.blank?
@@ -92,6 +93,8 @@ module Wf
     end
 
     def to_graph(wf_case = nil)
+      fontfamily = 'system, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, Segoe UI Symbol'
+      fontfamily_monospace = 'SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace'
       graph = GraphViz.new(name, type: :digraph, rankdir: "LR", splines: true, ratio: :auto)
       free_token_places = if wf_case
         wf_case.tokens.free.map(&:place_id)
@@ -101,13 +104,16 @@ module Wf
       pg_mapping = {}
       places.order("place_type ASC").each do |p|
         if p.start?
-          fillcolor = :yellow
+          fillcolor = '#ffe7ba'
+          textcolor = '#fa8c16'
           shape     = :doublecircle
         elsif p.end?
-          fillcolor = :green
+          fillcolor = '#dff2ef'
+          textcolor = '#29c0b1'
           shape     = :doublecircle
         else
-          fillcolor = :lightpink
+          fillcolor = '#fbdbe1'
+          textcolor = '#ff3366'
           shape     = :circle
         end
 
@@ -127,7 +133,10 @@ module Wf
                              shape: shape,
                              fixedsize: true,
                              style: :filled,
+                             fontname: fontfamily,
+                             fontcolor: textcolor,
                              fontsize: fontsize,
+                             color: fillcolor,
                              fillcolor: fillcolor,
                              href: Wf::Engine.routes.url_helpers.edit_workflow_place_path(self, p))
         pg_mapping[p] = pg
@@ -135,7 +144,9 @@ module Wf
 
       tg_mapping = {}
       transitions.each do |t|
-        tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: :lightblue, href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
+        tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: "#d6ddfa", color: '#d6ddfa',
+                             fontcolor: '#2c50ed', fontname: fontfamily,
+                             href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
         tg_mapping[t] = tg
       end
 
@@ -154,6 +165,10 @@ module Wf
             labelfloat: false,
             labelfontcolor: :red,
             arrowhead: :vee,
+            fontsize: 10,
+            color: '#53585c',
+            fontcolor: '#53585c',
+            fontname: fontfamily_monospace,
             href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
           )
         else
@@ -165,6 +180,10 @@ module Wf
             labelfloat: false,
             labelfontcolor: :red,
             arrowhead: :vee,
+            fontsize: 10,
+            color: '#53585c',
+            fontcolor: '#53585c',
+            fontname: fontfamily_monospace,
             href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
           )
         end

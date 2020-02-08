@@ -1,0 +1,19 @@
+@import "variables";
+
+.alert{
+  margin-bottom: 2rem;
+  p{
+    margin-bottom: 0;
+  }
+
+  &.alert-success{
+    background: $pagegreen-1;
+    border-color: $pagegreen-4;
+    color: $gray-9;
+  }
+  &.alert-warning{
+    background: $red-1;
+    border-color: $red-5;
+    color: $gray-9;
+  }
+}

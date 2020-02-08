@@ -1,16 +1,16 @@
-<div class="float-right">
-  <% if @workflow.is_valid? %>
-    <%= link_to 'New Case', new_workflow_case_path(@workflow), class: 'btn btn-dark' %>
+<div class="d-flex  justify-content-end">
+<% if @workflow.is_valid? %>
+    <%= link_to 'New Case', new_workflow_case_path(@workflow), class: 'btn btn-primary mr-2' %>
   <% end %>
-  <%= link_to 'Edit Workflow', edit_workflow_path(@workflow), class: 'btn btn-primary' %>
-  <%= link_to 'Create Transitions', new_workflow_transition_path(@workflow), class: 'btn btn-primary' %>
-  <%= link_to 'Create Places', new_workflow_place_path(@workflow), class: 'btn btn-primary' %>
-  <%= link_to 'Create Arcs', new_workflow_arc_path(@workflow), class: 'btn btn-primary' %>
-  <%= link_to 'Delete Workflow', workflow_path(@workflow), data: {confirm: 'confirm?'}, method: :delete, class: 'btn btn-danger' %>
+  <%= link_to 'Delete Workflow', workflow_path(@workflow), data: {confirm: 'confirm?'}, method: :delete, class: 'btn btn-danger mr-2' %>
+  <%= link_to 'Edit Workflow', edit_workflow_path(@workflow), class: 'btn btn-light mr-2' %>
+  <%= link_to 'Create Transitions', new_workflow_transition_path(@workflow), class: 'btn btn-light mr-2' %>
+  <%= link_to 'Create Places', new_workflow_place_path(@workflow), class: 'btn btn-light mr-2' %>
+  <%= link_to 'Create Arcs', new_workflow_arc_path(@workflow), class: 'btn btn-light ' %>
 </div>
-<div>
+<div class="card card-body">
   <h2 class="">Workflow Detail</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <tbody>
       <tr>
         <th scope="row">ID</th>
@@ -26,7 +26,7 @@
       </tr>
       <tr>
         <th scope="row">Is Valid?</th>
-        <td><%= @workflow.is_valid? %></td>
+        <td><code><%= @workflow.is_valid? %></code></td>
       </tr>
 
       <tr>
@@ -37,7 +37,7 @@
   </table>
 </div>
 
-<div>
+<div class="card card-body">
   <h2>Graph Editor</h2>
   <div class="card">
     <div class="card-body">
@@ -46,9 +46,9 @@
   </div>
 </div>
 
-<div>
+<div class="card card-body">
   <h2 class="">Cases</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">All</th>
@@ -72,9 +72,9 @@
   </table>
 </div>
 
-<div>
+<div class="card card-body">
   <h2>Places</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -82,7 +82,7 @@
         <th scope="col">Description</th>
         <th scope="col">Place Type</th>
         <th scope="col">Sort Order</th>
-        <th scope="col">Actions</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -93,16 +93,18 @@
           <td><%= place.description %></td>
           <td><%= place.place_type %></td>
           <td><%= place.sort_order %></td>
-          <td><%= link_to 'Edit Place', edit_workflow_place_path(@workflow, place), class: 'btn btn-sm btn-info' %></td>
-          <td><%= link_to 'Delete Place', [@workflow, place], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+          <td class="text-right">
+            <%= link_to 'Edit Place', edit_workflow_place_path(@workflow, place), class: 'btn btn-sm btn-link mr-2' %>
+            <%= link_to 'Delete Place', [@workflow, place], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-link text-danger' %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
-<div>
+<div class="card card-body">
   <h2>Transitions</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -112,7 +114,7 @@
         <th scope="col">Trigger Type</th>
         <th scope="col">Sort Order</th>
         <th scope="col">Custom Form</th>
-        <th scope='col'> Actions </th>
+        <th scope='col'> </th>
       </tr>
     </thead>
     <tbody>
@@ -132,16 +134,16 @@
              No Form
             <% end %>
           </td>
-          <td><%= link_to 'Edit Transition', edit_workflow_transition_path(@workflow, transition), class: 'btn btn-sm btn-info' %></td>
-          <td><%= link_to 'Delete Transition', [@workflow, transition], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+          <td><%= link_to 'Edit Transition', edit_workflow_transition_path(@workflow, transition), class: 'btn btn-sm btn-link mr-2' %>
+            <%= link_to 'Delete Transition', [@workflow, transition], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-link text-danger' %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
-<div>
+<div class="card card-body">
   <h2>Arcs</h2>
-  <table class="table table-bordered table-info">
+  <table class="table table-view">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -151,7 +153,7 @@
         <th scope="col">Transition</th>
         <th scope="col">Arc Type</th>
         <th scope="col">Guards</th>
-        <th scope='col'> Actions </th>
+        <th scope='col'> </th>
       </tr>
     </thead>
     <tbody>
@@ -162,14 +164,16 @@
           <td><%= arc.direction %></td>
           <td><%= arc.place&.name %></td>
           <td><%= arc.transition&.name %></td>
-          <td><%= arc.guards.map(&:inspect).join(" & ") %></td>
-          <td><%= link_to 'Edit Arc', edit_workflow_arc_path(@workflow, arc), class: 'btn btn-sm btn-info' %></td>
+          <td><code><%= arc.guards.map(&:inspect).join(" & ") %></code></td>
           <td>
             <% if arc.out? %>
-              <%= link_to 'Add Gruards', new_arc_guard_path(arc), class: 'btn btn-sm btn-info' %>
+              <%= link_to 'Add Gruards', new_arc_guard_path(arc), class: 'btn btn-sm btn-outline-primary mr-2' %>
             <% end %>
           </td>
-          <td><%= link_to 'Delete Arc', [@workflow, arc], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-danger' %></td>
+          <td class="text-right">
+            <%= link_to 'Edit Arc', edit_workflow_arc_path(@workflow, arc), class: 'btn btn-sm btn-link mr-2' %>
+            <%= link_to 'Delete Arc', [@workflow, arc], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-link text-danger' %>
+          </td>
         </tr>
       <% end %>
     </tbody>

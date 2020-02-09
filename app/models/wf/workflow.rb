@@ -85,6 +85,7 @@ module Wf
       msgs << "must have only one start place" if places.start.count > 1
       msgs << "must have end place" if places.end.blank?
       msgs << "must have only one end place" if places.end.count > 1
+      msgs << "must not have discrete transition" if transitions.any? { |t| !t.arcs.in.exists? }
       if msgs.present?
         update_columns(is_valid: false, error_msg: msgs.join("\n"))
       else
@@ -93,8 +94,8 @@ module Wf
     end
 
     def to_graph(wf_case = nil)
-      fontfamily = 'system, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, Segoe UI Symbol'
-      fontfamily_monospace = 'SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace'
+      fontfamily = "system, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, Segoe UI Symbol"
+      fontfamily_monospace = "SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace"
       graph = GraphViz.new(name, type: :digraph, rankdir: "LR", splines: true, ratio: :auto)
       free_token_places = if wf_case
         wf_case.tokens.free.map(&:place_id)
@@ -104,16 +105,16 @@ module Wf
       pg_mapping = {}
       places.order("place_type ASC").each do |p|
         if p.start?
-          fillcolor = '#ffe7ba'
-          textcolor = '#fa8c16'
+          fillcolor = "#ffe7ba"
+          textcolor = "#fa8c16"
           shape     = :doublecircle
         elsif p.end?
-          fillcolor = '#dff2ef'
-          textcolor = '#29c0b1'
+          fillcolor = "#dff2ef"
+          textcolor = "#29c0b1"
           shape     = :doublecircle
         else
-          fillcolor = '#fbdbe1'
-          textcolor = '#ff3366'
+          fillcolor = "#fbdbe1"
+          textcolor = "#ff3366"
           shape     = :circle
         end
 
@@ -144,9 +145,9 @@ module Wf
 
       tg_mapping = {}
       transitions.each do |t|
-        tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: "#d6ddfa", color: '#d6ddfa',
-                             fontcolor: '#2c50ed', fontname: fontfamily,
-                             href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
+        tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: "#d6ddfa", color: "#d6ddfa",
+                                     fontcolor: "#2c50ed", fontname: fontfamily,
+                                     href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
         tg_mapping[t] = tg
       end
 
@@ -166,8 +167,8 @@ module Wf
             labelfontcolor: :red,
             arrowhead: :vee,
             fontsize: 10,
-            color: '#53585c',
-            fontcolor: '#53585c',
+            color: "#53585c",
+            fontcolor: "#53585c",
             fontname: fontfamily_monospace,
             href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
           )
@@ -181,8 +182,8 @@ module Wf
             labelfontcolor: :red,
             arrowhead: :vee,
             fontsize: 10,
-            color: '#53585c',
-            fontcolor: '#53585c',
+            color: "#53585c",
+            fontcolor: "#53585c",
             fontname: fontfamily_monospace,
             href: Wf::Engine.routes.url_helpers.edit_workflow_arc_path(self, arc)
           )

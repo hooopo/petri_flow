@@ -13,7 +13,6 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-
 module Wf
   class Workflow < ApplicationRecord
     has_many :places, dependent: :destroy
@@ -81,11 +80,26 @@ module Wf
     # todo: remove color hex to const.
     def do_validate!
       msgs = []
-      msgs << "must have start place" if places.start.blank?
+      start_place = places.start.first
+      end_place   = places.end.first
+      msgs << "must have start place" if start_place.blank?
       msgs << "must have only one start place" if places.start.count > 1
-      msgs << "must have end place" if places.end.blank?
+      msgs << "must have end place" if end_place.blank?
       msgs << "must have only one end place" if places.end.count > 1
       msgs << "must not have discrete transition" if transitions.any? { |t| !t.arcs.in.exists? }
+      if start_place && end_place
+        rgl = to_rgl
+        places.each do |p|
+          msgs << "start place can not reach #{p.name}" unless rgl.path?(start_place.to_gid.to_s, p.to_gid.to_s)
+          msgs << "#{p.name} can not reach end_place" unless rgl.path?(p.to_gid.to_s, end_place.to_gid.to_s)
+        end
+
+        transitions.each do |t|
+          msgs << "start place can not reach #{t.name}" unless rgl.path?(start_place.to_gid.to_s, t.to_gid.to_s)
+          msgs << "#{t.name} can not reach end_place" unless rgl.path?(t.to_gid.to_s, end_place.to_gid.to_s)
+        end
+      end
+
       if msgs.present?
         update_columns(is_valid: false, error_msg: msgs.join("\n"))
       else
@@ -197,6 +211,26 @@ module Wf
       path = Rails.root.join("tmp", "#{id}.svg")
       graph.output(svg: path)
       File.read(path)
+    end
+
+    def to_rgl
+      graph = RGL::DirectedAdjacencyGraph.new
+      places.order("place_type ASC").each do |p|
+        graph.add_vertex(p.to_gid.to_s)
+      end
+
+      transitions.each do |t|
+        graph.add_vertex(t.to_gid.to_s)
+      end
+
+      arcs.order("direction desc").each do |arc|
+        if arc.in?
+          graph.add_edge(arc.place.to_gid.to_s, arc.transition.to_gid.to_s)
+        else
+          graph.add_edge(arc.transition.to_gid.to_s, arc.place.to_gid.to_s)
+        end
+      end
+      graph
     end
   end
 end

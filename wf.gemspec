@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "kaminari"
   spec.add_dependency "loaf"
   spec.add_dependency "rails", "~> 6.0.2", ">= 6.0.2.1"
+  spec.add_dependency "rgl"
   spec.add_dependency "ruby-graphviz"
   spec.add_dependency "simple_command"
 end

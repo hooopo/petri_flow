@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rgl"
   spec.add_dependency "ruby-graphviz"
   spec.add_dependency "simple_command"
+  spec.add_dependency "select2-rails-2020"
 end

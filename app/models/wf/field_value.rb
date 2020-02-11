@@ -24,7 +24,29 @@ module Wf
     belongs_to :entry
 
     def value_after_cast
-      field.type_for_cast.cast(value)
+      ov = self[:value]
+      if field.array? && !ov.is_a?(Array)
+        v = begin
+              JSON.parse(ov)
+            rescue StandardError
+              []
+            end
+        field.type_for_cast.cast(v)
+      else
+        field.type_for_cast.cast(ov)
+      end
+    end
+
+    def value=(v)
+      self[:value] = if field.array?
+        Array(v.as_json)
+      else
+        v
+      end
+    end
+
+    def value
+      value_after_cast
     end
   end
 end

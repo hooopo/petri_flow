@@ -7,6 +7,7 @@ PATH
       jquery-rails
       kaminari
       loaf
+      pg
       rails (~> 6.0.2, >= 6.0.2.1)
       rgl
       ruby-graphviz

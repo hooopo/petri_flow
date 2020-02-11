@@ -11,6 +11,7 @@ PATH
       rails (~> 6.0.2, >= 6.0.2.1)
       rgl
       ruby-graphviz
+      select2-rails-2020
       simple_command
 
 GEM
@@ -197,6 +198,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    select2-rails-2020 (4.0.4)
     simple_command (0.1.0)
     sprockets (4.0.0)
       concurrent-ruby (~> 1.0)

@@ -21,7 +21,11 @@
       <% @workitem.transition.form.fields.each do |field| %>
        <div class="form-group">
         <%= ff.label field.name, class: "label" %>
-        <%= ff.text_field field.id, class: "form-control" %>
+        <% if field.array?  %>
+          <%= ff.select field.id, {}, {}, multiple: true, class: "form-control select2" %>
+        <% else %>
+          <%= ff.send(field.field_type_for_view, field.id, class: "form-control") %>
+        <% end %>
         </div>
       <% end %>
     <% end %>
@@ -31,3 +35,13 @@
     <%= f.submit class: "btn btn-primary", value: "Done", data: {disable_with: 'Waiting...'} %>
   </div>
 <% end %>
+
+<script>
+  $(function() {
+    $(".select2").select2({
+      tags: [],
+      theme: "bootstrap4",
+      tokenSeparators: [',', ' ']
+    });
+  });
+</script>

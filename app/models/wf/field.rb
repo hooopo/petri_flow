@@ -40,6 +40,26 @@ module Wf
       "text[]": 28
     }
 
+    # TODO: array type
+    def field_type_for_view
+      case field_type
+      when "string"
+        "text_field"
+      when "integer"
+        "number_field"
+      when "date"
+        "date_field"
+      when "datetime"
+        "datetime_field"
+      when "boolean"
+        "radio_button"
+      when "text"
+        "text_area"
+      else
+        "text_field"
+      end
+    end
+
     def array?
       field_type.to_s.match(/^(\w+)(\[\])?$/)[2] == "[]"
     end

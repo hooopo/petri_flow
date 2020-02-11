@@ -40,13 +40,16 @@ module Wf
       "text[]": 28
     }
 
+    def array?
+      field_type.to_s.match(/^(\w+)(\[\])?$/)[2] == "[]"
+    end
+
     def type_for_cast
       type = field_type.to_s.match(/^(\w+)(\[\])?$/)[1]
-      is_array = field_type.to_s.match(/^(\w+)(\[\])?$/)[2] == "[]"
-      if is_array
-        ActiveRecord::Type.lookup(type.to_sym, array: true)
+      if array?
+        ActiveRecord::Type.lookup(type.to_sym, adapter: :postgresql, array: true)
       else
-        ActiveRecord::Type.lookup(type.to_sym)
+        ActiveRecord::Type.lookup(type.to_sym, adapter: :postgresql)
       end
     end
   end

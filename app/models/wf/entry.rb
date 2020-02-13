@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: wf_entries
@@ -10,10 +9,12 @@
 #  payload     :json             default("{}")
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  form_id     :integer
 #
 
 module Wf
   class Entry < ApplicationRecord
+    belongs_to :form
     belongs_to :user, class_name: Wf::Workflow.user_class.to_s
     belongs_to :workitem
     has_many :field_values

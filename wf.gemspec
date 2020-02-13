@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 6.0.2", ">= 6.0.2.1"
   spec.add_dependency "rgl"
   spec.add_dependency "ruby-graphviz"
-  spec.add_dependency "simple_command"
   spec.add_dependency "select2-rails-2020"
+  spec.add_dependency "simple_command"
 end

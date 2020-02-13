@@ -14,7 +14,7 @@ module Wf
 
     def create
       @arc = Wf::Arc.find(params[:arc_id])
-      gp = guard_params.merge(fieldable: GlobalID::Locator.locate(guard_params[:fieldable])) if guard_params[:fieldable].present?
+      gp = guard_params.merge(fieldable: GlobalID::Locator.locate(guard_params[:fieldable]))
       @guard = @arc.guards.new(gp.merge(workflow: @arc.workflow))
       redirect_to workflow_arc_path(@arc.workflow, @arc), notice: "only out direction arc can set guard!" unless @arc.out?
       if @guard.save

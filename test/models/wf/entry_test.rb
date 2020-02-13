@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: wf_entries
@@ -10,6 +9,7 @@
 #  payload     :json             default("{}")
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  form_id     :integer
 #
 
 require "test_helper"

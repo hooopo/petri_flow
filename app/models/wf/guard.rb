@@ -39,7 +39,7 @@ module Wf
     def value_after_cast
       field = fieldable
       if fieldable
-        fieldable.type_for_cast.cast(value)
+        fieldable.cast(value)
       else
         # TODO
       end

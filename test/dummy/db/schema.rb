@@ -10,10 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_120019) do
+ActiveRecord::Schema.define(version: 2020_02_14_005535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "entries", force: :cascade do |t|
+    t.string "user_id"
+    t.bigint "workitem_id"
+    t.json "payload"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "form_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
+    t.index ["workitem_id", "user_id"], name: "index_entries_on_workitem_id_and_user_id", unique: true
+    t.index ["workitem_id"], name: "index_entries_on_workitem_id"
+  end
+
+  create_table "field_values", force: :cascade do |t|
+    t.bigint "form_id"
+    t.bigint "field_id"
+    t.text "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "entry_id"
+  end
+
+  create_table "fields", force: :cascade do |t|
+    t.string "name"
+    t.bigint "form_id"
+    t.integer "position", default: 0
+    t.integer "field_type", default: 0
+    t.string "field_type_name"
+    t.string "default_value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["form_id"], name: "index_fields_on_form_id"
+  end
+
+  create_table "forms", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "wf_arcs", force: :cascade do |t|
     t.bigint "workflow_id"
@@ -66,14 +106,13 @@ ActiveRecord::Schema.define(version: 2020_02_12_120019) do
     t.json "payload", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "form_id"
     t.index ["user_id"], name: "index_wf_entries_on_user_id"
     t.index ["workitem_id", "user_id"], name: "index_wf_entries_on_workitem_id_and_user_id", unique: true
     t.index ["workitem_id"], name: "index_wf_entries_on_workitem_id"
   end
 
   create_table "wf_field_values", force: :cascade do |t|
-    t.bigint "workflow_id"
-    t.bigint "transition_id"
     t.bigint "form_id"
     t.bigint "field_id"
     t.text "value"
@@ -82,8 +121,6 @@ ActiveRecord::Schema.define(version: 2020_02_12_120019) do
     t.bigint "entry_id"
     t.index ["field_id"], name: "index_wf_field_values_on_field_id"
     t.index ["form_id"], name: "index_wf_field_values_on_form_id"
-    t.index ["transition_id"], name: "index_wf_field_values_on_transition_id"
-    t.index ["workflow_id"], name: "index_wf_field_values_on_workflow_id"
   end
 
   create_table "wf_fields", force: :cascade do |t|
@@ -188,6 +225,8 @@ ActiveRecord::Schema.define(version: 2020_02_12_120019) do
     t.string "hold_timeout_callback", default: "Wf::Callbacks::HoldTimeoutDefault"
     t.string "assignment_callback", default: "Wf::Callbacks::AssignmentDefault"
     t.string "unassignment_callback", default: "Wf::Callbacks::UnassignmentDefault"
+    t.string "form_type", default: "Wf::Form"
+    t.index ["form_type", "form_id"], name: "index_wf_transitions_on_form_type_and_form_id"
   end
 
   create_table "wf_users", comment: "For demo", force: :cascade do |t|

@@ -1,4 +1,4 @@
-# Petri Flow
+# Petri Flow ![Ruby Gem](https://github.com/hooopo/petri_flow/workflows/Ruby%20Gem/badge.svg?event=push)
 
 Workflow engine for Rails.
 

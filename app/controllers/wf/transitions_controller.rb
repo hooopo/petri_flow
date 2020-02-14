@@ -14,7 +14,8 @@ module Wf
 
     def create
       @workflow = Wf::Workflow.find(params[:workflow_id])
-      @transition = @workflow.transitions.new(transition_params)
+      tp = transition_params.merge(form: GlobalID::Locator.locate(transition_params[:form]))
+      @transition = @workflow.transitions.new(tp)
       if @transition.save
         redirect_to workflow_path(@workflow), notice: "transition was successfully created."
       else
@@ -38,7 +39,8 @@ module Wf
     def update
       @workflow = Wf::Workflow.find(params[:workflow_id])
       @transition = @workflow.transitions.find(params[:id])
-      if @transition.update(transition_params)
+      tp = transition_params.merge(form: GlobalID::Locator.locate(transition_params[:form]))
+      if @transition.update(tp)
         redirect_to workflow_path(@workflow), notice: "transition was successfully updated."
       else
         render :edit
@@ -54,7 +56,7 @@ module Wf
           :trigger_limit,
           :trigger_type,
           :sort_order,
-          :form_id,
+          :form,
           :enable_callback,
           :fire_callback,
           :time_callback,

@@ -18,7 +18,7 @@
 
   <div class="form-group">
     <%= f.label :fieldable, class: "label" %>
-    <%= f.select :fieldable, options_for_select(@arc.transition.form&.fields&.map {|x| [x.name, x.to_global_id]} || []), {}, class: "form-control custom-select", placeholder: "fieldable" %>
+    <%= f.select :fieldable, options_for_select(@arc.transition.form&.fields&.map {|x| [x.name, x.to_global_id]} || [], selected: f.object&.fieldable&.to_global_id), {}, class: "form-control custom-select", placeholder: "fieldable" %>
   </div>
 
   <div class="form-group">

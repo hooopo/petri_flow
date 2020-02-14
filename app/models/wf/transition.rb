@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: wf_transitions
@@ -22,6 +21,7 @@
 #  hold_timeout_callback :string           default("Wf::Callbacks::HoldTimeoutDefault")
 #  assignment_callback   :string           default("Wf::Callbacks::AssignmentDefault")
 #  unassignment_callback :string           default("Wf::Callbacks::UnassignmentDefault")
+#  form_type             :string           default("Wf::Form")
 #
 
 module Wf
@@ -31,7 +31,7 @@ module Wf
     has_many :transition_static_assignments
     has_many :static_parties, through: :transition_static_assignments, source: "party"
     has_many :workitems
-    belongs_to :form, optional: true
+    belongs_to :form, optional: true, polymorphic: true
 
     enum trigger_type: {
       user: 0,

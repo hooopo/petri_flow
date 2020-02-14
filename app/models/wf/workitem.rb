@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: wf_workitems
@@ -8,8 +7,6 @@
 #  case_id         :integer
 #  workflow_id     :integer
 #  transition_id   :integer
-#  targetable_type :string
-#  targetable_id   :string
 #  state           :integer          default("0")
 #  enabled_at      :datetime
 #  started_at      :datetime
@@ -32,7 +29,7 @@ module Wf
     has_many :workitem_assignments
     has_many :parties, through: :workitem_assignments, source: "party"
     has_many :comments
-    has_many :entries
+    has_many :entries, class_name: Wf::Workflow.entry_class.to_s
 
     enum state: {
       enabled: 0,

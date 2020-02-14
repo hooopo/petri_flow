@@ -7,7 +7,7 @@ Wf::Place.destroy_all
 Wf::Arc.destroy_all
 Wf::Form.destroy_all
 
-form = Wf::Form.create(name: "From One")
+form = Wf::Workflow.form_class.constantize.create(name: "From One")
 name_field = form.fields.create!(name: :name, field_type: :string)
 age_field = form.fields.create!(name: :age, field_type: :integer)
 

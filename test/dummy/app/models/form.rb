@@ -11,9 +11,7 @@
 #  updated_at  :datetime         not null
 #
 
-module Wf
-  class Form < ApplicationRecord
-    has_many :fields, dependent: :destroy
-    has_many :entries
-  end
+class Form < ApplicationRecord
+  has_many :fields, dependent: :destroy
+  has_many :entries
 end

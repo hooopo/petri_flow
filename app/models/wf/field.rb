@@ -72,5 +72,7 @@ module Wf
         ActiveRecord::Type.lookup(type.to_sym, adapter: :postgresql)
       end
     end
+
+    delegate :cast, to: :type_for_cast
   end
 end

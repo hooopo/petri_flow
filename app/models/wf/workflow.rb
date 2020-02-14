@@ -58,13 +58,25 @@ module Wf
       [Wf::Callbacks::HoldTimeoutDefault]
     end
 
+    def self.form_class
+      "::Wf::Form"
+    end
+
+    def self.entry_class
+      "::Wf::Entry"
+    end
+
+    def self.field_class
+      "::Wf::Field"
+    end
+
     def self.user_class
-      ::Wf::User
+      "::Wf::User"
     end
 
     def self.org_classes
       {
-        group: ::Wf::Group
+        group: "::Wf::Group"
       }
     end
 

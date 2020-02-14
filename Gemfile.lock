@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    petri_flow (0.1.4)
+    petri_flow (0.1.5)
       bootstrap (~> 4.4.1)
       bootstrap4-kaminari-views
       jquery-rails

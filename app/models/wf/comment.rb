@@ -16,6 +16,6 @@
 module Wf
   class Comment < ApplicationRecord
     belongs_to :workitem
-    belongs_to :user, class_name: Wf::Workflow.user_class.to_s
+    belongs_to :user, class_name: Wf.user_class.to_s
   end
 end

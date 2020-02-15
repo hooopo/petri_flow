@@ -37,21 +37,8 @@ Petri Flow abstracts the interface needed to integrate with dynamic forms, in or
 
 ```ruby
 # config/initializers/wf_config.rb
-Wf::Workflow.class_eval do
-  def self.user_class
-    "::Wf::User"
-  end
-
-  def self.form_class
-    "::Form"
-  end
-
-  def self.entry_class
-    "::Entry"
-  end
-
-  def self.field_class
-    "::Field"
-  end
-end
+Wf.user_class   = "::Wf::User"
+WF.form_class   = "::Form"
+Wf.entry_class  = "::Entry"
+Wf.field_class  = "::Field"
 ```

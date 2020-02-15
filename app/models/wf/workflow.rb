@@ -25,61 +25,6 @@ module Wf
 
     validates :name, presence: true
 
-    # TODO: move to config
-    def self.enable_callbacks
-      [Wf::Callbacks::EnableDefault]
-    end
-
-    def self.fire_callbacks
-      [Wf::Callbacks::FireDefault]
-    end
-
-    def self.assignment_callbacks
-      [Wf::Callbacks::AssignmentDefault]
-    end
-
-    def self.unassignment_callbacks
-      [Wf::Callbacks::UnassignmentDefault]
-    end
-
-    def self.notification_callbacks
-      [Wf::Callbacks::NotificationDefault]
-    end
-
-    def self.deadline_callbacks
-      [Wf::Callbacks::DeadlineDefault]
-    end
-
-    def self.time_callbacks
-      [Wf::Callbacks::TimeDefault]
-    end
-
-    def self.hold_timeout_callbacks
-      [Wf::Callbacks::HoldTimeoutDefault]
-    end
-
-    def self.form_class
-      "::Wf::Form"
-    end
-
-    def self.entry_class
-      "::Wf::Entry"
-    end
-
-    def self.field_class
-      "::Wf::Field"
-    end
-
-    def self.user_class
-      "::Wf::User"
-    end
-
-    def self.org_classes
-      {
-        group: "::Wf::Group"
-      }
-    end
-
     after_save do
       do_validate!
     end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_entries
@@ -15,7 +16,7 @@
 module Wf
   class Entry < ApplicationRecord
     belongs_to :form
-    belongs_to :user, class_name: Wf::Workflow.user_class.to_s
+    belongs_to :user, class_name: Wf.user_class.to_s
     belongs_to :workitem
     has_many :field_values
 

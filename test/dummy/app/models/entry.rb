@@ -14,7 +14,7 @@
 
 class Entry < ApplicationRecord
   belongs_to :form
-  belongs_to :user, class_name: Wf::Workflow.user_class.to_s
+  belongs_to :user, class_name: Wf.user_class.to_s
   belongs_to :workitem, class_name: "Wf::Workitem"
   has_many :field_values
 

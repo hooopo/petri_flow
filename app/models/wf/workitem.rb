@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wf_workitems
@@ -25,11 +26,11 @@ module Wf
     belongs_to :workflow
     belongs_to :transition
     belongs_to :case
-    belongs_to :holding_user, foreign_key: :holding_user_id, class_name: Workflow.user_class.to_s, optional: true
+    belongs_to :holding_user, foreign_key: :holding_user_id, class_name: Wf.user_class.to_s, optional: true
     has_many :workitem_assignments
     has_many :parties, through: :workitem_assignments, source: "party"
     has_many :comments
-    has_many :entries, class_name: Wf::Workflow.entry_class.to_s
+    has_many :entries, class_name: Wf.entry_class.to_s
 
     enum state: {
       enabled: 0,

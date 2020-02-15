@@ -3,7 +3,6 @@
 class NewForm < ActiveRecord::Migration[6.0]
   def change
     create_table "field_values", force: :cascade do |t|
-      t.bigint "entry_id"
       t.bigint "form_id"
       t.bigint "field_id"
       t.text "value"

@@ -74,16 +74,8 @@ Add wf_config:
 
 ```ruby
 # config/initializers/wf_config.rb
-Wf::Workflow.class_eval do
-  def self.user_class
-    ::User
-  end
-  
-  # you can add more org class, for example, Role, Department, Position etc.
-  def self.org_classes
-    { group: ::Group }
-  end
-end
+Wf.user_class = "::User"
+Wf.org_classes = { group: "::Group" }
 ```
 
 Set parties:

@@ -39,4 +39,4 @@ jobs:
         sudo apt-get install libmysqlclient-dev
         gem install bundler
         bundle install --jobs 4 --retry 3
-        bundle exec rails app:db:create && bundle exec rails app:db:migrate && bundle exec rake app:db:test:prepare && bundle exec rails test
+        bundle exec rails app:db:create && bundle exec rails app:db:migrate  && bundle exec rails test

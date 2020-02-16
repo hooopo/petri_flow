@@ -1,4 +1,4 @@
-name: Rails Unit Tests
+name: Testing
 
 on: [push, pull_request]
 
@@ -37,6 +37,7 @@ jobs:
       run: |
         sudo apt-get -yqq install libpq-dev
         sudo apt-get install libmysqlclient-dev
+        sudo apt-get install graphviz
         gem install bundler
         bundle install --jobs 4 --retry 3
         bundle exec rails app:db:create && bundle exec rails app:db:migrate  && bundle exec rails test

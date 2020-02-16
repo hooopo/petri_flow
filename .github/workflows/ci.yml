@@ -10,6 +10,10 @@ jobs:
     services:
       db:
         image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
@@ -25,9 +29,10 @@ jobs:
         ruby-version: "2.6"
     - name: Build and test with Rake
       env:
-        DATABASE_URL: "postgresql://postgres:@127.0.0.1:5432/petri_flow_test"
-        PGHOST: 127.0.0.1
-        PGUSER: postgres
+        DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1:5432/postgres"
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
         RAILS_ENV: test
       run: |
         sudo apt-get -yqq install libpq-dev

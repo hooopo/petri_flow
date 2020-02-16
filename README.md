@@ -116,7 +116,9 @@ visit:
 http://localhost:3000/wf
 ```
 
-Demo App: https://github.com/hooopo/petri_flow_demo
+## Testing
+
+* RAILS_ENV=test rake app:db:migrate && RAILS_ENV=test rake app:db:test:prepare && bundle exec rake test
 
 ## Contributing
 Contribution directions go here.

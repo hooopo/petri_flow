@@ -27,6 +27,8 @@ module Wf
       self.workflow = arc.workflow
     end
 
+    validate :validate_exp_and_fieldable
+
     OP = %w[
       =
       >
@@ -38,36 +40,76 @@ module Wf
 
     def value_after_cast
       field = fieldable
-      if fieldable
-        fieldable.cast(value)
+      fieldable&.cast(value)
+    end
+
+    def pass?(entry, workitem)
+      if exp
+        check_exp(entry, workitem)
       else
-        # TODO
+        check_fieldable(entry)
       end
     end
 
-    def pass?(entry)
+    def check_exp(entry, workitem)
+      form_hash = if entry
+        entry.for_mini_racer
+      else
+        {}
+      end
+
+      target_hash = workitem&.case&.targetable&.attributes || {}
+      user_hash = workitem&.holding_user&.attributes || {}
+
+      # 1000ms, 200mb
+      context = MiniRacer::Context.new(timeout: 1000, max_memory: 200_000_000)
+      context.eval("let form = #{form_hash.to_json};")
+      context.eval("let user = #{user_hash.to_json};")
+      context.eval("let target = #{target_hash.to_json};")
+      exp_value = context.eval(exp)
+      yes_or_no?(exp_value, value)
+    end
+
+    def check_fieldable(entry)
       fv = entry.field_values.where(field_id: fieldable_id).first
       return unless fv
 
+      yes_or_no?(fv.value_after_cast, value_after_cast)
+    end
+
+    def yes_or_no?(input_value, setting_value)
       if op == "="
-        fv.value_after_cast == value_after_cast
+        input_value == setting_value
       elsif op == ">"
-        fv.value_after_cast > value_after_cast
+        input_value > setting_value
       elsif op == "<"
-        fv.value_after_cast < value_after_cast
+        input_value < setting_value
       elsif op == ">="
-        fv.value_after_cast >= value_after_cast
+        input_value >= setting_value
       elsif op == "<="
-        fv.value_after_cast <= value_after_cast
+        input_value <= setting_value
       elsif op == "is_empty"
-        fv.value_after_cast.blank?
+        input_value.blank?
       else
         false
       end
     end
 
     def inspect
-      %(#{fieldable&.form&.name}.#{fieldable&.name} #{op} #{value})
+      if exp
+        %(eval(exp) #{op} #{value})
+      else
+        %(#{fieldable&.form&.name}.#{fieldable&.name} #{op} #{value})
+      end
+    end
+
+    def validate_exp_and_fieldable
+      if fieldable && exp.present?
+        errors.add(:exp, "Exp and Fieldable can not be set at the same time.")
+        return
+      end
+
+      errors.add(:exp, "Must set one of Exp and Fieldable.") unless fieldable || exp.present?
     end
   end
 end

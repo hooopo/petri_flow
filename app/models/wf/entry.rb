@@ -28,6 +28,10 @@ module Wf
       field_values.includes(:field).map { |x| [x.field_id.to_i, { field_id: x.id.to_i, field_name: x.field.name, value: x.value_after_cast }] }.to_h
     end
 
+    def for_mini_racer
+      field_values.includes(:field).map { |x| [x.field.name, x.value_after_cast] }.to_h
+    end
+
     def update_payload!
       update(payload: json)
     end

@@ -7,6 +7,7 @@ PATH
       jquery-rails
       kaminari
       loaf
+      mini_racer
       pg
       rails (~> 6.0.2, >= 6.0.2.1)
       rgl
@@ -114,6 +115,7 @@ GEM
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
     lazy_priority_queue (0.1.1)
+    libv8 (7.3.492.27.1)
     loaf (0.9.0)
       rails (>= 3.2)
     loofah (2.4.0)
@@ -127,6 +129,8 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
+    mini_racer (0.2.9)
+      libv8 (>= 6.9.411)
     minitest (5.14.0)
     mysql2 (0.5.3)
     nio4r (2.5.2)

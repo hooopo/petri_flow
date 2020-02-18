@@ -40,7 +40,7 @@ module Wf
 
     def update
       @arc = Wf::Arc.find(params[:arc_id])
-      gp = guard_params.merge(fieldable: GlobalID::Locator.locate(guard_params[:fieldable])) if guard_params[:fieldable].present?
+      gp = guard_params.merge(fieldable: GlobalID::Locator.locate(guard_params[:fieldable]))
       @guard = @arc.guards.find(params[:id])
       if @guard.update(gp)
         redirect_to workflow_arc_path(@arc.workflow, @arc), notice: "guard was successfully created."

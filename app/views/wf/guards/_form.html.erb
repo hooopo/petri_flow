@@ -18,7 +18,12 @@
 
   <div class="form-group">
     <%= f.label :fieldable, class: "label" %>
-    <%= f.select :fieldable, options_for_select(@arc.transition.form&.fields&.map {|x| [x.name, x.to_global_id]} || [], selected: f.object&.fieldable&.to_global_id), {}, class: "form-control custom-select", placeholder: "fieldable" %>
+    <%= f.select :fieldable, options_for_select(@arc.transition.form&.fields&.map {|x| [x.name, x.to_global_id]} || [], selected: f.object&.fieldable&.to_global_id), {include_blank: "select a field"}, class: "form-control custom-select", placeholder: "fieldable" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :exp, class: "label" %> <small>JavaScript with build-in variable <span class="badge badge-danger">user</span>, <span class="badge badge-danger">form</span>, <span class="badge badge-danger">target</span>.</small>
+    <%= f.text_area :exp, class: "form-control", placeholder: "Exp", rows: 8 %>
   </div>
 
   <div class="form-group">
@@ -30,11 +35,6 @@
   <div class="form-group">
     <%= f.label :value, class: "label" %>
     <%= f.text_field :value, class: "form-control", placeholder: "Value" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :exp, class: "label" %>
-    <%= f.text_field :exp, class: "form-control", placeholder: "Exp" %>
   </div>
 
   <div class="form-group">

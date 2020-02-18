@@ -58,7 +58,11 @@
           <td><%= guard.fieldable&.form&.name %>/<%= guard.fieldable&.name %></td>
           <td><%= guard.op %></td>
           <td><%= guard.value %></td>
-          <td><%= guard.exp %></td>
+          <td>
+            <pre>
+              <%= guard.exp %>
+            </pre>
+          </td>
           <td><%= link_to 'Edit Guard', edit_arc_guard_path(@arc, guard), class: 'btn btn-sm btn-info' %></td>
           <td><%= link_to 'Delete Guard', [@arc, guard], remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
         </tr>

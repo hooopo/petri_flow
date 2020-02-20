@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_14_005535) do
+ActiveRecord::Schema.define(version: 2020_02_20_070839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,7 +158,6 @@ ActiveRecord::Schema.define(version: 2020_02_14_005535) do
     t.string "exp"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "target_attr_name", comment: "point to workflow targetable's attribute"
     t.index ["arc_id"], name: "index_wf_guards_on_arc_id"
     t.index ["workflow_id"], name: "index_wf_guards_on_workflow_id"
   end

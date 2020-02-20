@@ -31,6 +31,7 @@ module Wf
     has_many :parties, through: :workitem_assignments, source: "party"
     has_many :comments
     has_many :entries, class_name: Wf.entry_class.to_s
+    has_one :started_case, foreign_key: :started_by_workitem_id, class_name: "Wf::Case"
 
     enum state: {
       enabled: 0,

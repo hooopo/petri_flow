@@ -4,19 +4,21 @@
 #
 # Table name: wf_cases
 #
-#  id              :integer          not null, primary key
-#  workflow_id     :integer
-#  targetable_type :string
-#  targetable_id   :string
-#  state           :integer          default("0")
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                     :integer          not null, primary key
+#  workflow_id            :integer
+#  targetable_type        :string
+#  targetable_id          :string
+#  state                  :integer          default("0")
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  started_by_workitem_id :integer
 #
 
 module Wf
   class Case < ApplicationRecord
     belongs_to :workflow
     belongs_to :targetable, optional: true, polymorphic: true
+    belongs_to :started_by_workitem, optional: true, class_name: "Wf::Workitem"
     has_many :workitems
     has_many :tokens
     has_many :case_assignments

@@ -25,6 +25,8 @@ module Wf
 
     validates :name, presence: true
 
+    scope :valid, -> { where(is_valid: true) }
+
     after_save do
       do_validate!
     end
@@ -64,10 +66,11 @@ module Wf
       end
     end
 
-    def to_graph(wf_case = nil)
+    def to_graph(wf_case = nil, base = nil)
       fontfamily = "system, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, Segoe UI Symbol"
       fontfamily_monospace = "SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace"
-      graph = GraphViz.new(name, type: :digraph, rankdir: "LR", splines: true, ratio: :auto)
+      graph = base || GraphViz.new(name, type: :digraph, rankdir: "LR", splines: true, ratio: :auto)
+
       free_token_places = if wf_case
         wf_case.tokens.free.map(&:place_id)
       else
@@ -99,7 +102,7 @@ module Wf
           xlabel = nil
         end
 
-        pg = graph.add_nodes(p.name,
+        pg = graph.add_nodes(p.graph_id,
                              label: label,
                              xlabel: xlabel,
                              shape: shape,
@@ -116,10 +119,20 @@ module Wf
 
       tg_mapping = {}
       transitions.each do |t|
-        tg = graph.add_nodes(t.name, label: t.name, shape: :box, style: :filled, fillcolor: "#d6ddfa", color: "#d6ddfa",
-                                     fontcolor: "#2c50ed", fontname: fontfamily,
-                                     href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
+        tg = graph.add_nodes(t.graph_id, label: t.name, shape: :box, style: :filled, fillcolor: "#d6ddfa", color: "#d6ddfa",
+                                         fontcolor: "#2c50ed", fontname: fontfamily,
+                                         href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
         tg_mapping[t] = tg
+        # NOTICE: if sub_workflow is transition's workflow, then graph will loop infinite, this is valid for workflow definition.
+        next unless t.is_sub_workflow? && t.sub_workflow != t.workflow
+
+        sub_graph = graph.add_graph("cluster#{t.sub_workflow_id}", rankdir: "LR", splines: true, ratio: :auto)
+        sub_graph[:label] = t.sub_workflow.name
+        sub_graph[:style] = :dashed
+        sub_graph[:color] = :lightgrey
+        # TODO: detect related case for sub workflow.
+        t.sub_workflow.to_graph(nil, sub_graph)
+        graph.add_edges(tg, t.sub_workflow.places.start.first.graph_id, style: :dashed, dir: :both)
       end
 
       arcs.order("direction desc").each do |arc|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_070839) do
+ActiveRecord::Schema.define(version: 2020_02_20_072512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_070839) do
     t.integer "state", default: 0, comment: "0-created, 1-active, 2-suspended, 3-canceled, 4-finished"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "started_by_workitem_id", comment: "As a sub workflow instance, it is started by one workitem."
   end
 
   create_table "wf_comments", force: :cascade do |t|
@@ -225,6 +226,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_070839) do
     t.string "assignment_callback", default: "Wf::Callbacks::AssignmentDefault"
     t.string "unassignment_callback", default: "Wf::Callbacks::UnassignmentDefault"
     t.string "form_type", default: "Wf::Form"
+    t.bigint "sub_workflow_id"
     t.index ["form_type", "form_id"], name: "index_wf_transitions_on_form_type_and_form_id"
   end
 

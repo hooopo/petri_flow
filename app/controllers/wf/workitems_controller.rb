@@ -58,9 +58,13 @@ module Wf
 
     def finish_and_redirect
       if @workitem.case.finished?
-        redirect_to workflow_case_path(@workitem.workflow, @workitem.case), notice: "workitem is done, and the case is finished."
+        if started_by = @workitem.case.started_by_workitem
+          redirect_to workflow_case_path(started_by.workflow, started_by.case), notice: "workitem is done, and goto parent case."
+        else
+          redirect_to workflow_case_path(@workitem.workflow, @workitem.case), notice: "workitem is done, and the case is finished."
+        end
       else
-        redirect_to workitem_path(Wf::Workitem.last.case.workitems.enabled.first), notice: "workitem is done, and goto next fireable workitem."
+        redirect_to workitem_path(@workitem.case.workitems.enabled.first), notice: "workitem is done, and goto next fireable workitem."
       end
     end
 

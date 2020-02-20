@@ -42,6 +42,11 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :sub_workflow, class: "label" %>
+    <%= f.select :sub_workflow_id, options_for_select(Wf::Workflow.valid.all.map{|x| [x.name, x.id]} || []), {include_blank: 'Start a sub workflow?'}, class: "form-control custom-select", placeholder: "Sub Workflow" %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :form, class: "label" %>
     <%= f.select :form, options_for_select(Wf.form_class.constantize.all.map{|x| [x.name, x.to_global_id]} || [], selected: f.object&.form&.to_global_id), {include_blank: 'user can input from custom form?'}, class: "form-control custom-select", placeholder: "Form" %>
   </div>

@@ -23,6 +23,7 @@
 #  assignment_callback   :string           default("Wf::Callbacks::AssignmentDefault")
 #  unassignment_callback :string           default("Wf::Callbacks::UnassignmentDefault")
 #  form_type             :string           default("Wf::Form")
+#  sub_workflow_id       :integer
 #
 
 module Wf
@@ -33,6 +34,7 @@ module Wf
     has_many :static_parties, through: :transition_static_assignments, source: "party"
     has_many :workitems
     belongs_to :form, optional: true, polymorphic: true
+    belongs_to :sub_workflow, optional: true, class_name: "Wf::Workflow"
 
     enum trigger_type: {
       user: 0,
@@ -41,10 +43,24 @@ module Wf
       time: 3
     }
 
+    validate :validate_trigger_type_and_sub
+
+    def is_sub_workflow?
+      !!sub_workflow_id
+    end
+
     def explicit_or_split?
       arcs.out.sum(:guards_count) >= 1
     end
 
     validates :name, presence: true
+
+    def validate_trigger_type_and_sub
+      errors.add(:trigger_type, "sub workflow must have trigger type: automatic, message and time.") if user? && is_sub_workflow?
+    end
+
+    def graph_id
+      "#{name}/#{id}"
+    end
   end
 end

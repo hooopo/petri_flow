@@ -26,6 +26,10 @@ module Wf::CaseCommand
           Wf::FireTimedWorkitemJob.set(wait: transition.trigger_limit.minutes).perform_later(workitem.id) if trigger_time
           SetWorkitemAssignments.call(workitem)
           workitem.transition.unassignment_callback.constantize.new(workitem.id).perform_now if workitem.workitem_assignments.count == 0
+          if sub_workflow = transition.sub_workflow
+            sub_case = Wf::CaseCommand::New.call(sub_workflow, nil, workitem).result
+            Wf::CaseCommand::StartCase.call(sub_case)
+          end
         end
       end
     end

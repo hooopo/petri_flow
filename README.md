@@ -8,6 +8,7 @@ Workflow engine for Rails.
 * Simple web admin for workflow definition and case management.
 * Build-in simple dynamic form.
 * Replaceable dynamic form.
+* Support sub workflow.
 * Graph screen for workflow definition.
 * Graph screen for case and token migration.
 * Powerful guard expression.

@@ -20,7 +20,12 @@ module Wf::CaseCommand
         raise("The workflow net is misconstructed: Some parallel executions have not finished.") if free_and_locked_token_num > 1
 
         ConsumeToken.call(wf_case, end_place)
-        wf_case.finished!
+        unless wf_case.finished?
+          wf_case.finished!
+          if started_by_workitem = wf_case.started_by_workitem
+            Wf::CaseCommand::FinishWorkitem.call(started_by_workitem)
+          end
+        end
         true
       end
     end

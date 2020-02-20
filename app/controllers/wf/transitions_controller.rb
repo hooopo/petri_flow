@@ -64,7 +64,8 @@ module Wf
           :assignment_callback,
           :unassignment_callback,
           :notification_callback,
-          :deadline_callback
+          :deadline_callback,
+          :sub_workflow_id
         )
       end
   end

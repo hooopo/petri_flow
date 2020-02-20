@@ -24,5 +24,9 @@ module Wf
       normal: 1,
       end: 2
     }
+
+    def graph_id
+      "#{name}/#{id}"
+    end
   end
 end

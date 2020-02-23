@@ -52,7 +52,7 @@ module Wf
       when "datetime"
         "datetime_field"
       when "boolean"
-        "radio_button"
+        "check_box"
       when "text"
         "text_area"
       else

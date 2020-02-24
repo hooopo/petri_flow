@@ -11,11 +11,7 @@ module Wf
     breadcrumb "Workflows", :workflows_path
 
     def index
-      current_party_ids = [
-        wf_current_user,
-        Wf.org_classes.map { |org, _org_class| wf_current_user&.public_send(org) }
-      ].flatten.map { |x| x&.party&.id }.compact
-      @workitems = Wf::Workitem.joins(:workitem_assignments).where(Wf::WorkitemAssignment.table_name => { party_id: current_party_ids })
+      @workitems = Wf::Workitem.todo(wf_current_user)
       @workitems = @workitems.where(state: params[:state].intern) if params[:state]
       @workitems = @workitems.where(state: params[:state].intern) if params[:state].present?
       @workitems = @workitems.distinct.order("id desc").page(params[:page])

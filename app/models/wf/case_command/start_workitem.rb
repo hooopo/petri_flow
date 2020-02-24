@@ -10,6 +10,7 @@ module Wf::CaseCommand
     end
 
     def call
+      raise("The workitem can not run by user.") unless workitem.real?
       raise("The workitem is not in state #{workitem.state}") unless workitem.enabled?
 
       # TODO: holding timeout

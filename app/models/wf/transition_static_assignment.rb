@@ -17,5 +17,9 @@ module Wf
     belongs_to :workflow
     belongs_to :transition
     belongs_to :party
+
+    before_validation do
+      self.workflow_id = transition&.workflow_id
+    end
   end
 end

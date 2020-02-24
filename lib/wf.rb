@@ -19,6 +19,8 @@ module Wf
 
     attr_accessor :user_class
     attr_accessor :org_classes
+
+    attr_accessor :finish_conditions
   end
 
   self.enable_callbacks          = ["Wf::Callbacks::EnableDefault"]
@@ -34,4 +36,5 @@ module Wf
   self.field_class               = "::Wf::Field"
   self.user_class                = "::Wf::User"
   self.org_classes               = { group: "::Wf::Group" }
+  self.finish_conditions         = ["Wf::MultipleInstances::AllFinish"]
 end

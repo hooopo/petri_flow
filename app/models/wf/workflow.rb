@@ -119,8 +119,13 @@ module Wf
 
       tg_mapping = {}
       transitions.each do |t|
+        peripheries = if t.multiple_instance?
+          3
+        else
+          1
+        end
         tg = graph.add_nodes(t.graph_id, label: t.name, shape: :box, style: :filled, fillcolor: "#d6ddfa", color: "#d6ddfa",
-                                         fontcolor: "#2c50ed", fontname: fontfamily,
+                                         fontcolor: "#2c50ed", fontname: fontfamily, peripheries: peripheries,
                                          href: Wf::Engine.routes.url_helpers.edit_workflow_transition_path(self, t))
         tg_mapping[t] = tg
         # NOTICE: if sub_workflow is transition's workflow, then graph will loop infinite, this is valid for workflow definition.

@@ -26,8 +26,25 @@ module Wf::CaseCommand
         workitem.workitem_assignments.create!(party: party)
         new_users = party.partable.users.to_a
         to_notify = new_users - notified_users
+        transition = workitem.transition
         to_notify.each do |user|
-          workitem.transition.notification_callback.constantize.new(workitem, user.id).perform_now
+          # TODO: multiple instance + sub workflow
+          if transition.multiple_instance? && !workitem.forked?
+            next if workitem.children.where(holding_user: user).exists?
+
+            child = workitem.children.create!(
+              workflow_id: workitem.workflow_id,
+              transition_id: workitem.transition_id,
+              state: :enabled,
+              trigger_time: workitem.trigger_time,
+              forked: true,
+              holding_user: user,
+              case_id: workitem.case_id
+            )
+            workitem.transition.notification_callback.constantize.new(child, user.id).perform_now
+          else
+            workitem.transition.notification_callback.constantize.new(workitem, user.id).perform_now
+          end
         end
       end
     end

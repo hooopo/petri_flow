@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_072512) do
+ActiveRecord::Schema.define(version: 2020_02_22_150432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,6 +227,8 @@ ActiveRecord::Schema.define(version: 2020_02_20_072512) do
     t.string "unassignment_callback", default: "Wf::Callbacks::UnassignmentDefault"
     t.string "form_type", default: "Wf::Form"
     t.bigint "sub_workflow_id"
+    t.boolean "multiple_instance", default: false, comment: "multiple instance mode or not"
+    t.string "finish_condition", default: "Wf::MultipleInstances::AllFinish", comment: "set finish condition for parent workitem."
     t.index ["form_type", "form_id"], name: "index_wf_transitions_on_form_type_and_form_id"
   end
 
@@ -270,6 +272,10 @@ ActiveRecord::Schema.define(version: 2020_02_20_072512) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "trigger_time", comment: "set when transition_trigger=TIME & trigger_limit present"
     t.string "holding_user_id", comment: "id of App user"
+    t.integer "children_count", default: 0
+    t.integer "children_finished_count", default: 0
+    t.boolean "forked", default: false
+    t.bigint "parent_id", comment: "parent workitem id"
     t.index ["state", "trigger_time"], name: "index_wf_workitems_on_state_and_trigger_time"
   end
 

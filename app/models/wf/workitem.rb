@@ -64,6 +64,19 @@ module Wf
       where(holding_user: wf_current_user).where(state: [:finished])
     end
 
+    def for_mini_racer
+      attr = attributes
+      attr = attr.merge(holding_user: holding_user&.attributes || {})
+      attr = attr.merge(form: entries.to_a.first&.for_mini_racer || {})
+      children_attrs = if forked?
+        []
+      else
+        children.includes(:holding_user, :entries => :field_values).map(&:for_mini_racer)
+      end
+      attr = attr.merge(children: children_attrs)
+      attr
+    end
+
     def parent?
       !forked
     end

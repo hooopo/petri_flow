@@ -1,0 +1,139 @@
+## Guard Expression
+
+There are two per-defined variables for your guard expression, `workitem`, `target`.
+
+Schema for `workitem`:
+
+```json
+{
+  "id":1,
+  "case_id":1,
+  "workflow_id":10,
+  "transition_id":24,
+  "state":"enabled",
+  "enabled_at":"2020-02-24T12:37:28.459Z",
+  "started_at":null,
+  "canceled_at":null,
+  "finished_at":null,
+  "overridden_at":null,
+  "deadline":null,
+  "created_at":"2020-02-24T12:37:28.601Z",
+  "updated_at":"2020-02-24T12:37:28.601Z",
+  "trigger_time":null,
+  "holding_user_id":null,
+  "children_count":3,
+  "children_finished_count":1,
+  "forked":false,
+  "parent_id":null,
+  "holding_user":{
+
+  },
+  "form":{
+
+  },
+  "children":[
+    {
+      "id":3,
+      "case_id":1,
+      "workflow_id":10,
+      "transition_id":24,
+      "state":"enabled",
+      "enabled_at":"2020-02-24T12:37:28.459Z",
+      "started_at":null,
+      "canceled_at":null,
+      "finished_at":null,
+      "overridden_at":null,
+      "deadline":null,
+      "created_at":"2020-02-24T12:37:28.757Z",
+      "updated_at":"2020-02-24T12:37:28.757Z",
+      "trigger_time":null,
+      "holding_user_id":"7",
+      "children_count":0,
+      "children_finished_count":0,
+      "forked":true,
+      "parent_id":1,
+      "holding_user":{
+        "id":7,
+        "name":"User6",
+        "created_at":"2020-02-24T12:36:46.994Z",
+        "updated_at":"2020-02-24T12:36:46.994Z",
+        "group_id":2
+      },
+      "form":{
+
+      },
+      "children":[
+
+      ]
+    },
+    {
+      "id":4,
+      "case_id":1,
+      "workflow_id":10,
+      "transition_id":24,
+      "state":"enabled",
+      "enabled_at":"2020-02-24T12:37:28.459Z",
+      "started_at":null,
+      "canceled_at":null,
+      "finished_at":null,
+      "overridden_at":null,
+      "deadline":null,
+      "created_at":"2020-02-24T12:37:28.788Z",
+      "updated_at":"2020-02-24T12:37:28.788Z",
+      "trigger_time":null,
+      "holding_user_id":"5",
+      "children_count":0,
+      "children_finished_count":0,
+      "forked":true,
+      "parent_id":1,
+      "holding_user":{
+        "id":5,
+        "name":"User4",
+        "created_at":"2020-02-24T12:36:46.984Z",
+        "updated_at":"2020-02-24T12:36:46.984Z",
+        "group_id":1
+      },
+      "form":{
+
+      },
+      "children":[
+
+      ]
+    },
+    {
+      "id":2,
+      "case_id":1,
+      "workflow_id":10,
+      "transition_id":24,
+      "state":"finished",
+      "enabled_at":"2020-02-24T12:37:28.459Z",
+      "started_at":null,
+      "canceled_at":null,
+      "finished_at":"2020-02-24T12:37:46.221Z",
+      "overridden_at":null,
+      "deadline":null,
+      "created_at":"2020-02-24T12:37:28.700Z",
+      "updated_at":"2020-02-24T12:37:46.232Z",
+      "trigger_time":null,
+      "holding_user_id":"1",
+      "children_count":0,
+      "children_finished_count":0,
+      "forked":true,
+      "parent_id":1,
+      "holding_user":{
+        "id":1,
+        "name":"User0",
+        "created_at":"2020-02-24T12:36:46.963Z",
+        "updated_at":"2020-02-24T12:36:46.963Z",
+        "group_id":4
+      },
+      "form":{
+        "score":90
+      },
+      "children":[
+
+      ]
+    }
+  ]
+}
+```

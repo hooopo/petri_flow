@@ -51,20 +51,10 @@ module Wf
     end
 
     def check_exp(entry, workitem)
-      form_hash = if entry
-        entry.for_mini_racer
-      else
-        {}
-      end
-
-      target_hash = workitem&.case&.targetable&.attributes || {}
-      user_hash = workitem&.holding_user&.attributes || {}
-
       # 1000ms, 200mb
       context = MiniRacer::Context.new(timeout: 1000, max_memory: 200_000_000)
-      context.eval("let form = #{form_hash.to_json};")
-      context.eval("let user = #{user_hash.to_json};")
       context.eval("let target = #{target_hash.to_json};")
+      context.eval("let workitem = #{workitem.to_json};")
       exp_value = context.eval(exp)
       yes_or_no?(exp_value, value)
     end

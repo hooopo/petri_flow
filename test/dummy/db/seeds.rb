@@ -146,7 +146,7 @@ proc do
   arc7 = seq.arcs.create!(direction: :out, transition: t3, place: e)
   exp = <<~JS
     let age_great_than_18 = function(){
-      if (form.age > 18) {
+      if (workitem.form.age > 18) {
         return "Yes"
       } else {
         return "No"

@@ -72,7 +72,8 @@ module Wf
           :deadline_callback,
           :sub_workflow_id,
           :multiple_instance,
-          :finish_condition
+          :finish_condition,
+          :dynamic_assign_by_id
         )
       end
   end

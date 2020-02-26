@@ -16,6 +16,16 @@
     </article>
   <% end %>
   
+  <% @workitem.transition.dynamic_assignments.each do |tt| %>
+    <%= f.fields_for :dynamic_assignments do |ff| %>
+       <div class="form-group">
+         <%= ff.label "Assign #{tt.name}", class: "label" %>
+         <%= ff.select tt.id, Wf::Party.all.map{|x| [x.party_name, x.id]}, {}, class: "form-control custom-select" %>
+       </div>
+    <% end %>
+  <% end %>
+
+  
   <% if @workitem.transition.form %>
     <%= f.fields_for :entry do |ff| %>
       <% @workitem.transition.form.fields.each do |field| %>

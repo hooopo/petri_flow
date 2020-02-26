@@ -35,11 +35,6 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :sort_order, class: "label" %>
-        <%= f.text_field :sort_order, class: "form-control", placeholder: "Sort Order" %>
-      </div>
-
-      <div class="form-group">
         <%= f.label :trigger_type, class: "label" %>
         <%= f.select :trigger_type, Wf::Transition.trigger_types.keys, {}, class: "form-control custom-select", placeholder: "Trigger Type" %>
       </div>
@@ -55,6 +50,7 @@
       <%= f.select :sub_workflow_id, options_for_select(Wf::Workflow.valid.all.map{|x| [x.name, x.id]} || []), {include_blank: 'Start a sub workflow?'}, class: "form-control custom-select", placeholder: "Sub Workflow" %>
     </div>
   </div>
+  </div>
 
   <div class="card">
   <h5 class="card-header">Dynimac Form</h5>
@@ -64,6 +60,16 @@
         <%= f.select :form, options_for_select(Wf.form_class.constantize.all.map{|x| [x.name, x.to_global_id]} || [], selected: f.object&.form&.to_global_id), {include_blank: 'user can input from custom form?'}, class: "form-control custom-select", placeholder: "Form" %>
       </div>
     </div>
+  </div>
+
+  <div class="card">
+  <h5 class="card-header">Dynamic Assign By</h5>
+  <div class="card-body">
+    <div class="form-group">
+      <%= f.label :dynamic_assign_by, class: "label" %>
+      <%= f.select :dynamic_assign_by_id, options_for_select(@workflow.transitions.where("id != ?", @transition.id).all.map{|x| [x.name, x.id]} || []), {include_blank: 'What other transition you want to do the assignment for this transition?'}, class: "form-control custom-select" %>
+    </div>
+  </div>
   </div>
 
   <div class="card">

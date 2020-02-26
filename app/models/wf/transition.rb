@@ -25,6 +25,7 @@
 #  sub_workflow_id       :integer
 #  multiple_instance     :boolean          default("false")
 #  finish_condition      :string           default("Wf::MultipleInstances::AllFinish")
+#  dynamic_assign_by_id  :integer
 #
 
 module Wf
@@ -36,6 +37,8 @@ module Wf
     has_many :workitems
     belongs_to :form, optional: true, polymorphic: true
     belongs_to :sub_workflow, optional: true, class_name: "Wf::Workflow"
+    belongs_to :dynamic_assign_by, optional: true, class_name: "Wf::Transition"
+    has_many :dynamic_assignments, class_name: "Wf::Transition", foreign_key: "dynamic_assign_by_id"
 
     enum trigger_type: {
       user: 0,

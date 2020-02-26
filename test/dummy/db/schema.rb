@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_22_150432) do
+ActiveRecord::Schema.define(version: 2020_02_26_195134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(version: 2020_02_22_150432) do
     t.bigint "sub_workflow_id"
     t.boolean "multiple_instance", default: false, comment: "multiple instance mode or not"
     t.string "finish_condition", default: "Wf::MultipleInstances::AllFinish", comment: "set finish condition for parent workitem."
+    t.bigint "dynamic_assign_by_id", comment: "dynamic assign by other transition"
     t.index ["form_type", "form_id"], name: "index_wf_transitions_on_form_type_and_form_id"
   end
 

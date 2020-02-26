@@ -46,6 +46,17 @@
       </tr>
 
       <tr>
+        <th>Dynamic Assign By</th>
+        <td>
+            <% if @transition.dynamic_assign_by %>
+              <%= link_to @transition.dynamic_assign_by.name, workflow_transition_path(@workflow, @transition.dynamic_assign_by_id) %>
+            <% else %>
+              No
+            <% end %>
+        </td>
+      </tr>
+
+      <tr>
         <th scope="row">Multiple Instance?</th>
         <td><%= @transition.multiple_instance %></td>
       </tr>

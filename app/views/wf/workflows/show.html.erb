@@ -126,7 +126,7 @@
       <% @workflow.transitions.each do |transition| %>
         <tr>
           <td><%= transition.id %></td>
-          <td><%= transition.name %></td>
+          <td><%= link_to transition.name, workflow_transition_path(@workflow, transition) %></td>
           <td><%= transition.description %></td>
           <td><%= transition.trigger_limit %></td>
           <td><%= transition.trigger_type %></td>

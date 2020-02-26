@@ -37,6 +37,11 @@ module Wf
     end
 
     def finish
+      if dynamic_assignments = params.dig(:workitem, :dynamic_assignments)
+        dynamic_assignments.permit!.each do |t_id, party_id|
+          Wf::CaseCommand::AddManualAssignment.call(@workitem.case, @workitem.workflow.transitions.find(t_id), Wf::Party.find(party_id))
+        end
+      end
       if @workitem.transition.form && params[:workitem][:entry]
         form = @workitem.transition.form
         cmd = Wf::CaseCommand::CreateEntry.call(form, @workitem, wf_current_user, params[:workitem][:entry].permit!)

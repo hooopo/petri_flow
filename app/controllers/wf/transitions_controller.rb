@@ -12,6 +12,11 @@ module Wf
       breadcrumb @workflow.name, workflow_path(@workflow)
     end
 
+    def show
+      @workflow = Wf::Workflow.find(params[:workflow_id])
+      @transition = @workflow.transitions.find(params[:id])
+    end
+
     def create
       @workflow = Wf::Workflow.find(params[:workflow_id])
       tp = transition_params.merge(form: GlobalID::Locator.locate(transition_params[:form]))

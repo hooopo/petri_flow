@@ -57,7 +57,7 @@ module Wf
     end
 
     def self.doing(wf_current_user)
-      where(holding_user: wf_current_user).where(state: [:started, :enabled])
+      where(holding_user: wf_current_user).where(state: %i[started enabled])
     end
 
     def self.done(wf_current_user)
@@ -71,7 +71,7 @@ module Wf
       children_attrs = if forked?
         []
       else
-        children.includes(:holding_user, :entries => :field_values).map(&:for_mini_racer)
+        children.includes(:holding_user, entries: :field_values).map(&:for_mini_racer)
       end
       attr = attr.merge(children: children_attrs)
       attr

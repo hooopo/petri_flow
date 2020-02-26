@@ -1,0 +1,83 @@
+<div class="card card-body">
+<div class="float-right">
+  <%= link_to 'Edit Transition', edit_workflow_transition_path(@workflow, @transition), class: 'btn btn-primary' %>
+  <%= link_to 'Create Static Assignments', new_transition_static_assignment_path(@transition), class: 'btn btn-primary' %>
+</div>
+<div>
+  <h2>Transition Detail</h2>
+  <table class="table table-view">
+    <tbody>
+      <tr>
+        <th scope="row">ID</th>
+        <td><%= @transition.id %></td>
+      </tr>
+      <tr>
+        <th scope="row">Name</th>
+        <td><%= @transition.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Trigger Limit</th>
+        <td><%= @transition.trigger_limit %></td>
+      </tr>
+      <tr>
+        <th scope="row">Trigger Type</th>
+        <td><%= @transition.trigger_type %></td>
+      </tr>
+      <tr>
+        <th>Form</th>
+        <td>
+          <% if @transition.form %>
+             <%= link_to @transition.form.name, form_path(@transition.form) %>
+          <% else %>
+             No Form
+          <% end %>
+        </td>
+      </tr>
+
+      <tr>
+        <th>Sub Workflow</th>
+        <td>
+            <% if @transition.sub_workflow %>
+              <%= link_to @transition.sub_workflow.name, workflow_path(@transition.sub_workflow_id) %>
+            <% else %>
+              No
+            <% end %>
+        </td>
+      </tr>
+
+      <tr>
+        <th scope="row">Multiple Instance?</th>
+        <td><%= @transition.multiple_instance %></td>
+      </tr>
+      <tr>
+        <th scope="row">Finish Condition</th>
+        <td><%= @transition.finish_condition %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Static Assignments</h2>
+  <table class="table table-view">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Party Name</th>
+        <th scope="col">Party Type</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @transition.transition_static_assignments.each do |assign| %>
+        <tr>
+          <td><%= assign.id %></td>
+          <td><%= assign.party.party_name %></td>
+          <td><%= assign.party.partable_type %></td>
+          <td><%= link_to 'Delete', transition_static_assignment_path(@transition, assign), remote: true, method: :delete, data: {confirm: 'confirm?'}, class: 'btn btn-sm btn-info' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

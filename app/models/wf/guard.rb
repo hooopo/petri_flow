@@ -50,7 +50,7 @@ module Wf
       end
     end
 
-    def check_exp(entry, workitem)
+    def check_exp(_entry, workitem)
       # 1000ms, 200mb
       context = MiniRacer::Context.new(timeout: 1000, max_memory: 200_000_000)
       context.eval("let target = #{target_hash.to_json};")

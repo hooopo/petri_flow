@@ -82,26 +82,26 @@ Wf.org_classes = { group: "::Group" }
 
 Set parties:
 
+For normal org model, for example group or role etc.
+
 ```ruby
-class User < ApplicationRecord
-  belongs_to :group, optional: true
-  has_one :party, as: :partable, class_name: 'Wf::Party'
-
-  # NOTICE: group or user or role all has_many users
-  has_many :users, foreign_key: :id
-
-  after_create do
-    create_party(party_name: name)
+module Wf
+  class Group < ApplicationRecord
+    has_many :users 
+    include Wf::ActsAsParty
+    acts_as_party(user: false, party_name: :name)
   end
 end
 ```
 
+For user model:
+
 ```ruby
-class Group < ApplicationRecord
-  has_many :users
-  has_one :party, as: :partable, class_name: 'Wf::Party'
-  after_create do
-    create_party(party_name: name)
+module Wf
+  class User < ApplicationRecord
+    belongs_to :group, optional: true
+    include Wf::ActsAsParty
+    acts_as_party(user: true, party_name: :name)
   end
 end
 ```

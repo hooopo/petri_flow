@@ -20,7 +20,7 @@ module Wf::CaseCommand
           callback_parties = workitem.transition.assignment_callback.constantize.new.perform(workitem.id)
           if callback_parties.present?
             callback_parties.each do |party|
-               AddWorkitemAssignment.call(workitem, party, false)
+              AddWorkitemAssignment.call(workitem, party, false)
             end
           else
             workitem.transition.transition_static_assignments.each do |static_assignment|

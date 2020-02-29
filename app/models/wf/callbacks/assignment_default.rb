@@ -4,7 +4,7 @@ module Wf::Callbacks
   class AssignmentDefault < ApplicationJob
     queue_as :default
 
-    def perform(workitem_id)
+    def perform(_workitem_id)
       # return Party array.
       []
     end

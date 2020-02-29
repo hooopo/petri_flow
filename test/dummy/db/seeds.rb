@@ -186,3 +186,16 @@ proc do
     t1.transition_static_assignments.create!(party: user.party)
   end
 end.call
+
+proc do
+  seq = Wf::Workflow.create(name: "Workflow with AssigmentCallback")
+  s = seq.places.create!(place_type: :start, name: "start")
+  e = seq.places.create!(place_type: :end, name: "end")
+  p = seq.places.create!(place_type: :normal, name: "p")
+  t1 = seq.transitions.create!(name: "t1", assignment_callback: "MyAssignmentCallback")
+  t2 = seq.transitions.create!(name: "t2")
+  arc1 = seq.arcs.create!(direction: :in, transition: t1, place: s)
+  arc2 = seq.arcs.create!(direction: :out, transition: t1, place: p)
+  arc3 = seq.arcs.create!(direction: :in, transition: t2, place: p)
+  arc4 = seq.arcs.create!(direction: :out, transition: t2, place: e)
+end.call

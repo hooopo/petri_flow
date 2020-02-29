@@ -4,9 +4,9 @@ module Wf::Callbacks
   class AssignmentDefault < ApplicationJob
     queue_as :default
 
-    def perform(*guests)
-      $stdout.puts(guests.inspect)
-      [] # return blank default
+    def perform(_workitem_id)
+      # return Party array.
+      []
     end
   end
 end

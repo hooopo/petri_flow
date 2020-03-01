@@ -28,5 +28,9 @@ module Wf
     def graph_id
       "#{name}/#{id}"
     end
+
+    def lola_id
+      "P#{id}"
+    end
   end
 end

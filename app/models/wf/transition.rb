@@ -67,5 +67,9 @@ module Wf
     def graph_id
       "#{name}/#{id}"
     end
+
+    def lola_id
+      "T#{id}"
+    end
   end
 end

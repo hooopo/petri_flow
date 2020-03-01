@@ -105,7 +105,7 @@ module Wf
       end
 
       def run_cmd(formula, bucket)
-        cmd = %(lola #{lola_path} --formula="#{formula}" --json=#{json_path(bucket)})
+        cmd = %(lola #{lola_path} --markinglimit=1000 --formula="#{formula}" --json=#{json_path(bucket)})
         $stdout.puts cmd
         system(cmd)
         JSON.parse(File.read(json_path(bucket)))

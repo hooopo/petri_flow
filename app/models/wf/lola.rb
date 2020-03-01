@@ -1,30 +1,5 @@
 # frozen_string_literal: true
 
-## generate lola format file.
-
-# PLACE P1,P2,P3;
-
-# MARKING P1;
-
-# TRANSITION T1
-# CONSUME P1:1;
-# PRODUCE P3:1;
-
-# TRANSITION T2
-# CONSUME P3:1;
-# PRODUCE P2:1;
-
-## checking
-
-# reachability of final marking
-# lola /Users/hooopo/w/wf/test/dummy/tmp/1-1582990693.lola --formula="AGEF(P1 = 0 AND P3 = 0 AND P2 = 1)" --json=/Users/hooopo/w/wf/test/dummy/tmp/1-reachability_of_final_marking.json
-
-# quasiliveness
-# lola /Users/hooopo/w/wf/test/dummy/tmp/1-1582990693.lola --formula="AG NOT FIREABLE (T1)" --json=/Users/hooopo/w/wf/test/dummy/tmp/1-dead_transition_1.json
-# lola /Users/hooopo/w/wf/test/dummy/tmp/1-1582990693.lola --formula="AG NOT FIREABLE (T2)" --json=/Users/hooopo/w/wf/test/dummy/tmp/1-dead_transition_2.json
-# deadlock
-# lola /Users/hooopo/w/wf/test/dummy/tmp/1-1582990693.lola --formula="EF (DEADLOCK AND (P2 = 0))" --json=/Users/hooopo/w/wf/test/dummy/tmp/1-deadlock.json
-
 module Wf
   class Lola
     attr_reader :end_p, :start_p, :workflow
@@ -77,13 +52,6 @@ module Wf
       reachability_of_final_marking? && quasiliveness? && !deadlock?
     end
 
-    def deadlock?
-      formula = "EF (DEADLOCK AND (#{end_p.lola_id} = 0))"
-      result = run_cmd(formula, "deadlock")
-      result.dig("analysis", "result")
-    end
-
-    # reachability of final marking
     def reachability_of_final_marking?
       formula = workflow.places.reject { |p| p == end_p }.map { |p| "#{p.lola_id} = 0" }.join(" AND ")
       formula += " AND #{end_p.lola_id} = 1"
@@ -94,6 +62,12 @@ module Wf
 
     def quasiliveness?
       workflow.transitions.all? { |t| !dead_transition?(t) }
+    end
+
+    def deadlock?
+      formula = "EF (DEADLOCK AND (#{end_p.lola_id} = 0))"
+      result = run_cmd(formula, "deadlock")
+      result.dig("analysis", "result")
     end
 
     private

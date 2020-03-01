@@ -10,6 +10,6 @@ task wf: :environment do
   puts `cd #{Rails.root.join("tmp")} && tar -zxvf lola.tar.gz`
   puts `cd #{Rails.root.join("tmp/lola-2.0")} && ./configure`
   puts `cd #{Rails.root.join("tmp/lola-2.0")} && make`
-  puts `cd #{Rails.root.join("tmp/lola-2.0")} && make install`
+  puts `cd #{Rails.root.join("tmp/lola-2.0")} && sudo make install`
   puts `lola --help`
 end

@@ -39,5 +39,5 @@ module Wf
   self.user_class                = "::Wf::User"
   self.org_classes               = { group: "::Wf::Group" }
   self.finish_conditions         = ["Wf::MultipleInstances::AllFinish"]
-  self.use_lola                  = true
+  self.use_lola                  = false
 end

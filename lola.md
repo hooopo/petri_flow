@@ -15,3 +15,33 @@ LoLA can answer reachability queries using the flag '-f' followed by 'REACHABLE'
 Positive reachability queries can be witnessed by a state and a path using flags -s and -p respectively.
 
 The tool documentation can be found at http://download.gna.org/service-tech/lola/lola.pdf.
+
+## Check Workflow Net
+
+```
+## generate lola format file.
+
+# PLACE P1,P2,P3;
+
+# MARKING P1;
+
+# TRANSITION T1
+# CONSUME P1:1;
+# PRODUCE P3:1;
+
+# TRANSITION T2
+# CONSUME P3:1;
+# PRODUCE P2:1;
+
+## checking
+
+# reachability of final marking
+# lola /Users/hooopo/w/wf/test/dummy/tmp/1-1582990693.lola --formula="AGEF(P1 = 0 AND P3 = 0 AND P2 = 1)" --json=/Users/hooopo/w/wf/test/dummy/tmp/1-reachability_of_final_marking.json
+
+# quasiliveness
+# lola /Users/hooopo/w/wf/test/dummy/tmp/1-1582990693.lola --formula="AG NOT FIREABLE (T1)" --json=/Users/hooopo/w/wf/test/dummy/tmp/1-dead_transition_1.json
+# lola /Users/hooopo/w/wf/test/dummy/tmp/1-1582990693.lola --formula="AG NOT FIREABLE (T2)" --json=/Users/hooopo/w/wf/test/dummy/tmp/1-dead_transition_2.json
+# deadlock
+# lola /Users/hooopo/w/wf/test/dummy/tmp/1-1582990693.lola --formula="EF (DEADLOCK AND (P2 = 0))" --json=/Users/hooopo/w/wf/test/dummy/tmp/1-deadlock.json
+```
+

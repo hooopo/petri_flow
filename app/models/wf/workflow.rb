@@ -59,6 +59,12 @@ module Wf
         end
       end
 
+      if Wf.use_lola
+        msgs << "has deadlock" if to_lola.deadlock?
+        msgs << "has dead transition" unless to_lola.quasiliveness?
+        msgs << "can not reach to the end place" unless to_lola.reachability_of_final_marking?
+      end
+
       if msgs.present?
         update_columns(is_valid: false, error_msg: msgs.join("\n"))
       else
@@ -186,6 +192,10 @@ module Wf
       path = Rails.root.join("tmp", "#{id}.svg")
       graph.output(svg: path)
       File.read(path)
+    end
+
+    def to_lola
+      @lola ||= Wf::Lola.new(self)
     end
 
     def to_rgl

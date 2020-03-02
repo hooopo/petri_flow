@@ -54,7 +54,7 @@ module Wf
 
     def reachability_of_final_marking?
       formula = workflow.places.reject { |p| p == end_p }.map { |p| "#{p.lola_id} = 0" }.join(" AND ")
-      formula += " AND #{end_p.lola_id} = 1"
+      formula += " AND #{end_p.lola_id} >= 1"
       formula = "AGEF(#{formula})"
       result = run_cmd(formula, "reachability_of_final_marking")
       result.dig("analysis", "result")
@@ -79,7 +79,7 @@ module Wf
       end
 
       def run_cmd(formula, bucket)
-        cmd = %(lola #{lola_path} --markinglimit=1000 --formula="#{formula}" --json=#{json_path(bucket)})
+        cmd = %(lola #{lola_path} --markinglimit=1000 --timelimit=1 --formula="#{formula}" --json=#{json_path(bucket)})
         $stdout.puts cmd
         system(cmd)
         JSON.parse(File.read(json_path(bucket)))

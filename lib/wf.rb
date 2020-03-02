@@ -21,6 +21,8 @@ module Wf
     attr_accessor :org_classes
 
     attr_accessor :finish_conditions
+
+    attr_accessor :use_lola
   end
 
   self.enable_callbacks          = ["Wf::Callbacks::EnableDefault"]
@@ -37,4 +39,5 @@ module Wf
   self.user_class                = "::Wf::User"
   self.org_classes               = { group: "::Wf::Group" }
   self.finish_conditions         = ["Wf::MultipleInstances::AllFinish"]
+  self.use_lola                  = false
 end

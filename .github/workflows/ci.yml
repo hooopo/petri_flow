@@ -40,4 +40,5 @@ jobs:
         sudo apt-get install graphviz
         gem install bundler
         bundle install --jobs 4 --retry 3
+        bundle exec rake app:wf
         bundle exec rails app:db:create && bundle exec rails app:db:migrate  && bundle exec rails test
